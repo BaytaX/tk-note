@@ -1,4 +1,3 @@
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { cn } from "@udecode/cn";
 import Image from "../../assets/icons/upload-image.png";
 import {
@@ -6,10 +5,9 @@ import {
   PlateElement,
   PlateElementProps,
   createPluginFactory,
-  usePlateActions,
 } from "@udecode/plate-common";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 export const ELEMENT_UPLOAD_IMAGE = "upload-image";
 
@@ -40,7 +38,7 @@ export const UploadImageElement = ({
   };
 
   return (
-    <>
+    <PlateElement {...props}>
       {!base64Image ? (
         <div
           className={cn(
@@ -65,6 +63,6 @@ export const UploadImageElement = ({
       ) : (
         <img src={base64Image} alt="our image" />
       )}
-    </>
+    </PlateElement>
   );
 };
