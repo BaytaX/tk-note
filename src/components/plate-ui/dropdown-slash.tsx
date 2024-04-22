@@ -27,6 +27,7 @@ import { ELEMENT_TABLE, insertTable } from "@udecode/plate-table";
 import { Icons } from "../icons";
 
 import { DropdownMenuLabel, DropdownMenuSeparator } from "./dropdown-menu";
+import { ELEMENT_UPLOAD_IMAGE } from "./image-upload";
 
 const items = [
   {
@@ -91,6 +92,12 @@ const items = [
   {
     label: "Media",
     items: [
+      {
+        value: ELEMENT_UPLOAD_IMAGE,
+        label: "Uplaod Image",
+        description: "Upload an image from your computer",
+        icon: Icons.add,
+      },
       {
         value: ELEMENT_CODE_BLOCK,
         label: "Code",

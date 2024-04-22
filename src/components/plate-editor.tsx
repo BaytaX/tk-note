@@ -22,7 +22,7 @@ export default function PlateEditor() {
 
   const initialValue = [
     {
-      type: "h1",
+      type: "h2",
       children: [
         {
           text: "🌳 Blocks",
@@ -180,7 +180,6 @@ export default function PlateEditor() {
               <MentionCombobox items={MENTIONABLES} />
 
               <CommentsPopover />
-
               <CursorOverlay containerRef={containerRef} />
             </div>
           </TooltipProvider>

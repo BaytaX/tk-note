@@ -154,6 +154,10 @@ import { TableRowElement } from "../../components/plate-ui/table-row-element";
 import { TodoListElement } from "../../components/plate-ui/todo-list-element";
 import { withDraggables } from "../../components/plate-ui/with-draggables";
 import { TabbableElement } from "../../components/tabbable-element";
+import createUploadImagePlugin, {
+  ELEMENT_UPLOAD_IMAGE,
+  UploadImageElement,
+} from "../../components/plate-ui/image-upload";
 
 const resetBlockTypesCommonRule = {
   types: [ELEMENT_BLOCKQUOTE, ELEMENT_TODO_LI],
@@ -169,6 +173,7 @@ const resetBlockTypesCodeBlockRule = {
 export const plugins = createPlugins(
   [
     //
+    createUploadImagePlugin(),
     createImagePlugin(),
     createMediaEmbedPlugin(),
     createSelectOnBackspacePlugin({
@@ -424,6 +429,7 @@ export const plugins = createPlugins(
         [MARK_SUPERSCRIPT]: withProps(PlateLeaf, { as: "sup" }),
         [MARK_UNDERLINE]: withProps(PlateLeaf, { as: "u" }),
         [MARK_COMMENT]: CommentLeaf,
+        [ELEMENT_UPLOAD_IMAGE]: UploadImageElement,
       })
     ),
   }
