@@ -6,7 +6,7 @@ import {
   PlateElementProps,
   createPluginFactory,
 } from "@udecode/plate-common";
-
+import { VideoPlayer } from "vidify";
 import { useState } from "react";
 
 export const ELEMENT_UPLOAD_IMAGE = "upload-image";
@@ -21,9 +21,8 @@ export default createUploadImagePlugin;
 export const UploadImageElement = ({
   className,
   children,
-  removeElement,
   ...props
-}: PlateElementProps & { removeElement: () => void }) => {
+}: PlateElementProps) => {
   const [base64Image, setBase64Image] = useState(null);
 
   const handleImageChange = (e: any) => {

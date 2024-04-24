@@ -158,6 +158,10 @@ import createUploadImagePlugin, {
   ELEMENT_UPLOAD_IMAGE,
   UploadImageElement,
 } from "../../components/plate-ui/image-upload";
+import createUploadVideoPlugin, {
+  ELEMENT_UPLOAD_VIDEO,
+  UploadVideoElement,
+} from "../../components/plate-ui/video-upload";
 
 const resetBlockTypesCommonRule = {
   types: [ELEMENT_BLOCKQUOTE, ELEMENT_TODO_LI],
@@ -175,6 +179,7 @@ export const plugins = createPlugins(
     //
     createUploadImagePlugin(),
     createImagePlugin(),
+    createUploadVideoPlugin(),
     createMediaEmbedPlugin(),
     createSelectOnBackspacePlugin({
       options: {
@@ -430,6 +435,7 @@ export const plugins = createPlugins(
         [MARK_UNDERLINE]: withProps(PlateLeaf, { as: "u" }),
         [MARK_COMMENT]: CommentLeaf,
         [ELEMENT_UPLOAD_IMAGE]: UploadImageElement,
+        [ELEMENT_UPLOAD_VIDEO]: UploadVideoElement,
       })
     ),
   }

@@ -28,6 +28,7 @@ import { Icons } from "../icons";
 
 import { DropdownMenuLabel, DropdownMenuSeparator } from "./dropdown-menu";
 import { ELEMENT_UPLOAD_IMAGE } from "./image-upload";
+import { ELEMENT_UPLOAD_VIDEO } from "./video-upload";
 
 const items = [
   {
@@ -96,6 +97,12 @@ const items = [
         value: ELEMENT_UPLOAD_IMAGE,
         label: "Uplaod Image",
         description: "Upload an image from your computer",
+        icon: Icons.add,
+      },
+      {
+        value: ELEMENT_UPLOAD_VIDEO,
+        label: "Uplaod Video",
+        description: "Upload an video from your computer",
         icon: Icons.add,
       },
       {

@@ -1,4 +1,5 @@
 import { cva } from "class-variance-authority";
+import UploadVideo from "../assets/icons/video-upload.svg";
 import {
   AlignCenter,
   AlignJustify,
@@ -160,6 +161,7 @@ const borderTop = (props: LucideProps) => (
 
 export const Icons = {
   add: Plus,
+  uploadVideo: UploadVideo,
   alignCenter: AlignCenter,
   alignJustify: AlignJustify,
   alignLeft: AlignLeft,
