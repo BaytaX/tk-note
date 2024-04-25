@@ -35,7 +35,7 @@ export const UploadImageElement = withHOC(
     ({ className, children, nodeProps, ...props }, ref) => {
       const [base64Image, setBase64Image] = useState(null);
       const { readOnly, focused, selected, align = "center" } = useMediaState();
-      const width = useResizableStore().get.width();
+      let width = useResizableStore().get.width();
       const handleImageChange = (e: any) => {
         const selectedImage = e.target.files[0];
         const reader = new FileReader();
@@ -103,15 +103,25 @@ export const UploadImageElement = withHOC(
                 align={align}
                 options={{
                   align,
-                  // readOnly,
+                  readOnly,
                 }}
               >
                 <ResizeHandle
                   options={{ direction: "left" }}
                   className={mediaResizeHandleVariants({ direction: "left" })}
                 />
-                {/* <Image alt="" setProps={{ src: base64Image }} /> */}
-                <img src={base64Image} alt="" />
+                <img
+                  className={cn(
+                    "block w-full max-w-full cursor-pointer object-cover px-0",
+                    "rounded-sm",
+                    focused && selected && "ring-2 ring-ring ring-offset-2"
+                  )}
+                  src={base64Image}
+                  style={{
+                    width,
+                  }}
+                  alt=""
+                />
                 <ResizeHandle
                   options={{ direction: "right" }}
                   className={mediaResizeHandleVariants({ direction: "right" })}

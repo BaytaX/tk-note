@@ -162,6 +162,10 @@ import createUploadVideoPlugin, {
   ELEMENT_UPLOAD_VIDEO,
   UploadVideoElement,
 } from "../../components/plate-ui/video-upload";
+import createUploadFilePlugin, {
+  ELEMENT_UPLOAD_FILE,
+  UploadFileElement,
+} from "../../components/plate-ui/file-upload";
 
 const resetBlockTypesCommonRule = {
   types: [ELEMENT_BLOCKQUOTE, ELEMENT_TODO_LI],
@@ -179,12 +183,17 @@ export const plugins = createPlugins(
     //
     createUploadImagePlugin(),
     createImagePlugin(),
+    createUploadFilePlugin(),
     createUploadVideoPlugin(),
     createMediaEmbedPlugin(),
     createSelectOnBackspacePlugin({
       options: {
         query: {
-          allow: [ELEMENT_IMAGE, ELEMENT_MEDIA_EMBED, ELEMENT_EXCALIDRAW],
+          allow: [
+            ELEMENT_UPLOAD_IMAGE,
+            ELEMENT_MEDIA_EMBED,
+            ELEMENT_EXCALIDRAW,
+          ],
         },
       },
     }),
@@ -436,6 +445,7 @@ export const plugins = createPlugins(
         [MARK_COMMENT]: CommentLeaf,
         [ELEMENT_UPLOAD_IMAGE]: UploadImageElement,
         [ELEMENT_UPLOAD_VIDEO]: UploadVideoElement,
+        [ELEMENT_UPLOAD_FILE]: UploadFileElement,
       })
     ),
   }
