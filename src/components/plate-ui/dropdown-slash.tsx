@@ -30,11 +30,18 @@ import { DropdownMenuLabel, DropdownMenuSeparator } from "./dropdown-menu";
 import { ELEMENT_UPLOAD_IMAGE } from "./image-upload";
 import { ELEMENT_UPLOAD_VIDEO } from "./video-upload";
 import { ELEMENT_UPLOAD_FILE } from "./file-upload";
+import { ELEMENT_TODO_LI } from "@udecode/plate-list";
 
 const items = [
   {
     label: "Basic blocks",
     items: [
+      {
+        value: ELEMENT_TODO_LI,
+        label: "Todo",
+        description: "Todo",
+        icon: Icons.square,
+      },
       {
         value: ELEMENT_PARAGRAPH,
         label: "Paragraph",
@@ -98,19 +105,19 @@ const items = [
         value: ELEMENT_UPLOAD_FILE,
         label: "Uplaod files",
         description: "Upload a file  from your computer",
-        icon: Icons.add,
+        icon: Icons.fileUp,
       },
       {
         value: ELEMENT_UPLOAD_IMAGE,
         label: "Uplaod Image",
         description: "Upload an image from your computer",
-        icon: Icons.add,
+        icon: Icons.imageUp,
       },
       {
         value: ELEMENT_UPLOAD_VIDEO,
         label: "Uplaod Video",
         description: "Upload a video from your computer",
-        icon: Icons.add,
+        icon: Icons.videoUp,
       },
       {
         value: ELEMENT_CODE_BLOCK,

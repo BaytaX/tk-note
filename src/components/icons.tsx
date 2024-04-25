@@ -62,6 +62,10 @@ import {
   Underline,
   Ungroup,
   WrapText,
+  Square,
+  FileUp,
+  SquarePlay,
+  ImageUp,
   X,
 } from "lucide-react";
 
@@ -161,6 +165,10 @@ const borderTop = (props: LucideProps) => (
 
 export const Icons = {
   add: Plus,
+  fileUp: FileUp,
+  imageUp: ImageUp,
+  videoUp: SquarePlay,
+  square: Square,
   uploadVideo: UploadVideo,
   alignCenter: AlignCenter,
   alignJustify: AlignJustify,
