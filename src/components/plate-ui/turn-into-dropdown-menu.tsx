@@ -13,7 +13,7 @@ import {
 } from "@udecode/plate-common";
 import { ELEMENT_H1, ELEMENT_H2, ELEMENT_H3 } from "@udecode/plate-heading";
 import { toggleIndentList } from "@udecode/plate-indent-list";
-import { unwrapList } from "@udecode/plate-list";
+import { ELEMENT_TODO_LI, unwrapList } from "@udecode/plate-list";
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
 
 import { Icons } from "../icons";
@@ -53,6 +53,12 @@ const items = [
     label: "Heading 3",
     description: "Heading 3",
     icon: Icons.h3,
+  },
+  {
+    value: ELEMENT_TODO_LI,
+    label: "Todo",
+    description: "Todo",
+    icon: Icons.square,
   },
   {
     value: ELEMENT_BLOCKQUOTE,

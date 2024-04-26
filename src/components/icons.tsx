@@ -1,4 +1,5 @@
-import { cva } from 'class-variance-authority';
+import { cva } from "class-variance-authority";
+import UploadVideo from "../assets/icons/video-upload.svg";
 import {
   AlignCenter,
   AlignJustify,
@@ -61,10 +62,14 @@ import {
   Underline,
   Ungroup,
   WrapText,
+  Square,
+  FileUp,
+  SquarePlay,
+  ImageUp,
   X,
-} from 'lucide-react';
+} from "lucide-react";
 
-import type { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from "lucide-react";
 
 export type Icon = LucideIcon;
 
@@ -160,6 +165,11 @@ const borderTop = (props: LucideProps) => (
 
 export const Icons = {
   add: Plus,
+  fileUp: FileUp,
+  imageUp: ImageUp,
+  videoUp: SquarePlay,
+  square: Square,
+  uploadVideo: UploadVideo,
   alignCenter: AlignCenter,
   alignJustify: AlignJustify,
   alignLeft: AlignLeft,
@@ -248,15 +258,15 @@ export const Icons = {
   twitter: Twitter,
 };
 
-export const iconVariants = cva('', {
+export const iconVariants = cva("", {
   variants: {
     variant: {
-      toolbar: 'size-5',
-      menuItem: 'mr-2 size-5',
+      toolbar: "size-5",
+      menuItem: "mr-2 size-5",
     },
     size: {
-      sm: 'mr-2 size-4',
-      md: 'mr-2 size-6',
+      sm: "mr-2 size-4",
+      md: "mr-2 size-6",
     },
   },
   defaultVariants: {},

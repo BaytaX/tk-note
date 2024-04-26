@@ -154,6 +154,18 @@ import { TableRowElement } from "../../components/plate-ui/table-row-element";
 import { TodoListElement } from "../../components/plate-ui/todo-list-element";
 import { withDraggables } from "../../components/plate-ui/with-draggables";
 import { TabbableElement } from "../../components/tabbable-element";
+import createUploadImagePlugin, {
+  ELEMENT_UPLOAD_IMAGE,
+  UploadImageElement,
+} from "../../components/plate-ui/image-upload";
+import createUploadVideoPlugin, {
+  ELEMENT_UPLOAD_VIDEO,
+  UploadVideoElement,
+} from "../../components/plate-ui/video-upload";
+import createUploadFilePlugin, {
+  ELEMENT_UPLOAD_FILE,
+  UploadFileElement,
+} from "../../components/plate-ui/file-upload";
 
 const resetBlockTypesCommonRule = {
   types: [ELEMENT_BLOCKQUOTE, ELEMENT_TODO_LI],
@@ -169,12 +181,19 @@ const resetBlockTypesCodeBlockRule = {
 export const plugins = createPlugins(
   [
     //
+    createUploadImagePlugin(),
     createImagePlugin(),
+    createUploadFilePlugin(),
+    createUploadVideoPlugin(),
     createMediaEmbedPlugin(),
     createSelectOnBackspacePlugin({
       options: {
         query: {
-          allow: [ELEMENT_IMAGE, ELEMENT_MEDIA_EMBED, ELEMENT_EXCALIDRAW],
+          allow: [
+            ELEMENT_UPLOAD_IMAGE,
+            ELEMENT_MEDIA_EMBED,
+            ELEMENT_EXCALIDRAW,
+          ],
         },
       },
     }),
@@ -215,7 +234,13 @@ export const plugins = createPlugins(
     createAlignPlugin({
       inject: {
         props: {
-          validTypes: [ELEMENT_PARAGRAPH, ELEMENT_H1, ELEMENT_H2, ELEMENT_H3],
+          validTypes: [
+            ELEMENT_PARAGRAPH,
+            ELEMENT_H1,
+            ELEMENT_H2,
+            ELEMENT_H3,
+            ELEMENT_TODO_LI,
+          ],
         },
       },
     }),
@@ -229,6 +254,7 @@ export const plugins = createPlugins(
             ELEMENT_H3,
             ELEMENT_BLOCKQUOTE,
             ELEMENT_CODE_BLOCK,
+            ELEMENT_TODO_LI,
           ],
         },
       },
@@ -243,6 +269,7 @@ export const plugins = createPlugins(
             ELEMENT_H3,
             ELEMENT_BLOCKQUOTE,
             ELEMENT_CODE_BLOCK,
+            ELEMENT_TODO_LI,
           ],
         },
       },
@@ -424,6 +451,9 @@ export const plugins = createPlugins(
         [MARK_SUPERSCRIPT]: withProps(PlateLeaf, { as: "sup" }),
         [MARK_UNDERLINE]: withProps(PlateLeaf, { as: "u" }),
         [MARK_COMMENT]: CommentLeaf,
+        [ELEMENT_UPLOAD_IMAGE]: UploadImageElement,
+        [ELEMENT_UPLOAD_VIDEO]: UploadVideoElement,
+        [ELEMENT_UPLOAD_FILE]: UploadFileElement,
       })
     ),
   }
