@@ -12,14 +12,28 @@ import {
 import FileIcon from "../../../assets/icons/upload-file.png";
 import DefaultFile from "../../../assets/icons/default-file.svg";
 import { ResizableProvider } from "@udecode/plate-resizable";
-import { useState } from "react";
 import DownloadIcon from "../../../assets/icons/download-white.png";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../tooltip/tooltip";
-import * as FileSaver from "file-saver";
 import { insertFile } from "../../../lib/plate/insertFile";
+import Pdf from "../../../assets/icons/pdf.png";
+import Xls from "../../../assets/icons/xls.png";
+import Docs from "../../../assets/icons/google-docs.png";
+
+const TYPES_ICONS = new Map<string, string>([
+  ["application/pdf", Pdf],
+  ["application/vnd.ms-excel", Xls],
+  [
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    Docs,
+  ],
+
+  ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Xls],
+]);
 
 interface FileObject {
   name: string;
+  type: string;
+  url: Location | (string & Location);
 }
 
 export const ELEMENT_UPLOAD_FILE = "upload-file";
@@ -34,26 +48,28 @@ export default createUploadFilePlugin;
 export const UploadFileElement = withHOC(
   ResizableProvider,
   withRef<typeof PlateElement>(
-    ({ className, children, nodeProps, ...props }, ref) => {
-      const token = import.meta.env.VITE_DROPBOX_TOKEN;
-
+    ({ className, children, nodeProps, ...props }) => {
       const editor = useEditorRef();
-      const [percent, setPercent] = useState(0);
+      const cloudName = import.meta.env.VITE_CLOUDNAME;
+      const unsignedUploadPreset = import.meta.env.VITE_UNSIGNED_UPLOAD_PRESET;
 
-      const handleFileChange = (e: any) => {
-        const file = e.target.files[0];
+      const uploadFile = (file: any) => {
+        const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+        const fd = new FormData();
+        fd.append("upload_preset", unsignedUploadPreset);
+        fd.append("tags", "browser_upload");
+        fd.append("file", file);
 
-        var xhr = new XMLHttpRequest();
-
-        xhr.upload.onprogress = function (evt) {
-          var percentComplete = parseInt(`${(100.0 * evt.loaded) / evt.total}`);
-          console.log(percentComplete);
-          setPercent(percentComplete);
-        };
-
-        xhr.onload = function () {
-          if (xhr.status === 200) {
-            var fileInfo = JSON.parse(xhr.response);
+        fetch(url, {
+          method: "POST",
+          body: fd,
+        })
+          .then((response) => response.json())
+          .then(async (data) => {
+            console.log(file);
+            const url = data.secure_url;
+            file.url = url;
+            console.log(url);
             const x = getNode(editor, []);
             const elements: any = x?.children;
             const index = elements.findIndex(
@@ -62,61 +78,22 @@ export const UploadFileElement = withHOC(
             removeNodes(editor, {
               at: [index],
             });
-            insertFile(editor, { file: fileInfo }, { at: [index - 1] });
-
-            // Upload succeeded. Do something here with the file info.
-          } else {
-            var errorMessage = xhr.response || "Unable to upload file";
-            console.log(errorMessage);
-            // Upload failed. Do something here with the error.
-          }
-        };
-
-        xhr.open("POST", "https://content.dropboxapi.com/2/files/upload");
-        xhr.setRequestHeader("Authorization", "Bearer " + token);
-        xhr.setRequestHeader("Content-Type", "application/octet-stream");
-        xhr.setRequestHeader(
-          "Dropbox-API-Arg",
-          JSON.stringify({
-            path: "/" + file.name,
-            mode: "add",
-            autorename: true,
-            mute: false,
+            console.log(file);
+            await insertFile(editor, { file: file }, { at: [index - 1] });
           })
-        );
-        xhr.send(file);
+          .catch((error) => {
+            console.error("Error uploading the file:", error);
+          });
       };
 
-      const downloadFile = (evt: any, file: any) => {
+      const handleFileChange = async (e: any) => {
+        const selectedFile = e.target.files[0];
+        uploadFile(selectedFile);
+      };
+
+      const downloadFile = (evt: any, fileUrl: any) => {
         evt.preventDefault();
-        var xhr = new XMLHttpRequest();
-        xhr.responseType = "arraybuffer";
-
-        xhr.onload = function () {
-          if (xhr.status === 200) {
-            var blob = new Blob([xhr.response], {
-              type: "application/octet-stream",
-            });
-            FileSaver.saveAs(blob, file.name);
-          } else {
-            var errorMessage = xhr.response || "Unable to download file";
-            console.log(errorMessage);
-          }
-        };
-
-        xhr.open("POST", "https://content.dropboxapi.com/2/files/download");
-        xhr.setRequestHeader(
-          "Authorization",
-          "Bearer " +
-            "sl.B0wPTTjnvJrbAd8ePi7W2K_40Is2fSk6yvZYk5HhD8oN4V6rWsSdi95gyrl91ReXOMKSVe-8WCjHTGZhR4xWqBKUZVY7-MmklCm0KBIjr_SmghsQAe64r1zBjcbaVgi9xsi5ltuQdvJoAG8t7aj6"
-        );
-        xhr.setRequestHeader(
-          "Dropbox-API-Arg",
-          JSON.stringify({
-            path: file.path_lower,
-          })
-        );
-        xhr.send();
+        window.location = fileUrl;
       };
 
       return (
@@ -130,55 +107,53 @@ export const UploadFileElement = withHOC(
                 borderRadius: "5px",
               }}
             >
-              {percent === 0 ? (
-                <>
-                  <label
+              <>
+                <label
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  htmlFor="upload-image"
+                >
+                  <img src={FileIcon} alt="image" height={40} width={40} />
+                  <span
                     style={{
-                      width: "100%",
-                      height: "100%",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      alignItems: "center",
+                      fontWeight: "bold",
                     }}
-                    htmlFor="upload-image"
                   >
-                    <img src={FileIcon} alt="image" height={40} width={40} />
-                    <span
-                      style={{
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Add a file
-                    </span>
-                    <span
-                      style={{
-                        fontSize: "14px",
-                        color: "#ccc9c9",
-                      }}
-                    >
-                      support multiple files...
-                    </span>
-                  </label>
-                  <input
-                    type="file"
-                    id="upload-image"
-                    className={cn("hidden")}
-                    accept=".pdf, .txt, .xls, .xlsx, .doc, .docx"
-                    multiple
-                    onChange={handleFileChange}
-                  />
-                </>
-              ) : (
-                <div className="w-full h-full flex items-center justify-center  rounded-full dark:bg-gray-700">
+                    Add a file
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "14px",
+                      color: "#ccc9c9",
+                    }}
+                  >
+                    support multiple files...
+                  </span>
+                </label>
+                <input
+                  type="file"
+                  id="upload-image"
+                  className={cn("hidden")}
+                  accept=".pdf, .txt, .xls, .xlsx, .doc, .docx"
+                  multiple
+                  onChange={handleFileChange}
+                />
+              </>
+
+              {/* <div className="w-full h-full flex items-center justify-center  rounded-full dark:bg-gray-700">
                   <div
                     className="bg-blue-600 w-1/2 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
                     style={{ width: `${percent}%` }}
                   >
                     {percent}%
                   </div>
-                </div>
-              )}
+                </div> */}
             </div>
           ) : (
             <div
@@ -218,7 +193,11 @@ export const UploadFileElement = withHOC(
                       width: "40px",
                       height: "40px",
                     }}
-                    src={DefaultFile}
+                    src={
+                      TYPES_ICONS.get(
+                        (props?.element?.file as FileObject)?.type
+                      ) || DefaultFile
+                    }
                     alt="type-icon"
                   />
                 </div>
@@ -250,7 +229,9 @@ export const UploadFileElement = withHOC(
                     </TooltipContent>
                   </Tooltip>
                   <button
-                    onClick={(e) => downloadFile(e, props?.element?.file)}
+                    onClick={(e) =>
+                      downloadFile(e, (props?.element?.file as FileObject)?.url)
+                    }
                   >
                     <img
                       style={{
