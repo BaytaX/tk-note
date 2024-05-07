@@ -59,7 +59,7 @@ export const UploadVideoElement = ({
         removeNodes(editor, {
           at: [index],
         });
-        await insertMediaEmbed(editor, { url: url });
+        await insertMediaEmbed(editor, { url: url }, { at: [index - 1] });
       })
       .catch((error) => {
         console.error("Error uploading the file:", error);

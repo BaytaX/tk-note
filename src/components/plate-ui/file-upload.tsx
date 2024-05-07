@@ -3,6 +3,9 @@ import {
   HotkeyPlugin,
   PlateElement,
   createPluginFactory,
+  getNode,
+  removeNodes,
+  useEditorRef,
   withHOC,
   withRef,
 } from "@udecode/plate-common";
@@ -15,18 +18,14 @@ import { ResizableProvider } from "@udecode/plate-resizable";
 import { useState } from "react";
 import DownloadIcon from "../../assets/icons/download-white.png";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip";
+import * as FileSaver from "file-saver";
+import { insertFile } from "../insertFile";
+
+interface FileObject {
+  name: string;
+}
 
 export const ELEMENT_UPLOAD_FILE = "upload-file";
-const TYPES_ICONS = new Map<string, string>([
-  ["application/pdf", Pdf],
-  ["application/vnd.ms-excel", Xls],
-  [
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    Docs,
-  ],
-
-  ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Xls],
-]);
 
 const createUploadFilePlugin = createPluginFactory<HotkeyPlugin>({
   key: ELEMENT_UPLOAD_FILE,
@@ -39,35 +38,95 @@ export const UploadFileElement = withHOC(
   ResizableProvider,
   withRef<typeof PlateElement>(
     ({ className, children, nodeProps, ...props }, ref) => {
-      const [filesInfo, setFilesInfo] = useState<
-        {
-          name: string;
-          type: string;
-        }[]
-      >([]);
-
-      //   const { readOnly, focused, selected, align = "center" } = useMediaState();
-      //   let width = useResizableStore().get.width();
+      const editor = useEditorRef();
+      const [percent, setPercent] = useState(0);
 
       const handleFileChange = (e: any) => {
-        const selectedFiles = e.target.files;
-        const newFilesInfo = [];
+        const file = e.target.files[0];
 
-        for (let i = 0; i < selectedFiles.length; i++) {
-          const file = selectedFiles[i];
-          console.log(file);
-          const fileInfo = {
-            name: file.name,
-            type: file.type,
-          };
-          newFilesInfo.push(fileInfo);
-        }
-        setFilesInfo(newFilesInfo);
+        var xhr = new XMLHttpRequest();
+
+        xhr.upload.onprogress = function (evt) {
+          var percentComplete = parseInt(`${(100.0 * evt.loaded) / evt.total}`);
+          console.log(percentComplete);
+          setPercent(percentComplete);
+        };
+
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            var fileInfo = JSON.parse(xhr.response);
+            const x = getNode(editor, []);
+            const elements: any = x?.children;
+            const index = elements.findIndex(
+              (el: any) => el.type === "upload-file"
+            );
+            removeNodes(editor, {
+              at: [index],
+            });
+            insertFile(editor, { file: fileInfo }, { at: [index - 1] });
+
+            // Upload succeeded. Do something here with the file info.
+          } else {
+            var errorMessage = xhr.response || "Unable to upload file";
+            console.log(errorMessage);
+            // Upload failed. Do something here with the error.
+          }
+        };
+
+        xhr.open("POST", "https://content.dropboxapi.com/2/files/upload");
+        xhr.setRequestHeader(
+          "Authorization",
+          "Bearer " +
+            "sl.B0wPTTjnvJrbAd8ePi7W2K_40Is2fSk6yvZYk5HhD8oN4V6rWsSdi95gyrl91ReXOMKSVe-8WCjHTGZhR4xWqBKUZVY7-MmklCm0KBIjr_SmghsQAe64r1zBjcbaVgi9xsi5ltuQdvJoAG8t7aj6"
+        );
+        xhr.setRequestHeader("Content-Type", "application/octet-stream");
+        xhr.setRequestHeader(
+          "Dropbox-API-Arg",
+          JSON.stringify({
+            path: "/" + file.name,
+            mode: "add",
+            autorename: true,
+            mute: false,
+          })
+        );
+        xhr.send(file);
       };
-      //   alert(TYPES_ICONS[item.type]);
+
+      const downloadFile = (evt: any, file: any) => {
+        evt.preventDefault();
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = "arraybuffer";
+
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            var blob = new Blob([xhr.response], {
+              type: "application/octet-stream",
+            });
+            FileSaver.saveAs(blob, file.name);
+          } else {
+            var errorMessage = xhr.response || "Unable to download file";
+            console.log(errorMessage);
+          }
+        };
+
+        xhr.open("POST", "https://content.dropboxapi.com/2/files/download");
+        xhr.setRequestHeader(
+          "Authorization",
+          "Bearer " +
+            "sl.B0wPTTjnvJrbAd8ePi7W2K_40Is2fSk6yvZYk5HhD8oN4V6rWsSdi95gyrl91ReXOMKSVe-8WCjHTGZhR4xWqBKUZVY7-MmklCm0KBIjr_SmghsQAe64r1zBjcbaVgi9xsi5ltuQdvJoAG8t7aj6"
+        );
+        xhr.setRequestHeader(
+          "Dropbox-API-Arg",
+          JSON.stringify({
+            path: file.path_lower,
+          })
+        );
+        xhr.send();
+      };
+
       return (
         <>
-          {filesInfo.length == 0 ? (
+          {!props?.element?.file ? (
             <div
               style={{
                 width: "100%",
@@ -76,42 +135,55 @@ export const UploadFileElement = withHOC(
                 borderRadius: "5px",
               }}
             >
-              <label
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-                htmlFor="upload-image"
-              >
-                <img src={FileIcon} alt="image" height={40} width={40} />
-                <span
-                  style={{
-                    fontWeight: "bold",
-                  }}
-                >
-                  Add a file
-                </span>
-                <span
-                  style={{
-                    fontSize: "14px",
-                    color: "#ccc9c9",
-                  }}
-                >
-                  support multiple files...
-                </span>
-              </label>
-              <input
-                type="file"
-                id="upload-image"
-                className={cn("hidden")}
-                accept=".pdf, .txt, .xls, .xlsx, .doc, .docx"
-                multiple
-                onChange={handleFileChange}
-              />
+              {percent === 0 ? (
+                <>
+                  <label
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    htmlFor="upload-image"
+                  >
+                    <img src={FileIcon} alt="image" height={40} width={40} />
+                    <span
+                      style={{
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Add a file
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "14px",
+                        color: "#ccc9c9",
+                      }}
+                    >
+                      support multiple files...
+                    </span>
+                  </label>
+                  <input
+                    type="file"
+                    id="upload-image"
+                    className={cn("hidden")}
+                    accept=".pdf, .txt, .xls, .xlsx, .doc, .docx"
+                    multiple
+                    onChange={handleFileChange}
+                  />
+                </>
+              ) : (
+                <div className="w-full h-full flex items-center justify-center  rounded-full dark:bg-gray-700">
+                  <div
+                    className="bg-blue-600 w-1/2 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                    style={{ width: `${percent}%` }}
+                  >
+                    {percent}%
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             <div
@@ -125,64 +197,66 @@ export const UploadFileElement = withHOC(
                 flexWrap: "wrap",
               }}
             >
-              {filesInfo.map((item, i) => (
+              <div
+                style={{
+                  height: "10rem",
+                  width: "8rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  padding: "10px 0px 0px 0px",
+                  justifyContent: "space-between",
+                  gap: "10px",
+                  border: "1px solid #eee",
+                  borderRadius: "5px",
+                }}
+              >
                 <div
-                  key={i}
                   style={{
-                    height: "10rem",
-                    width: "8rem",
+                    flex: 1,
                     display: "flex",
-                    flexDirection: "column",
                     alignItems: "center",
-                    padding: "10px 0px 0px 0px",
-                    justifyContent: "space-between",
-                    gap: "10px",
-                    border: "1px solid #eee",
-                    borderRadius: "5px",
                   }}
                 >
-                  <div
+                  <img
                     style={{
-                      flex: 1,
-                      display: "flex",
-                      alignItems: "center",
+                      width: "40px",
+                      height: "40px",
                     }}
-                  >
-                    <img
+                    src={DefaultFile}
+                    alt="type-icon"
+                  />
+                </div>
+
+                <div
+                  style={{
+                    borderTop: " 1px solid #eee",
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "5px",
+                  }}
+                >
+                  <Tooltip>
+                    <TooltipTrigger
                       style={{
-                        width: "40px",
-                        height: "40px",
+                        textWrap: "nowrap",
+                        textOverflow: "ellipsis",
+                        maxWidth: "5rem",
+                        overflow: "hidden",
                       }}
-                      src={TYPES_ICONS.get(item.type) || DefaultFile}
-                      alt="type-icon"
-                    />
-                  </div>
-
-                  <div
-                    style={{
-                      borderTop: " 1px solid #eee",
-                      width: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      padding: "5px",
-                    }}
+                    >
+                      {" "}
+                      {(props?.element?.file as FileObject)?.name}
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      {(props?.element?.file as FileObject)?.name}
+                    </TooltipContent>
+                  </Tooltip>
+                  <button
+                    onClick={(e) => downloadFile(e, props?.element?.file)}
                   >
-                    <Tooltip>
-                      <TooltipTrigger
-                        style={{
-                          textWrap: "nowrap",
-                          textOverflow: "ellipsis",
-                          maxWidth: "5rem",
-                          overflow: "hidden",
-                        }}
-                      >
-                        {" "}
-                        {item.name}
-                      </TooltipTrigger>
-                      <TooltipContent>{item.name}</TooltipContent>
-                    </Tooltip>
-
                     <img
                       style={{
                         height: "20px",
@@ -192,9 +266,9 @@ export const UploadFileElement = withHOC(
                       src={DownloadIcon}
                       alt="download"
                     />
-                  </div>
+                  </button>
                 </div>
-              ))}
+              </div>
             </div>
           )}
         </>
