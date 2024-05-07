@@ -1,20 +1,19 @@
-import { isUrl } from '@udecode/plate-common';
-import { EmbedUrlData } from '@udecode/plate-media';
-import videoParser from 'js-video-url-parser';
+import { isUrl } from "@udecode/plate-common";
+import { EmbedUrlData } from "@udecode/plate-media";
+import videoParser from "js-video-url-parser";
 
-
-const YOUTUBE_PREFIX = 'https://www.youtube.com/embed/';
-const VIMEO_PREFIX = 'https://player.vimeo.com/video/';
-const DAILYMOTION_PREFIX = 'https://www.dailymotion.com/embed/video/';
-const YOUKU_PREFIX = 'https://player.youku.com/embed/';
-const COUB_PREFIX = 'https://coub.com/embed/';
+const YOUTUBE_PREFIX = "https://www.youtube.com/embed/";
+const VIMEO_PREFIX = "https://player.vimeo.com/video/";
+const DAILYMOTION_PREFIX = "https://www.dailymotion.com/embed/video/";
+const YOUKU_PREFIX = "https://player.youku.com/embed/";
+const COUB_PREFIX = "https://coub.com/embed/";
 
 export const VIDEO_PROVIDERS = [
-  'youtube',
-  'vimeo',
-  'dailymotion',
-  'youku',
-  'coub',
+  "youtube",
+  "vimeo",
+  "dailymotion",
+  "youku",
+  "coub",
 ];
 
 export const parseVideoUrl = (url: string): EmbedUrlData | undefined => {

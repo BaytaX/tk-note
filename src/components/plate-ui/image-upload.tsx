@@ -1,24 +1,24 @@
 import { cn, withRef } from "@udecode/cn";
 import ImageIcon from "../../assets/icons/image.svg";
-import {
-  ELEMENT_MEDIA_EMBED,
-  Image,
-  useMediaState,
-} from "@udecode/plate-media";
+import { insertImage } from "@udecode/plate-media";
 import {
   HotkeyPlugin,
   PlateElement,
   createPluginFactory,
+  getNode,
+  mergeNodes,
+  removeNodes,
+  select,
+  useEditorRef,
   withHOC,
+  wrapNodes,
 } from "@udecode/plate-common";
-import { useState } from "react";
-import { ResizableProvider, useResizableStore } from "@udecode/plate-resizable";
-import {
-  mediaResizeHandleVariants,
-  Resizable,
-  ResizeHandle,
-} from "./resizable";
+import { ResizableProvider } from "@udecode/plate-resizable";
+
 import { MediaPopover } from "./media-popover";
+import { ImageElement } from "./image-element";
+import { selectBlockById } from "@udecode/plate-dnd";
+import { findIndex } from "@excalidraw/excalidraw/types/utils";
 
 export const ELEMENT_UPLOAD_IMAGE = "upload-image";
 
@@ -33,18 +33,42 @@ export const UploadImageElement = withHOC(
   ResizableProvider,
   withRef<typeof PlateElement>(
     ({ className, children, nodeProps, ...props }, ref) => {
-      const [base64Image, setBase64Image] = useState(null);
-      const { readOnly, focused, selected, align = "center" } = useMediaState();
-      let width = useResizableStore().get.width();
-      const handleImageChange = (e: any) => {
+      const editor = useEditorRef();
+      const cloudName = "hzxyensd5";
+      const unsignedUploadPreset = "doc_codepen_example";
+      const uploadFile = (file: any) => {
+        const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+        const fd = new FormData();
+        fd.append("upload_preset", unsignedUploadPreset);
+        fd.append("tags", "browser_upload");
+        fd.append("file", file);
+
+        fetch(url, {
+          method: "POST",
+          body: fd,
+        })
+          .then((response) => response.json())
+          .then(async (data) => {
+            const url = data.secure_url;
+            console.log(url);
+            const x = getNode(editor, []);
+            const elements: any = x?.children;
+            const index = elements.findIndex(
+              (el: any) => el.type === "upload-image"
+            );
+            removeNodes(editor, {
+              at: [index],
+            });
+            await insertImage(editor, url, { at: [index - 1] });
+          })
+          .catch((error) => {
+            console.error("Error uploading the file:", error);
+          });
+      };
+
+      const handleImageChange = async (e: any) => {
         const selectedImage = e.target.files[0];
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setBase64Image(reader.result as any);
-        };
-        if (selectedImage) {
-          reader.readAsDataURL(selectedImage);
-        }
+        uploadFile(selectedImage);
       };
 
       return (
@@ -54,80 +78,49 @@ export const UploadImageElement = withHOC(
             className={cn("py-2.5", className)}
             {...props}
           >
-            {!base64Image ? (
-              <div
+            <div
+              style={{
+                width: "100%",
+                height: "120px",
+                border: "1px dashed #e5e5e5",
+              }}
+            >
+              <label
                 style={{
                   width: "100%",
-                  height: "120px",
-                  border: "1px dashed #e5e5e5",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
+                htmlFor="upload-image"
               >
-                <label
+                <img src={ImageIcon} alt="image" height={40} width={40} />
+                <span
                   style={{
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    fontWeight: "bold",
                   }}
-                  htmlFor="upload-image"
                 >
-                  <img src={ImageIcon} alt="image" height={40} width={40} />
-                  <span
-                    style={{
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Add an image...
-                  </span>
-                  <span
-                    style={{
-                      fontSize: "14px",
-                      color: "#ccc9c9",
-                    }}
-                  >
-                    support differents types...
-                  </span>
-                </label>
-                <input
-                  type="file"
-                  id="upload-image"
-                  className={cn("hidden")}
-                  accept="image/*"
-                  onChange={handleImageChange}
-                />
-              </div>
-            ) : (
-              <Resizable
-                align={align}
-                options={{
-                  align,
-                  readOnly,
-                }}
-              >
-                <ResizeHandle
-                  options={{ direction: "left" }}
-                  className={mediaResizeHandleVariants({ direction: "left" })}
-                />
-                <img
-                  className={cn(
-                    "block w-full max-w-full cursor-pointer object-cover px-0",
-                    "rounded-sm",
-                    focused && selected && "ring-2 ring-ring ring-offset-2"
-                  )}
-                  src={base64Image}
+                  Add an image...
+                </span>
+                <span
                   style={{
-                    width,
+                    fontSize: "14px",
+                    color: "#ccc9c9",
                   }}
-                  alt=""
-                />
-                <ResizeHandle
-                  options={{ direction: "right" }}
-                  className={mediaResizeHandleVariants({ direction: "right" })}
-                />
-              </Resizable>
-            )}
+                >
+                  support differents types...
+                </span>
+              </label>
+              <input
+                type="file"
+                id="upload-image"
+                className={cn("hidden")}
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+            </div>
           </PlateElement>
         </MediaPopover>
       );

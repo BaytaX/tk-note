@@ -55,13 +55,13 @@ export const UploadFileElement = withHOC(
 
         for (let i = 0; i < selectedFiles.length; i++) {
           const file = selectedFiles[i];
+          console.log(file);
           const fileInfo = {
             name: file.name,
             type: file.type,
           };
           newFilesInfo.push(fileInfo);
         }
-
         setFilesInfo(newFilesInfo);
       };
       //   alert(TYPES_ICONS[item.type]);
@@ -125,8 +125,9 @@ export const UploadFileElement = withHOC(
                 flexWrap: "wrap",
               }}
             >
-              {filesInfo.map((item) => (
+              {filesInfo.map((item, i) => (
                 <div
+                  key={i}
                   style={{
                     height: "10rem",
                     width: "8rem",

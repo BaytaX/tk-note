@@ -25,6 +25,8 @@ import {
   Resizable,
   ResizeHandle,
 } from "./resizable";
+import { parseCloudinaryUrl } from "../../lib/media-embed/parseCloudinary";
+import { VideoPlayer } from "vidify";
 
 export const MediaEmbedElement = withHOC(
   ResizableProvider,
@@ -42,6 +44,7 @@ export const MediaEmbedElement = withHOC(
       isInstagram,
       isLinkedIn,
       isTiktok,
+      isCloudinary,
     } = useMediaState({
       urlParsers: [
         parseTwitterUrl,
@@ -50,6 +53,7 @@ export const MediaEmbedElement = withHOC(
         parseInstagramUrl,
         parseLinkedInUrl,
         parseTikTokUrl,
+        parseCloudinaryUrl,
       ],
     });
     const width = useResizableStore().get.width();
@@ -158,7 +162,11 @@ export const MediaEmbedElement = withHOC(
                   <TikTokEmbed url={embed?.url as string} width={"auto"} />
                 </div>
               )}
-
+              {isCloudinary && (
+                <div>
+                  <VideoPlayer primaryColor="red" src={embed?.url as string} />
+                </div>
+              )}
               <ResizeHandle
                 options={{ direction: "right" }}
                 className={mediaResizeHandleVariants({ direction: "right" })}

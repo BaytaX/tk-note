@@ -47,6 +47,7 @@ export const useMediaState = ({
   const isInstagram = embed?.provider === "instagram";
   const isLinkedIn = embed?.provider === "linkedin";
   const isTiktok = embed?.provider === "tiktok";
+  const isCloudinary = embed?.provider === "cloudinary";
 
   return {
     align,
@@ -61,5 +62,6 @@ export const useMediaState = ({
     isInstagram,
     isLinkedIn,
     isTiktok,
+    isCloudinary,
   };
 };

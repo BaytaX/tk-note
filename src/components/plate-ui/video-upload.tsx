@@ -2,11 +2,16 @@ import {
   PlateElement,
   PlateElementProps,
   createPluginFactory,
+  getNode,
+  removeNodes,
+  useEditorRef,
 } from "@udecode/plate-common";
 import { VideoPlayer } from "vidify";
 import { useState } from "react";
 import UploadImage from "../../assets/icons/upload-video.png";
 import Axios from "axios";
+import { insertMedia } from "@udecode/plate-media";
+import { insertMediaEmbed } from "../../lib/media-embed";
 
 export const ELEMENT_UPLOAD_VIDEO = "upload-video";
 
@@ -22,25 +27,48 @@ export const UploadVideoElement = ({
   children,
   ...props
 }: PlateElementProps) => {
-  const [image, setImage] = useState("");
-  const formData = new FormData();
-  formData.append("file", image);
-  formData.append("upload_preset", "cwc6pgqn");
+  const editor = useEditorRef();
+  const [video, setVideo] = useState("");
+  console.log(video);
+  // const formData = new FormData();
+  // formData.append("file", video);
+  // formData.append("upload_preset", "cwc6pgqn");
 
-  //For testing purposes
-  const uploadImage = () => {
-    Axios.post(
-      "https://api.cloudinary.com/v1_1/deky9ajcl/image/upload",
-      formData,
-      {
-        headers: {
-          "X-Requested-With": "XMLHttpRequest",
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    ).then((res) => {
-      console.log(res.data.secure_url);
-    });
+  const cloudName = "hzxyensd5";
+  const unsignedUploadPreset = "doc_codepen_example";
+  const uploadFile = (file: any) => {
+    const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+    const fd = new FormData();
+    fd.append("upload_preset", unsignedUploadPreset);
+    fd.append("tags", "browser_upload");
+    fd.append("file", file);
+
+    fetch(url, {
+      method: "POST",
+      body: fd,
+    })
+      .then((response) => response.json())
+      .then(async (data) => {
+        const url = data.secure_url;
+        console.log(url);
+        const x = getNode(editor, []);
+        const elements: any = x?.children;
+        const index = elements.findIndex(
+          (el: any) => el.type === "upload-video"
+        );
+        removeNodes(editor, {
+          at: [index],
+        });
+        await insertMediaEmbed(editor, { url: url });
+      })
+      .catch((error) => {
+        console.error("Error uploading the file:", error);
+      });
+  };
+
+  const handleVideoChange = async (e: any) => {
+    const selectedVideo = e.target.files[0];
+    uploadFile(selectedVideo);
   };
 
   return (
@@ -101,19 +129,13 @@ export const UploadVideoElement = ({
               display: "none",
             }}
             type="file"
+            accept="video/*"
             onChange={(e: any) => {
-              setImage(e.target.files[0]);
+              handleVideoChange(e);
             }}
           />
           {/* <button onClick={uploadImage}>Submit</button> */}
         </div>
-
-        <VideoPlayer
-          primaryColor="red"
-          src={
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-          }
-        />
       </div>
     </PlateElement>
   );

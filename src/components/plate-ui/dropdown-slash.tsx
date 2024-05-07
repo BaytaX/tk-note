@@ -37,12 +37,6 @@ const items = [
     label: "Basic blocks",
     items: [
       {
-        value: ELEMENT_TODO_LI,
-        label: "Todo",
-        description: "Todo",
-        icon: Icons.square,
-      },
-      {
         value: ELEMENT_PARAGRAPH,
         label: "Paragraph",
         description: "Paragraph",
@@ -91,6 +85,12 @@ const items = [
         icon: Icons.ol,
       },
       {
+        value: ELEMENT_TODO_LI,
+        label: "Todo",
+        description: "Todo",
+        icon: Icons.square,
+      },
+      {
         value: ELEMENT_HR,
         label: "Divider",
         description: "Divider (---)",
@@ -103,19 +103,19 @@ const items = [
     items: [
       {
         value: ELEMENT_UPLOAD_FILE,
-        label: "Uplaod files",
+        label: "Upload files",
         description: "Upload a file  from your computer",
         icon: Icons.fileUp,
       },
       {
         value: ELEMENT_UPLOAD_IMAGE,
-        label: "Uplaod Image",
+        label: "Upload image",
         description: "Upload an image from your computer",
         icon: Icons.imageUp,
       },
       {
         value: ELEMENT_UPLOAD_VIDEO,
-        label: "Uplaod Video",
+        label: "Upload video",
         description: "Upload a video from your computer",
         icon: Icons.videoUp,
       },
@@ -215,6 +215,7 @@ export function DropdownSlash() {
 
                     break;
                   }
+
                   default: {
                     insertEmptyElement(editor, type, {
                       select: true,

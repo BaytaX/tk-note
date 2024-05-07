@@ -150,7 +150,7 @@ export default function PlateEditor() {
         <Plate
           plugins={plugins}
           initialValue={initialValue}
-          // onChange={(e) => console.log(e)}
+          onChange={(e) => console.log(e)}
         >
           <TooltipProvider>
             <div
