@@ -1,6 +1,6 @@
 import { findEventRange, PlatePlugin } from "@udecode/plate-common";
 
-import { cursorStore } from "../../components/plate-ui/cursor-overlay";
+import { cursorStore } from "../../components/plate-ui/cursor-overlay/cursor-overlay";
 
 export const KEY_DRAG_OVER_CURSOR = "dragOverCursor";
 

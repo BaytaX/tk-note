@@ -124,48 +124,48 @@ import { createTrailingBlockPlugin } from "@udecode/plate-trailing-block";
 
 import { autoformatPlugin } from "../../lib/plate/autoformatPlugin";
 import { dragOverCursorPlugin } from "../../lib/plate/dragOverCursorPlugin";
-import { BlockquoteElement } from "../../components/plate-ui/blockquote-element";
-import { CodeBlockElement } from "../../components/plate-ui/code-block-element";
-import { CodeLeaf } from "../../components/plate-ui/code-leaf";
-import { CodeLineElement } from "../../components/plate-ui/code-line-element";
-import { CodeSyntaxLeaf } from "../../components/plate-ui/code-syntax-leaf";
-import { CommentLeaf } from "../../components/plate-ui/comment-leaf";
-import { EmojiCombobox } from "../../components/plate-ui/emoji-combobox";
-import { ExcalidrawElement } from "../../components/plate-ui/excalidraw-element";
-import { HeadingElement } from "../../components/plate-ui/heading-element";
-import { HighlightLeaf } from "../../components/plate-ui/highlight-leaf";
-import { HrElement } from "../../components/plate-ui/hr-element";
-import { ImageElement } from "../../components/plate-ui/image-element";
-import { KbdLeaf } from "../../components/plate-ui/kbd-leaf";
-import { LinkElement } from "../../components/plate-ui/link-element";
-import { LinkFloatingToolbar } from "../../components/plate-ui/link-floating-toolbar";
-import { ListElement } from "../../components/plate-ui/list-element";
-import { MediaEmbedElement } from "../../components/plate-ui/media-embed-element";
-import { MentionElement } from "../../components/plate-ui/mention-element";
-import { MentionInputElement } from "../../components/plate-ui/mention-input-element";
-import { ParagraphElement } from "../../components/plate-ui/paragraph-element";
-import { withPlaceholders } from "../../components/plate-ui/placeholder";
+import { BlockquoteElement } from "../../components/plate-ui/blockquote-element/blockquote-element";
+import { CodeBlockElement } from "../../components/plate-ui/code-block-element/code-block-element";
+import { CodeLeaf } from "../../components/plate-ui/code-leaf/code-leaf";
+import { CodeLineElement } from "../../components/plate-ui/code-line-element/code-line-element";
+import { CodeSyntaxLeaf } from "../../components/plate-ui/code-syntax-leaf/code-syntax-leaf";
+import { CommentLeaf } from "../../components/plate-ui/comment-leaf/comment-leaf";
+import { EmojiCombobox } from "../../components/plate-ui/emoji-combobox/emoji-combobox";
+import { ExcalidrawElement } from "../../components/plate-ui/excalidraw-element/excalidraw-element";
+import { HeadingElement } from "../../components/plate-ui/heading-element/heading-element";
+import { HighlightLeaf } from "../../components/plate-ui/highlight-leaf/highlight-leaf";
+import { HrElement } from "../../components/plate-ui/hr-element/hr-element";
+import { ImageElement } from "../../components/plate-ui/image-element/image-element";
+import { KbdLeaf } from "../../components/plate-ui/kbd-leaf/kbd-leaf";
+import { LinkElement } from "../../components/plate-ui/link-element/link-element";
+import { LinkFloatingToolbar } from "../../components/plate-ui/link-floating-toolbar/link-floating-toolbar";
+import { ListElement } from "../../components/plate-ui/list-element/list-element";
+import { MediaEmbedElement } from "../../components/plate-ui/media-embed-element/media-embed-element";
+import { MentionElement } from "../../components/plate-ui/mention-element/mention-element";
+import { MentionInputElement } from "../../components/plate-ui/mention-input-element/mention-input-element";
+import { ParagraphElement } from "../../components/plate-ui/paragraph-element/paragraph-element";
+import { withPlaceholders } from "../../components/plate-ui/placeholder/placeholder";
 import {
   TableCellElement,
   TableCellHeaderElement,
-} from "../../components/plate-ui/table-cell-element";
-import { TableElement } from "../../components/plate-ui/table-element";
-import { TableRowElement } from "../../components/plate-ui/table-row-element";
-import { TodoListElement } from "../../components/plate-ui/todo-list-element";
-import { withDraggables } from "../../components/plate-ui/with-draggables";
-import { TabbableElement } from "../../components/tabbable-element";
+} from "../../components/plate-ui/table-cell-element/table-cell-element";
+import { TableElement } from "../../components/plate-ui/table-element/table-element";
+import { TableRowElement } from "../../components/plate-ui/table-row-element/table-row-element";
+import { TodoListElement } from "../../components/plate-ui/todo-list-element/todo-list-element";
+import { withDraggables } from "../../components/plate-ui/with-draggables/with-draggables";
+import { TabbableElement } from "../../components/plate-ui/tabbable-element/tabbable-element";
 import createUploadImagePlugin, {
   ELEMENT_UPLOAD_IMAGE,
   UploadImageElement,
-} from "../../components/plate-ui/image-upload";
+} from "../../components/plate-ui/image-upload/image-upload";
 import createUploadVideoPlugin, {
   ELEMENT_UPLOAD_VIDEO,
   UploadVideoElement,
-} from "../../components/plate-ui/video-upload";
+} from "../../components/plate-ui/video-upload/video-upload";
 import createUploadFilePlugin, {
   ELEMENT_UPLOAD_FILE,
   UploadFileElement,
-} from "../../components/plate-ui/file-upload";
+} from "../../components/plate-ui/file-upload/file-upload";
 
 const resetBlockTypesCommonRule = {
   types: [ELEMENT_BLOCKQUOTE, ELEMENT_TODO_LI],

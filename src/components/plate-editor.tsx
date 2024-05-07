@@ -6,16 +6,16 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { commentsUsers, myUserId } from "../lib/plate/comments";
 import { plugins } from "../lib/plate/plate-plugins";
-import { TooltipProvider } from "./plate-ui/tooltip";
-import { Editor } from "./plate-ui/editor";
-import { FloatingToolbar } from "./plate-ui/floating-toolbar";
-import { FloatingToolbarButtons } from "./plate-ui/floating-toolbar-buttons";
-import { SlashToolbar } from "./plate-ui/slashToolBar";
-import { DropdownSlash } from "./plate-ui/dropdown-slash";
-import { MentionCombobox } from "./plate-ui/mention-combobox";
+import { TooltipProvider } from "./plate-ui/tooltip/tooltip";
+import { Editor } from "./plate-ui/editor/editor";
+import { FloatingToolbar } from "./plate-ui/floating-toolbar/floating-toolbar";
+import { FloatingToolbarButtons } from "./plate-ui/floating-toolbar-buttons/floating-toolbar-buttons";
+import { SlashToolbar } from "./plate-ui/slash-toolbar/slash-toolbar";
+import { DropdownSlash } from "./plate-ui/dropdown-slash/dropdown-slash";
+import { MentionCombobox } from "./plate-ui/mention-combobox/mention-combobox";
 import { MENTIONABLES } from "../lib/plate/mentionables";
-import { CommentsPopover } from "./plate-ui/comments-popover";
-import { CursorOverlay } from "./plate-ui/cursor-overlay";
+import { CommentsPopover } from "./plate-ui/comments-popover/comments-popover";
+import { CursorOverlay } from "./plate-ui/cursor-overlay/cursor-overlay";
 
 export default function PlateEditor() {
   const containerRef = useRef(null);
