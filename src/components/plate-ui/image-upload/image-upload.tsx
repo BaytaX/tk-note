@@ -12,6 +12,8 @@ import {
 } from "@udecode/plate-common";
 import { ResizableProvider } from "@udecode/plate-resizable";
 import { MediaPopover } from "../media-popover/media-popover";
+import { useState } from "react";
+import Spinner from "../spinner/spinner";
 
 export const ELEMENT_UPLOAD_IMAGE = "upload-image";
 
@@ -26,12 +28,13 @@ export const UploadImageElement = withHOC(
   ResizableProvider,
   withRef<typeof PlateElement>(
     ({ className, children, nodeProps, ...props }, ref) => {
+      const [isLoading, setIsLoading] = useState(false);
       const editor = useEditorRef();
-
       const cloudName = import.meta.env.VITE_CLOUDNAME;
       const unsignedUploadPreset = import.meta.env.VITE_UNSIGNED_UPLOAD_PRESET;
 
       const uploadFile = (file: any) => {
+        setIsLoading(true);
         const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
         const fd = new FormData();
         fd.append("upload_preset", unsignedUploadPreset);
@@ -80,41 +83,49 @@ export const UploadImageElement = withHOC(
                 border: "1px dashed #e5e5e5",
               }}
             >
-              <label
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-                htmlFor="upload-image"
-              >
-                <img src={ImageIcon} alt="image" height={40} width={40} />
-                <span
-                  style={{
-                    fontWeight: "bold",
-                  }}
-                >
-                  Add an image...
-                </span>
-                <span
-                  style={{
-                    fontSize: "14px",
-                    color: "#ccc9c9",
-                  }}
-                >
-                  support differents types...
-                </span>
-              </label>
-              <input
-                type="file"
-                id="upload-image"
-                className={cn("hidden")}
-                accept="image/*"
-                onChange={handleImageChange}
-              />
+              {isLoading === false ? (
+                <>
+                  <label
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    htmlFor="upload-image"
+                  >
+                    <img src={ImageIcon} alt="image" height={40} width={40} />
+                    <span
+                      style={{
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Add an image...
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "14px",
+                        color: "#ccc9c9",
+                      }}
+                    >
+                      support differents types...
+                    </span>
+                  </label>
+                  <input
+                    type="file"
+                    id="upload-image"
+                    className={cn("hidden")}
+                    accept="image/*"
+                    onChange={handleImageChange}
+                  />
+                </>
+              ) : (
+                <div className="flex justify-center items-center h-full w-full">
+                  <Spinner />
+                </div>
+              )}
             </div>
           </PlateElement>
         </MediaPopover>

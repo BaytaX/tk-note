@@ -18,6 +18,8 @@ import { insertFile } from "../../../lib/plate/insertFile";
 import Pdf from "../../../assets/icons/pdf.png";
 import Xls from "../../../assets/icons/xls.png";
 import Docs from "../../../assets/icons/google-docs.png";
+import { useState } from "react";
+import Spinner from "../spinner/spinner";
 
 const TYPES_ICONS = new Map<string, string>([
   ["application/pdf", Pdf],
@@ -48,12 +50,16 @@ export default createUploadFilePlugin;
 export const UploadFileElement = withHOC(
   ResizableProvider,
   withRef<typeof PlateElement>(
-    ({ className, children, nodeProps, ...props }) => {
+    ({ className, children, nodeProps, ...props }, ref) => {
+      console.log(ref);
+      const [isLoading, setIsLoading] = useState(false);
+
       const editor = useEditorRef();
       const cloudName = import.meta.env.VITE_CLOUDNAME;
       const unsignedUploadPreset = import.meta.env.VITE_UNSIGNED_UPLOAD_PRESET;
 
       const uploadFile = (file: any) => {
+        setIsLoading(true);
         const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
         const fd = new FormData();
         fd.append("upload_preset", unsignedUploadPreset);
@@ -107,53 +113,50 @@ export const UploadFileElement = withHOC(
                 borderRadius: "5px",
               }}
             >
-              <>
-                <label
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                  htmlFor="upload-image"
-                >
-                  <img src={FileIcon} alt="image" height={40} width={40} />
-                  <span
+              {isLoading === false ? (
+                <>
+                  <label
                     style={{
-                      fontWeight: "bold",
+                      width: "100%",
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
                     }}
+                    htmlFor="upload-image"
                   >
-                    Add a file
-                  </span>
-                  <span
-                    style={{
-                      fontSize: "14px",
-                      color: "#ccc9c9",
-                    }}
-                  >
-                    support multiple files...
-                  </span>
-                </label>
-                <input
-                  type="file"
-                  id="upload-image"
-                  className={cn("hidden")}
-                  accept=".pdf, .txt, .xls, .xlsx, .doc, .docx"
-                  multiple
-                  onChange={handleFileChange}
-                />
-              </>
-
-              {/* <div className="w-full h-full flex items-center justify-center  rounded-full dark:bg-gray-700">
-                  <div
-                    className="bg-blue-600 w-1/2 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
-                    style={{ width: `${percent}%` }}
-                  >
-                    {percent}%
-                  </div>
-                </div> */}
+                    <img src={FileIcon} alt="image" height={40} width={40} />
+                    <span
+                      style={{
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Add a file
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "14px",
+                        color: "#ccc9c9",
+                      }}
+                    >
+                      support multiple files...
+                    </span>
+                  </label>
+                  <input
+                    type="file"
+                    id="upload-image"
+                    className={cn("hidden")}
+                    accept=".pdf, .txt, .xls, .xlsx, .doc, .docx"
+                    multiple
+                    onChange={handleFileChange}
+                  />
+                </>
+              ) : (
+                <div className="flex justify-center items-center h-full w-full">
+                  <Spinner />
+                </div>
+              )}
             </div>
           ) : (
             <div

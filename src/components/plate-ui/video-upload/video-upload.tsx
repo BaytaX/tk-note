@@ -8,6 +8,8 @@ import {
 } from "@udecode/plate-common";
 import UploadImage from "../../../assets/icons/upload-video.png";
 import { insertMediaEmbed } from "../../../lib/media-embed";
+import { useState } from "react";
+import Spinner from "../spinner/spinner";
 
 export const ELEMENT_UPLOAD_VIDEO = "upload-video";
 
@@ -24,11 +26,13 @@ export const UploadVideoElement = ({
   ...props
 }: PlateElementProps) => {
   const editor = useEditorRef();
+  const [isLoading, setIsLoading] = useState(false);
 
   const cloudName = import.meta.env.VITE_CLOUDNAME;
   const unsignedUploadPreset = import.meta.env.VITE_UNSIGNED_UPLOAD_PRESET;
 
   const uploadFile = (file: any) => {
+    setIsLoading(true);
     const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
     const fd = new FormData();
     fd.append("upload_preset", unsignedUploadPreset);
@@ -89,43 +93,49 @@ export const UploadVideoElement = ({
             gap: "10px",
           }}
         >
-          <label
-            htmlFor="upload-video"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <img src={UploadImage} alt="video" height={40} width={40} />
-            <p
-              style={{
-                textTransform: "capitalize",
-                fontWeight: "bold",
-              }}
-            >
-              choose your video...
-            </p>
-            <span
-              style={{
-                color: "#b2b2b2",
-              }}
-            >
-              Support multiple video formats...
-            </span>
-          </label>
-          <input
-            id="upload-video"
-            style={{
-              display: "none",
-            }}
-            type="file"
-            accept="video/*"
-            onChange={(e: any) => {
-              handleVideoChange(e);
-            }}
-          />
+          {isLoading === false ? (
+            <>
+              <label
+                htmlFor="upload-video"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <img src={UploadImage} alt="video" height={40} width={40} />
+                <p
+                  style={{
+                    textTransform: "capitalize",
+                    fontWeight: "bold",
+                  }}
+                >
+                  choose your video...
+                </p>
+                <span
+                  style={{
+                    color: "#b2b2b2",
+                  }}
+                >
+                  Support multiple video formats...
+                </span>
+              </label>
+              <input
+                id="upload-video"
+                style={{
+                  display: "none",
+                }}
+                type="file"
+                accept="video/*"
+                onChange={(e: any) => {
+                  handleVideoChange(e);
+                }}
+              />
+            </>
+          ) : (
+            <Spinner />
+          )}
         </div>
       </div>
     </PlateElement>
