@@ -21,6 +21,7 @@ import { IndentListToolbarButton } from "../indent-list-toolbar-button/indent-li
 import { ListStyleType } from "@udecode/plate-indent-list";
 import { OutdentToolbarButton } from "../outdent-toolbar-button/outdent-toolbar-button";
 import { IndentToolbarButton } from "../indent-toolbar-button/indent-toolbar-button";
+import { ToggleToolbarButton } from "../toggle-toolbar-button/toggle-toolbar-button";
 
 export function FloatingToolbarButtons() {
   const readOnly = useEditorReadOnly();
@@ -66,6 +67,8 @@ export function FloatingToolbarButtons() {
 
           <OutdentToolbarButton />
           <IndentToolbarButton />
+          <ToggleToolbarButton />
+
 
           <LinkToolbarButton />
         </>

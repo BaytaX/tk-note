@@ -34,6 +34,7 @@ import { ELEMENT_UPLOAD_IMAGE } from "../image-upload/image-upload";
 import { ELEMENT_UPLOAD_VIDEO } from "../video-upload/video-upload";
 import { ELEMENT_UPLOAD_FILE } from "../file-upload/file-upload";
 import { ELEMENT_TODO_LI } from "@udecode/plate-list";
+import { ELEMENT_TOGGLE } from "@udecode/plate-toggle";
 
 const items = [
   {
@@ -98,6 +99,12 @@ const items = [
         label: "Divider",
         description: "Divider (---)",
         icon: Icons.minus,
+      },
+      {
+        value: ELEMENT_TOGGLE,
+        label: "Toggle",
+        description: "Toggle (▼)",
+        icon: Icons.arrowDown,
       },
     ],
   },

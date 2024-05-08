@@ -152,6 +152,8 @@ import {
 import { TableElement } from "../../components/plate-ui/table-element/table-element";
 import { TableRowElement } from "../../components/plate-ui/table-row-element/table-row-element";
 import { TodoListElement } from "../../components/plate-ui/todo-list-element/todo-list-element";
+import { createTogglePlugin, ELEMENT_TOGGLE } from "@udecode/plate-toggle";
+
 import { withDraggables } from "../../components/plate-ui/with-draggables/with-draggables";
 import { TabbableElement } from "../../components/plate-ui/tabbable-element/tabbable-element";
 import createUploadImagePlugin, {
@@ -166,6 +168,7 @@ import createUploadFilePlugin, {
   ELEMENT_UPLOAD_FILE,
   UploadFileElement,
 } from "../../components/plate-ui/file-upload/file-upload";
+import { ToggleElement } from "../../components/plate-ui/toggle-element/toggle-element";
 
 const resetBlockTypesCommonRule = {
   types: [ELEMENT_BLOCKQUOTE, ELEMENT_TODO_LI],
@@ -207,6 +210,7 @@ export const plugins = createPlugins(
       renderAfterEditable: LinkFloatingToolbar as RenderAfterEditable,
     }),
     createImagePlugin(),
+    createTogglePlugin(),
     createMediaEmbedPlugin(),
     createCaptionPlugin({
       options: { pluginKeys: [ELEMENT_IMAGE, ELEMENT_MEDIA_EMBED] },
@@ -429,6 +433,7 @@ export const plugins = createPlugins(
         [ELEMENT_IMAGE]: ImageElement,
         [ELEMENT_LI]: withProps(PlateElement, { as: "li" }),
         [ELEMENT_LINK]: LinkElement,
+        [ELEMENT_TOGGLE]: ToggleElement,
         [ELEMENT_MEDIA_EMBED]: MediaEmbedElement,
         [ELEMENT_MENTION]: MentionElement,
         [ELEMENT_MENTION_INPUT]: MentionInputElement,
