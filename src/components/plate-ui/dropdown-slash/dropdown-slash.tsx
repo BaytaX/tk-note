@@ -35,6 +35,9 @@ import { ELEMENT_UPLOAD_VIDEO } from "../video-upload/video-upload";
 import { ELEMENT_UPLOAD_FILE } from "../file-upload/file-upload";
 import { ELEMENT_TODO_LI } from "@udecode/plate-list";
 import { ELEMENT_TOGGLE } from "@udecode/plate-toggle";
+import { ELEMENT_MATH } from "../math-element/math-element";
+import { SquareRadical } from "lucide-react";
+import { insertMath } from "../../../lib/plate/insertMath";
 
 const items = [
   {
@@ -153,6 +156,12 @@ const items = [
         description: "Excalidraw",
         icon: Icons.excalidraw,
       },
+      {
+        value: ELEMENT_MATH,
+        label: "Math",
+        description: "Math",
+        icon: SquareRadical,
+      },
     ],
   },
   {
@@ -203,6 +212,14 @@ export function DropdownSlash() {
 
                     break;
                   }
+                  // case ELEMENT_MATH: {
+                  //   const equation = prompt(
+                  //     "Please enter the Latex block math"
+                  //   );
+                  //   if (equation === null || equation === "") return;
+                  //   await insertMath(editor, { equation });
+                  //   break;
+                  // }
                   case "ul":
                   case "ol": {
                     insertEmptyElement(editor, ELEMENT_PARAGRAPH, {

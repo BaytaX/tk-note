@@ -164,7 +164,7 @@ export const MediaEmbedElement = withHOC(
               )}
               {isCloudinary && (
                 <div>
-                  <VideoPlayer primaryColor="red" src={embed?.url as string} />
+                  <VideoPlayer src={embed?.url as string} />
                 </div>
               )}
               <ResizeHandle

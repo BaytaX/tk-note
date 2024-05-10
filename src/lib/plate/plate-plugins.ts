@@ -160,6 +160,10 @@ import createUploadImagePlugin, {
   ELEMENT_UPLOAD_IMAGE,
   UploadImageElement,
 } from "../../components/plate-ui/image-upload/image-upload";
+import createMathPlugin, {
+  ELEMENT_MATH,
+  InsertMathElement,
+} from "../../components/plate-ui/math-element/math-element";
 import createUploadVideoPlugin, {
   ELEMENT_UPLOAD_VIDEO,
   UploadVideoElement,
@@ -168,6 +172,8 @@ import createUploadFilePlugin, {
   ELEMENT_UPLOAD_FILE,
   UploadFileElement,
 } from "../../components/plate-ui/file-upload/file-upload";
+// import { createYjsPlugin } from "@udecode/plate-yjs";
+
 import { ToggleElement } from "../../components/plate-ui/toggle-element/toggle-element";
 
 const resetBlockTypesCommonRule = {
@@ -189,6 +195,7 @@ export const plugins = createPlugins(
     createUploadFilePlugin(),
     createUploadVideoPlugin(),
     createMediaEmbedPlugin(),
+    createMathPlugin(),
     createSelectOnBackspacePlugin({
       options: {
         query: {
@@ -415,6 +422,16 @@ export const plugins = createPlugins(
     createDeserializeDocxPlugin(),
     createDeserializeMdPlugin(),
     createJuicePlugin(),
+
+    //Collaboration
+    // createYjsPlugin({
+    //   options: {
+    //     hocuspocusProviderOptions: {
+    //       url: "", // hocuspocus url
+    //       name: "", // room name
+    //     },
+    //   },
+    // }),
   ],
   {
     components: withDraggables(
@@ -459,6 +476,7 @@ export const plugins = createPlugins(
         [ELEMENT_UPLOAD_IMAGE]: UploadImageElement,
         [ELEMENT_UPLOAD_VIDEO]: UploadVideoElement,
         [ELEMENT_UPLOAD_FILE]: UploadFileElement,
+        [ELEMENT_MATH]: InsertMathElement,
       })
     ),
   }

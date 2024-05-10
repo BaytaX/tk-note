@@ -50,7 +50,7 @@ export const UploadVideoElement = ({
         const x = getNode(editor, []);
         const elements: any = x?.children;
         const index = elements.findIndex(
-          (el: any) => el.type === "upload-video"
+          (el: any) => el.type === "upload-video" && el.id === props.element.id
         );
         removeNodes(editor, {
           at: [index],

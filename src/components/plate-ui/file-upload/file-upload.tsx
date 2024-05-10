@@ -78,9 +78,12 @@ export const UploadFileElement = withHOC(
             console.log(url);
             const x = getNode(editor, []);
             const elements: any = x?.children;
+            console.log(props.element.id);
             const index = elements.findIndex(
-              (el: any) => el.type === "upload-file"
+              (el: any) =>
+                el.type === "upload-file" && el.id === props.element.id
             );
+            console.log(index);
             removeNodes(editor, {
               at: [index],
             });

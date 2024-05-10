@@ -17,7 +17,14 @@ import { MENTIONABLES } from "../lib/plate/mentionables";
 import { CommentsPopover } from "./plate-ui/comments-popover/comments-popover";
 import { CursorOverlay } from "./plate-ui/cursor-overlay/cursor-overlay";
 
-export default function PlateEditor() {
+import "../assets/styles.css";
+import "../assets/App.css";
+
+type SoftyEditor = {
+  onChange?: (e: any) => void;
+};
+
+export function SoftyEditor({ onChange }: SoftyEditor) {
   const containerRef = useRef(null);
 
   const initialValue = [
@@ -145,46 +152,48 @@ export default function PlateEditor() {
   ];
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <CommentsProvider users={commentsUsers} myUserId={myUserId}>
-        <Plate
-          plugins={plugins}
-          initialValue={initialValue}
-          onChange={(e) => console.log(e)}
-        >
-          <TooltipProvider>
-            <div
-              ref={containerRef}
-              className={cn(
-                "relative",
-                // Block selection
-                "[&_.slate-start-area-left]:!w-[64px] [&_.slate-start-area-right]:!w-[64px] [&_.slate-start-area-top]:!h-4"
-              )}
-            >
-              <Editor
-                className="px-[96px] py-16"
-                autoFocus
-                focusRing={false}
-                variant="ghost"
-                size="md"
-              />
+    <div className="max-w-[1336px] rounded-lg border bg-background shadow">
+      <DndProvider backend={HTML5Backend}>
+        <CommentsProvider users={commentsUsers} myUserId={myUserId}>
+          <Plate
+            plugins={plugins}
+            initialValue={initialValue}
+            onChange={onChange}
+          >
+            <TooltipProvider>
+              <div
+                ref={containerRef}
+                className={cn(
+                  "relative",
+                  // Block selection
+                  "[&_.slate-start-area-left]:!w-[64px] [&_.slate-start-area-right]:!w-[64px] [&_.slate-start-area-top]:!h-4"
+                )}
+              >
+                <Editor
+                  className="px-[96px] py-16"
+                  autoFocus
+                  focusRing={false}
+                  variant="ghost"
+                  size="md"
+                />
 
-              <FloatingToolbar>
-                <FloatingToolbarButtons />
-              </FloatingToolbar>
+                <FloatingToolbar>
+                  <FloatingToolbarButtons />
+                </FloatingToolbar>
 
-              <SlashToolbar>
-                <DropdownSlash />
-              </SlashToolbar>
+                <SlashToolbar>
+                  <DropdownSlash />
+                </SlashToolbar>
 
-              <MentionCombobox items={MENTIONABLES} />
+                <MentionCombobox items={MENTIONABLES} />
 
-              <CommentsPopover />
-              <CursorOverlay containerRef={containerRef} />
-            </div>
-          </TooltipProvider>
-        </Plate>
-      </CommentsProvider>
-    </DndProvider>
+                <CommentsPopover />
+                <CursorOverlay containerRef={containerRef} />
+              </div>
+            </TooltipProvider>
+          </Plate>
+        </CommentsProvider>
+      </DndProvider>
+    </div>
   );
 }
