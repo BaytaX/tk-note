@@ -37,7 +37,6 @@ import { ELEMENT_TODO_LI } from "@udecode/plate-list";
 import { ELEMENT_TOGGLE } from "@udecode/plate-toggle";
 import { ELEMENT_MATH } from "../math-element/math-element";
 import { SquareRadical } from "lucide-react";
-import { insertMath } from "../../../lib/plate/insertMath";
 
 const items = [
   {

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-// eslint-disable-next-line no-unused-vars
+// @ts-ignore
 import * as MathType from "@wiris/mathtype-generic";
 
 import EquationEditor from "./WirisEquationEditor.jsx";
@@ -63,7 +63,7 @@ const MathComponent: React.FC<MyComponentProps> = ({ elementId }) => {
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
               <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Mathematics
+                  Mathematics + Chemistry Operations
                 </h3>
                 <button
                   type="button"
@@ -87,6 +87,9 @@ const MathComponent: React.FC<MyComponentProps> = ({ elementId }) => {
                   </svg>
                   <span className="sr-only">Close modal</span>
                 </button>
+              </div>
+              <div>
+                <p>Click : √ for Math C for Chemistry</p>
               </div>
               <>
                 <div ref={toolbarRef} />

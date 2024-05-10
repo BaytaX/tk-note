@@ -21,7 +21,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      name: "vidify",
+      name: "tk-note",
       fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
