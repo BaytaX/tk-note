@@ -10,13 +10,14 @@ import { TooltipProvider } from "./plate-ui/tooltip/tooltip";
 import { Editor } from "./plate-ui/editor/editor";
 import { FloatingToolbar } from "./plate-ui/floating-toolbar/floating-toolbar";
 import { FloatingToolbarButtons } from "./plate-ui/floating-toolbar-buttons/floating-toolbar-buttons";
-import { SlashToolbar } from "./plate-ui/slash-toolbar/slash-toolbar";
-import { DropdownSlash } from "./plate-ui/dropdown-slash/dropdown-slash";
 import { MentionCombobox } from "./plate-ui/mention-combobox/mention-combobox";
 import { MENTIONABLES } from "../lib/plate/mentionables";
 import { CommentsPopover } from "./plate-ui/comments-popover/comments-popover";
 import { CursorOverlay } from "./plate-ui/cursor-overlay/cursor-overlay";
-
+import { SLASH_RULES } from "../lib/plate/slashRules";
+import { SlashArCombobox } from "./plate-ui/slash-ar-combobox/slash-ar-combobox";
+import { SlashCombobox } from "./plate-ui/slash-combobox/slash-combobox";
+import { SLASH_AR_RULES } from "../lib/plate/slashArRules";
 import "../assets/styles.css";
 import "../assets/App.css";
 
@@ -181,11 +182,11 @@ export function SoftyEditor({ onChange }: SoftyEditor) {
                   <FloatingToolbarButtons />
                 </FloatingToolbar>
 
-                <SlashToolbar>
-                  <DropdownSlash />
-                </SlashToolbar>
-
                 <MentionCombobox items={MENTIONABLES} />
+
+                <SlashCombobox items={SLASH_RULES} />
+
+                <SlashArCombobox items={SLASH_AR_RULES} />
 
                 <CommentsPopover />
                 <CursorOverlay containerRef={containerRef} />

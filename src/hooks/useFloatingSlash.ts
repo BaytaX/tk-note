@@ -89,44 +89,9 @@ export const useFloatingToolbar = ({
     setWaitForCollapsedSelection,
   ]);
 
-  // React.useEffect(() => {
-  //   if (
-  //     !selectionExpanded ||
-  //     !selectionText ||
-  //     (!(editorId === focusedEditorId || ignoreReadOnly) && hideToolbar)
-  //   ) {
-  //     setOpen(false);
-  //   } else if (
-  //     selectionText &&
-  //     selectionExpanded &&
-  //     !waitForCollapsedSelection
-  //   ) {
-  //     setOpen(true);
-  //   }
-  // }, [
-  //   setOpen,
-  //   editorId,
-  //   focusedEditorId,
-  //   hideToolbar,
-  //   ignoreReadOnly,
-  //   selectionExpanded,
-  //   selectionText,
-  //   waitForCollapsedSelection,
-  // ]);
-
-  // const { update } = floating;
-
-  // const selectionTextLength = selectionText?.length ?? 0;
-
-  // React.useEffect(() => {
-  //   if (selectionTextLength > 0) {
-  //     update?.();
-  //   }
-  // }, [selectionTextLength, update]);
-
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "/" && !open) {
+      if (!selectionExpanded && event.key === "/" && !open) {
         setOpen(true);
       } else {
         setOpen(false);

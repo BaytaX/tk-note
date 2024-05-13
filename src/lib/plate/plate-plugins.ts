@@ -27,6 +27,10 @@ import {
 } from "@udecode/plate-break";
 import { createCaptionPlugin } from "@udecode/plate-caption";
 import {
+  createSlashPlugin,
+  ELEMENT_SLASH_INPUT,
+} from "@udecode/plate-slash-command";
+import {
   createCodeBlockPlugin,
   ELEMENT_CODE_BLOCK,
   ELEMENT_CODE_LINE,
@@ -175,6 +179,10 @@ import createUploadFilePlugin, {
 // import { createYjsPlugin } from "@udecode/plate-yjs";
 
 import { ToggleElement } from "../../components/plate-ui/toggle-element/toggle-element";
+import { SlashInputElement } from "../../components/plate-ui/slash-input-element/slash-input-element";
+import { SLASH_RULES } from "./slashRules";
+import { createSlashArPlugin, ELEMENT_SLASH_AR_INPUT } from "./ar-slash";
+import { SlashInputArElement } from "../../components/plate-ui/slash-input-ar-elemnt/slash-input-ar-elemnt";
 
 const resetBlockTypesCommonRule = {
   types: [ELEMENT_BLOCKQUOTE, ELEMENT_TODO_LI],
@@ -226,7 +234,6 @@ export const plugins = createPlugins(
     createTablePlugin(),
     createTodoListPlugin(),
     createExcalidrawPlugin(),
-
     // Marks
     createBoldPlugin(),
     createItalicPlugin(),
@@ -415,7 +422,6 @@ export const plugins = createPlugins(
     }),
     dragOverCursorPlugin,
 
-    // Collaboration
     createCommentsPlugin(),
 
     // Deserialization
@@ -423,6 +429,16 @@ export const plugins = createPlugins(
     createDeserializeMdPlugin(),
     createJuicePlugin(),
 
+    createSlashPlugin({
+      options: {
+        rules: SLASH_RULES,
+      },
+    }),
+    createSlashArPlugin({
+      options: {
+        rules: SLASH_RULES,
+      },
+    }),
     //Collaboration
     // createYjsPlugin({
     //   options: {
@@ -477,6 +493,8 @@ export const plugins = createPlugins(
         [ELEMENT_UPLOAD_VIDEO]: UploadVideoElement,
         [ELEMENT_UPLOAD_FILE]: UploadFileElement,
         [ELEMENT_MATH]: InsertMathElement,
+        [ELEMENT_SLASH_INPUT]: SlashInputElement,
+        [ELEMENT_SLASH_AR_INPUT]: SlashInputArElement,
       })
     ),
   }

@@ -2,8 +2,10 @@ import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { PopoverAnchor } from "@radix-ui/react-popover";
 import { cn, withRef } from "@udecode/cn";
 import {
+  focusEditor,
   isSelectionExpanded,
   PlateElement,
+  someNode,
   useEditorRef,
   useEditorSelector,
   useElement,
@@ -11,6 +13,11 @@ import {
   withHOC,
 } from "@udecode/plate-common";
 import {
+  deleteColumn,
+  deleteRow,
+  ELEMENT_TABLE,
+  insertTableColumn,
+  insertTableRow,
   mergeTableCells,
   TableProvider,
   TTableElement,
@@ -22,18 +29,22 @@ import {
 } from "@udecode/plate-table";
 import { useReadOnly, useSelected } from "slate-react";
 
-import { Icons, iconVariants } from "../icons/icons";
-
 import { Button } from "../button/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuPortal,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
+  useOpenState,
 } from "../dropdown-menu/dropdown-menu";
 import { Popover, PopoverContent, popoverVariants } from "../popover/popover";
 import { Separator } from "../separator/separator";
+import { Icons, iconVariants } from "../icons/icons";
 
 export const TableBordersDropdownMenuContent = withRef<
   typeof DropdownMenuPrimitive.Content
@@ -47,6 +58,14 @@ export const TableBordersDropdownMenuContent = withRef<
     hasRightBorder,
     hasTopBorder,
   } = useTableBordersDropdownMenuContentState();
+
+  const tableSelected = useEditorSelector(
+    (editor) => someNode(editor, { match: { type: ELEMENT_TABLE } }),
+    []
+  );
+
+  const editor = useEditorRef();
+  const openState = useOpenState();
 
   return (
     <DropdownMenuContent
@@ -102,6 +121,90 @@ export const TableBordersDropdownMenuContent = withRef<
         <Icons.borderAll className={iconVariants({ size: "sm" })} />
         <div>Outside Borders</div>
       </DropdownMenuCheckboxItem>
+    </DropdownMenuContent>
+  );
+});
+
+export const TableInsertDropdownMenuContent = withRef<
+  typeof DropdownMenuPrimitive.Content
+>((props, ref) => {
+  const tableSelected = useEditorSelector(
+    (editor) => someNode(editor, { match: { type: ELEMENT_TABLE } }),
+    []
+  );
+
+  const editor = useEditorRef();
+
+  return (
+    <DropdownMenuContent
+      ref={ref}
+      className={cn("min-w-[220px]")}
+      side="right"
+      align="start"
+      sideOffset={0}
+      {...props}
+    >
+      <DropdownMenuSub>
+        <DropdownMenuSubTrigger disabled={!tableSelected}>
+          <Icons.column className={iconVariants({ variant: "menuItem" })} />
+          <span>Column</span>
+        </DropdownMenuSubTrigger>
+        <DropdownMenuSubContent>
+          <DropdownMenuItem
+            className="min-w-[180px]"
+            disabled={!tableSelected}
+            onSelect={async () => {
+              insertTableColumn(editor);
+              focusEditor(editor);
+            }}
+          >
+            <Icons.add className={iconVariants({ variant: "menuItem" })} />
+            Insert column after
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="min-w-[180px]"
+            disabled={!tableSelected}
+            onSelect={async () => {
+              deleteColumn(editor);
+              focusEditor(editor);
+            }}
+          >
+            <Icons.minus className={iconVariants({ variant: "menuItem" })} />
+            Delete column
+          </DropdownMenuItem>
+        </DropdownMenuSubContent>
+      </DropdownMenuSub>
+
+      <DropdownMenuSub>
+        <DropdownMenuSubTrigger disabled={!tableSelected}>
+          <Icons.row className={iconVariants({ variant: "menuItem" })} />
+          <span>Row</span>
+        </DropdownMenuSubTrigger>
+        <DropdownMenuSubContent>
+          <DropdownMenuItem
+            className="min-w-[180px]"
+            disabled={!tableSelected}
+            onSelect={async () => {
+              insertTableRow(editor);
+              focusEditor(editor);
+            }}
+          >
+            <Icons.add className={iconVariants({ variant: "menuItem" })} />
+            Insert row after
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="min-w-[180px]"
+            disabled={!tableSelected}
+            onSelect={async () => {
+              deleteRow(editor);
+              focusEditor(editor);
+            }}
+          >
+            <Icons.minus className={iconVariants({ variant: "menuItem" })} />
+            Delete row
+          </DropdownMenuItem>
+        </DropdownMenuSubContent>
+      </DropdownMenuSub>
     </DropdownMenuContent>
   );
 });
@@ -170,6 +273,22 @@ export const TableFloatingToolbar = withRef<typeof PopoverContent>(
         </Button>
       </>
     );
+    const insertContent = collapsed && (
+      <>
+        <DropdownMenu modal={false}>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" isMenu>
+              <Icons.add className="mr-2 size-4" />
+              Insert
+            </Button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuPortal>
+            <TableInsertDropdownMenuContent />
+          </DropdownMenuPortal>
+        </DropdownMenu>
+      </>
+    );
 
     return (
       <Popover open={open} modal={false}>
@@ -186,6 +305,7 @@ export const TableFloatingToolbar = withRef<typeof PopoverContent>(
           >
             {unmergeButton}
             {mergeContent}
+            {insertContent}
             {bordersContent}
           </PopoverContent>
         )}

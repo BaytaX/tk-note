@@ -90,6 +90,7 @@
     "@udecode/plate-serializer-csv": "^33.0.0",
     "@udecode/plate-serializer-docx": "^33.0.1",
     "@udecode/plate-serializer-md": "^33.0.0",
+    "@udecode/plate-slash-command": "^33.0.0",
     "@udecode/plate-tabbable": "^33.0.0",
     "@udecode/plate-table": "^33.0.0",
     "@udecode/plate-toggle": "^33.0.0",

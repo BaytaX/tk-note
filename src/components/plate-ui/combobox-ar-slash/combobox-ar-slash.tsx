@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import * as Popover from "@radix-ui/react-popover";
 import { cn, withRef } from "@udecode/cn";
 import {
@@ -21,21 +21,26 @@ import {
 } from "@udecode/plate-common";
 import { createVirtualRef } from "@udecode/plate-floating";
 
-export const ComboboxItem = withRef<"div", ComboboxContentItemProps>(
+export const ComboboxItem = withRef<"div", any>(
   ({ combobox, index, item, onRenderItem, className, ...rest }, ref) => {
     const { props } = useComboboxItem({ item, index, combobox, onRenderItem });
-
     return (
       <div
         ref={ref}
-        className={cn(
-          "relative flex h-9 cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors",
-          "hover:bg-accent hover:text-accent-foreground data-[highlighted=true]:bg-accent data-[highlighted=true]:text-accent-foreground",
-          className
-        )}
+        className="relative flex gap-2  min-w-[200px] cursor-pointer select-none items-center rounded-sm p-1  text-sm outline-none [direction:rtl] transition-colors hover:bg-gray-100 focus:text-gray-900   data-[highlighted=true]:bg-accent data-[highlighted=true]:text-accent-foreground "
         {...props}
         {...rest}
-      />
+      >
+        <img
+          className="w-12 h-12 border border-gray-200 rounded-md"
+          src={item.img}
+          alt={item.text}
+        />
+        <div className="flex flex-col  ">
+          <p>{item.text}</p>
+          <p className="text-xs text-gray-500">{item.description}</p>
+        </div>
+      </div>
     );
   }
 );
@@ -70,7 +75,7 @@ export function ComboboxContent(props: ComboboxContentProps) {
           side="bottom"
           align="start"
           className={cn(
-            "z-[500] m-0 max-h-[288px] w-[300px] overflow-scroll rounded-md bg-popover p-0 shadow-md"
+            "z-[500] m-0 max-h-[400px] w-[330px] overflow-y-scroll rounded-md bg-popover p-2 py-6 shadow-md flex flex-col gap-1"
           )}
           onOpenAutoFocus={(event) => event.preventDefault()}
         >
@@ -91,7 +96,7 @@ export function ComboboxContent(props: ComboboxContentProps) {
   );
 }
 
-export function Combobox({
+export function ComboboxArSlash({
   id,
   trigger,
   searchPattern,

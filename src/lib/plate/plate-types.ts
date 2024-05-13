@@ -387,3 +387,22 @@ export const createMyPlugins = (
 ) => createPlugins<MyValue, MyEditor>(plugins, options);
 
 export type MyAutoformatRule = AutoformatRule<MyValue, MyEditor>;
+
+export interface SlashRule {
+  key: string;
+  onTrigger: (editor: PlateEditor, key: string) => void;
+  text: string;
+  description: string;
+  img: string;
+}
+
+// export interface SlashRule {
+//   label: string;
+//   items: {
+//     key: string;
+//     onTrigger: (editor: PlateEditor, key: string) => void;
+//     text: string;
+//     description: string;
+//     img: string;
+//   }[];
+// }

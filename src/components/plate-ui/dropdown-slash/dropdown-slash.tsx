@@ -24,8 +24,6 @@ import {
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
 import { ELEMENT_TABLE, insertTable } from "@udecode/plate-table";
 
-import { Icons } from "../icons/icons";
-
 import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -36,7 +34,6 @@ import { ELEMENT_UPLOAD_FILE } from "../file-upload/file-upload";
 import { ELEMENT_TODO_LI } from "@udecode/plate-list";
 import { ELEMENT_TOGGLE } from "@udecode/plate-toggle";
 import { ELEMENT_MATH } from "../math-element/math-element";
-import { SquareRadical } from "lucide-react";
 
 const items = [
   {
@@ -45,68 +42,74 @@ const items = [
       {
         value: ELEMENT_PARAGRAPH,
         label: "Paragraph",
-        description: "Paragraph",
-        icon: Icons.paragraph,
+        description: "Just start writing with plain text.",
+        icon: "https://www.notion.so/images/blocks/text/en-US.png",
       },
       {
         value: ELEMENT_H1,
         label: "Heading 1",
-        description: "Heading 1",
-        icon: Icons.h1,
+        description: "Big section heading.",
+        icon: "https://www.notion.so/images/blocks/header.57a7576a.png",
       },
       {
         value: ELEMENT_H2,
         label: "Heading 2",
-        description: "Heading 2",
-        icon: Icons.h2,
+        description: "Medium section heading.",
+        icon: "https://www.notion.so/images/blocks/subheader.9aab4769.png",
       },
       {
         value: ELEMENT_H3,
         label: "Heading 3",
-        description: "Heading 3",
-        icon: Icons.h3,
+        description: "Small section heading.",
+        icon: "https://www.notion.so/images/blocks/subsubheader.d0ed0bb3.png",
       },
       {
         value: ELEMENT_BLOCKQUOTE,
         label: "Quote",
-        description: "Quote (⌘+⇧+.)",
-        icon: Icons.blockquote,
+        description: "Capture a quote.",
+        icon: "https://www.notion.so/images/blocks/quote/en-US.png",
       },
       {
         value: ELEMENT_TABLE,
         label: "Table",
-        description: "Table",
-        icon: Icons.table,
+        description: "Add simple tabular content to your page.",
+        icon: "https://www.notion.so/images/blocks/simple-table.e31a23bb.png",
       },
       {
         value: "ul",
         label: "Bulleted list",
-        description: "Bulleted list",
-        icon: Icons.ul,
+        description: "Create a simple bulleted list.",
+        icon: "https://www.notion.so/images/blocks/bulleted-list.0e87e917.png",
       },
       {
         value: "ol",
         label: "Numbered list",
-        description: "Numbered list",
-        icon: Icons.ol,
+        description: "Create a list with numbering.",
+        icon: "https://www.notion.so/images/blocks/numbered-list.0406affe.png",
       },
       {
         value: ELEMENT_TODO_LI,
         label: "Todo",
-        description: "Todo",
-        icon: Icons.square,
+        description: "Track tasks with a to-do list.",
+        icon: "https://www.notion.so/images/blocks/to-do.f8d20542.png",
       },
       {
         value: ELEMENT_HR,
         label: "Divider",
-        description: "Divider (---)",
-        icon: Icons.minus,
+        description: "Visually divide blocks.",
+        icon: "https://www.notion.so/images/blocks/divider.210d0faf.png",
       },
       {
         value: ELEMENT_TOGGLE,
         label: "Toggle",
-        description: "Toggle (▼)",
-        icon: Icons.arrowDown,
+        description: "Toggles can hide and show content inside.",
+        icon: "https://www.notion.so/images/blocks/toggle.5e462b2a.png",
+      },
+      {
+        value: ELEMENT_LINK,
+        label: "Link",
+        description: "Save a link as a visual bookmark.",
+        icon: "https://www.notion.so/images/blocks/web-bookmark.82a15180.png",
       },
     ],
   },
@@ -114,63 +117,57 @@ const items = [
     label: "Media",
     items: [
       {
-        value: ELEMENT_UPLOAD_FILE,
-        label: "Upload file",
-        description: "Upload a file  from your computer",
-        icon: Icons.fileUp,
-      },
-      {
         value: ELEMENT_UPLOAD_IMAGE,
         label: "Upload image",
         description: "Upload an image from your computer",
-        icon: Icons.imageUp,
+        icon: "https://www.notion.so/images/import/import.png",
       },
       {
         value: ELEMENT_UPLOAD_VIDEO,
         label: "Upload video",
         description: "Upload a video from your computer",
-        icon: Icons.videoUp,
-      },
-      {
-        value: ELEMENT_CODE_BLOCK,
-        label: "Code",
-        description: "Code (```)",
-        icon: Icons.codeblock,
+        icon: "https://www.notion.so/images/blocks/video.ceeec2c7.png",
       },
       {
         value: ELEMENT_IMAGE,
         label: "Image",
-        description: "Image",
-        icon: Icons.image,
+        description: "Embed with a link.",
+        icon: "https://www.notion.so/images/blocks/image.33d80a98.png",
       },
       {
         value: ELEMENT_MEDIA_EMBED,
         label: "Embed",
-        description: "Embed",
-        icon: Icons.embed,
+        description: "Embed with a link (video ,social-media posts)",
+        icon: "https://www.notion.so/images/blocks/embed.6a481331.png",
       },
       {
-        value: ELEMENT_EXCALIDRAW,
-        label: "Excalidraw",
-        description: "Excalidraw",
-        icon: Icons.excalidraw,
+        value: ELEMENT_CODE_BLOCK,
+        label: "Code",
+        description: "Capture a code snippet.",
+        icon: "https://www.notion.so/images/blocks/code.a8b201f4.png",
       },
       {
-        value: ELEMENT_MATH,
-        label: "Math",
-        description: "Math",
-        icon: SquareRadical,
+        value: ELEMENT_UPLOAD_FILE,
+        label: "Upload file",
+        description: "Upload a file  from your computer",
+        icon: "https://www.notion.so/images/blocks/file.4fade042.png",
       },
     ],
   },
   {
-    label: "Inline",
+    label: "Embeds",
     items: [
       {
-        value: ELEMENT_LINK,
-        label: "Link",
-        description: "Link",
-        icon: Icons.link,
+        value: ELEMENT_EXCALIDRAW,
+        label: "Excalidraw",
+        description: "Embed an Excalidraw whiteboard.",
+        icon: "https://www.notion.so/images/blocks/excalidraw.b2dad901.png",
+      },
+      {
+        value: ELEMENT_MATH,
+        label: "Math",
+        description: "Capture Mathematic Operations",
+        icon: "https://www.notion.so/images/import/csv.png",
       },
     ],
   },
@@ -180,82 +177,89 @@ export function DropdownSlash() {
   const editor = useEditorRef();
 
   return (
-    <div className="flex max-h-[500px] min-w-0 flex-col gap-0.5 overflow-y-auto ">
+    <div className="flex max-h-[400px] min-w-0 flex-col gap-0.5 overflow-y-auto p-1 ">
       {items.map(({ items: nestedItems, label }, index) => (
         <React.Fragment key={label}>
           {index !== 0 && <DropdownMenuSeparator />}
 
-          <DropdownMenuLabel>{label}</DropdownMenuLabel>
-          {nestedItems.map(({ value: type, label: itemLabel, icon: Icon }) => (
-            <div
-              key={type}
-              className="relative flex h-9 min-w-[200px] cursor-pointer select-none items-center rounded-sm p-2 text-sm outline-none transition-colors hover:bg-gray-100 focus:text-gray-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 "
-              onClick={async () => {
-                deleteBackward(editor, { unit: "character" });
+          <DropdownMenuLabel className="text-xs text-gray-500 font-normal">
+            {label}
+          </DropdownMenuLabel>
+          {nestedItems.map(
+            ({ value: type, label: itemLabel, icon: Icon, description }) => (
+              <div
+                key={type}
+                className="relative flex gap-2  min-w-[200px] cursor-pointer select-none items-center rounded-sm p-1 text-sm outline-none transition-colors hover:bg-gray-100 focus:text-gray-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 "
+                onClick={async () => {
+                  deleteBackward(editor, { unit: "character" });
 
-                switch (type) {
-                  case ELEMENT_CODE_BLOCK: {
-                    insertEmptyCodeBlock(editor);
+                  switch (type) {
+                    case ELEMENT_CODE_BLOCK: {
+                      insertEmptyCodeBlock(editor);
 
-                    break;
+                      break;
+                    }
+                    case ELEMENT_IMAGE: {
+                      await insertMedia(editor, { type: ELEMENT_IMAGE });
+
+                      break;
+                    }
+                    case ELEMENT_MEDIA_EMBED: {
+                      await insertMedia(editor, {
+                        type: ELEMENT_MEDIA_EMBED,
+                      });
+
+                      break;
+                    }
+                    case "ul":
+                    case "ol": {
+                      insertEmptyElement(editor, ELEMENT_PARAGRAPH, {
+                        select: true,
+                        nextBlock: true,
+                      });
+                      toggleIndentList(editor, {
+                        listStyleType: type === "ul" ? "disc" : "decimal",
+                      });
+
+                      break;
+                    }
+                    case ELEMENT_TABLE: {
+                      insertTable(editor);
+
+                      break;
+                    }
+                    case ELEMENT_LINK: {
+                      await triggerFloatingLink(editor, { focused: true });
+
+                      break;
+                    }
+
+                    default: {
+                      insertEmptyElement(editor, type, {
+                        select: true,
+                        nextBlock: true,
+                      });
+                    }
                   }
-                  case ELEMENT_IMAGE: {
-                    await insertMedia(editor, { type: ELEMENT_IMAGE });
-
-                    break;
-                  }
-                  case ELEMENT_MEDIA_EMBED: {
-                    await insertMedia(editor, {
-                      type: ELEMENT_MEDIA_EMBED,
-                    });
-
-                    break;
-                  }
-                  // case ELEMENT_MATH: {
-                  //   const equation = prompt(
-                  //     "Please enter the Latex block math"
-                  //   );
-                  //   if (equation === null || equation === "") return;
-                  //   await insertMath(editor, { equation });
-                  //   break;
-                  // }
-                  case "ul":
-                  case "ol": {
-                    insertEmptyElement(editor, ELEMENT_PARAGRAPH, {
-                      select: true,
-                      nextBlock: true,
-                    });
-                    toggleIndentList(editor, {
-                      listStyleType: type === "ul" ? "disc" : "decimal",
-                    });
-
-                    break;
-                  }
-                  case ELEMENT_TABLE: {
-                    insertTable(editor);
-
-                    break;
-                  }
-                  case ELEMENT_LINK: {
-                    await triggerFloatingLink(editor, { focused: true });
-
-                    break;
-                  }
-
-                  default: {
-                    insertEmptyElement(editor, type, {
-                      select: true,
-                      nextBlock: true,
-                    });
-                  }
-                }
-                focusEditor(editor);
-              }}
-            >
-              <Icon className="mr-2 size-5" />
-              {itemLabel}
-            </div>
-          ))}
+                  focusEditor(editor);
+                }}
+              >
+                <img
+                  className="w-12 h-12 border border-gray-200 rounded-md"
+                  src={Icon}
+                  alt="element img"
+                />
+                <div className="flex flex-col  ">
+                  <p>{itemLabel}</p>
+                  <p className="text-xs text-gray-500">
+                    {description?.length > 36
+                      ? `${description?.split(" ").slice(0, 6).join(" ")}...`
+                      : description}
+                  </p>
+                </div>
+              </div>
+            )
+          )}
         </React.Fragment>
       ))}
     </div>
