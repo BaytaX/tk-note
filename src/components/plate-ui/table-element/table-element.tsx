@@ -40,7 +40,6 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-  useOpenState,
 } from "../dropdown-menu/dropdown-menu";
 import { Popover, PopoverContent, popoverVariants } from "../popover/popover";
 import { Separator } from "../separator/separator";
@@ -58,14 +57,6 @@ export const TableBordersDropdownMenuContent = withRef<
     hasRightBorder,
     hasTopBorder,
   } = useTableBordersDropdownMenuContentState();
-
-  const tableSelected = useEditorSelector(
-    (editor) => someNode(editor, { match: { type: ELEMENT_TABLE } }),
-    []
-  );
-
-  const editor = useEditorRef();
-  const openState = useOpenState();
 
   return (
     <DropdownMenuContent

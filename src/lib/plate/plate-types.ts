@@ -394,6 +394,7 @@ export interface SlashRule {
   text: string;
   description: string;
   img: string;
+  blocksName?: string;
 }
 
 // export interface SlashRule {

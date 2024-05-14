@@ -38,6 +38,7 @@ export const SLASH_RULES: SlashRule[] = [
       });
       focusEditor(editor);
     },
+    blocksName: "Basic Blocks",
   },
   {
     key: ELEMENT_H1,
@@ -48,6 +49,7 @@ export const SLASH_RULES: SlashRule[] = [
       toggleNodeType(editor, { activeType: ELEMENT_H1 });
       focusEditor(editor);
     },
+    blocksName: "Basic Blocks",
   },
   {
     key: ELEMENT_H2,
@@ -58,6 +60,7 @@ export const SLASH_RULES: SlashRule[] = [
       toggleNodeType(editor, { activeType: ELEMENT_H2 });
       focusEditor(editor);
     },
+    blocksName: "Basic Blocks",
   },
   {
     key: ELEMENT_H3,
@@ -68,6 +71,7 @@ export const SLASH_RULES: SlashRule[] = [
       toggleNodeType(editor, { activeType: ELEMENT_H3 });
       focusEditor(editor);
     },
+    blocksName: "Basic Blocks",
   },
   {
     key: ELEMENT_BLOCKQUOTE,
@@ -80,6 +84,7 @@ export const SLASH_RULES: SlashRule[] = [
         nextBlock: true,
       });
     },
+    blocksName: "Basic Blocks",
   },
   {
     key: ELEMENT_TABLE,
@@ -89,6 +94,7 @@ export const SLASH_RULES: SlashRule[] = [
     onTrigger(editor: PlateEditor) {
       insertTable(editor);
     },
+    blocksName: "Basic Blocks",
   },
   {
     key: ListStyleType.Disc,
@@ -101,6 +107,7 @@ export const SLASH_RULES: SlashRule[] = [
       });
       focusEditor(editor);
     },
+    blocksName: "Basic Blocks",
   },
   {
     key: ListStyleType.Decimal,
@@ -113,6 +120,7 @@ export const SLASH_RULES: SlashRule[] = [
       });
       focusEditor(editor);
     },
+    blocksName: "Basic Blocks",
   },
   {
     key: ELEMENT_TODO_LI,
@@ -125,6 +133,7 @@ export const SLASH_RULES: SlashRule[] = [
         nextBlock: true,
       });
     },
+    blocksName: "Basic Blocks",
   },
   {
     key: ELEMENT_HR,
@@ -138,6 +147,7 @@ export const SLASH_RULES: SlashRule[] = [
       });
       focusEditor(editor);
     },
+    blocksName: "Basic Blocks",
   },
   {
     key: ELEMENT_TOGGLE,
@@ -151,6 +161,7 @@ export const SLASH_RULES: SlashRule[] = [
       });
       focusEditor(editor);
     },
+    blocksName: "Basic Blocks",
   },
   {
     key: ELEMENT_LINK,
@@ -160,6 +171,7 @@ export const SLASH_RULES: SlashRule[] = [
     onTrigger(editor: PlateEditor) {
       triggerFloatingLink(editor, { focused: true });
     },
+    blocksName: "Basic Blocks",
   },
   //media
   {
@@ -171,6 +183,7 @@ export const SLASH_RULES: SlashRule[] = [
       insertEmptyElement(editor, ELEMENT_UPLOAD_IMAGE);
       focusEditor(editor);
     },
+    blocksName: "Media",
   },
   {
     key: ELEMENT_UPLOAD_VIDEO,
@@ -181,6 +194,7 @@ export const SLASH_RULES: SlashRule[] = [
       insertEmptyElement(editor, ELEMENT_UPLOAD_VIDEO);
       focusEditor(editor);
     },
+    blocksName: "Media",
   },
   {
     key: ELEMENT_IMAGE,
@@ -191,6 +205,7 @@ export const SLASH_RULES: SlashRule[] = [
       insertMedia(editor, { type: ELEMENT_IMAGE });
       focusEditor(editor);
     },
+    blocksName: "Media",
   },
   {
     key: ELEMENT_MEDIA_EMBED,
@@ -203,6 +218,7 @@ export const SLASH_RULES: SlashRule[] = [
       });
       focusEditor(editor);
     },
+    blocksName: "Media",
   },
   {
     key: ELEMENT_CODE_BLOCK,
@@ -213,6 +229,7 @@ export const SLASH_RULES: SlashRule[] = [
       insertEmptyCodeBlock(editor);
       focusEditor(editor);
     },
+    blocksName: "Media",
   },
   {
     key: ELEMENT_UPLOAD_FILE,
@@ -223,6 +240,7 @@ export const SLASH_RULES: SlashRule[] = [
       insertEmptyElement(editor, ELEMENT_UPLOAD_FILE);
       focusEditor(editor);
     },
+    blocksName: "Media",
   },
   {
     key: ELEMENT_EXCALIDRAW,
@@ -233,6 +251,7 @@ export const SLASH_RULES: SlashRule[] = [
       insertEmptyElement(editor, ELEMENT_EXCALIDRAW);
       focusEditor(editor);
     },
+    blocksName: "Embeds",
   },
   {
     key: ELEMENT_MATH,
@@ -243,253 +262,6 @@ export const SLASH_RULES: SlashRule[] = [
       insertEmptyElement(editor, ELEMENT_MATH);
       focusEditor(editor);
     },
+    blocksName: "Embeds",
   },
 ];
-
-// export const SLASH_RULES: SlashRule[] = [
-//   {
-//     label: "Basic blocks",
-//     items: [
-//       {
-//         key: ELEMENT_PARAGRAPH,
-//         text: "Paragraph",
-//         description: "Just start writing with plain text.",
-//         img: "https://www.notion.so/images/blocks/text/en-US.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleNodeType(editor, { activeType: ELEMENT_H1 });
-//           focusEditor(editor);
-//         },
-//       },
-//       {
-//         key: ELEMENT_H1,
-//         text: "Heading 1",
-//         description: "Big section heading.",
-//         img: "https://www.notion.so/images/blocks/header.57a7576a.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleNodeType(editor, { activeType: ELEMENT_H1 });
-//           focusEditor(editor);
-//         },
-//       },
-//       {
-//         key: ELEMENT_H2,
-//         text: "Heading 2",
-//         description: "Medium section heading.",
-//         img: "https://www.notion.so/images/blocks/subheader.9aab4769.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleNodeType(editor, { activeType: ELEMENT_H2 });
-//           focusEditor(editor);
-//         },
-//       },
-//       {
-//         key: ELEMENT_H3,
-//         text: "Heading 3",
-//         description: "Small section heading.",
-//         img: "https://www.notion.so/images/blocks/subsubheader.d0ed0bb3.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleNodeType(editor, { activeType: ELEMENT_H3 });
-//           focusEditor(editor);
-//         },
-//       },
-//       {
-//         key: ELEMENT_BLOCKQUOTE,
-//         text: "Quote",
-//         description: "Capture a quote.",
-//         img: "https://www.notion.so/images/blocks/quote/en-US.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleNodeType(editor, { activeType: ELEMENT_H3 });
-//           focusEditor(editor);
-//         },
-//       },
-//       {
-//         key: ELEMENT_TABLE,
-//         text: "Table",
-//         description: "Add simple tabular content to your page.",
-//         img: "https://www.notion.so/images/blocks/simple-table.e31a23bb.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleNodeType(editor, { activeType: ELEMENT_H3 });
-//           focusEditor(editor);
-//         },
-//       },
-//       {
-//         key: ListStyleType.Disc,
-//         text: "Bulleted list",
-//         description: "Create a simple bulleted list.",
-//         img: "https://www.notion.so/images/blocks/bulleted-list.0e87e917.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleIndentList(editor, {
-//             listStyleType: ListStyleType.Disc,
-//           });
-//           focusEditor(editor);
-//         },
-//       },
-//       {
-//         key: ListStyleType.Decimal,
-//         text: "Numbered list",
-//         description: "Create a list with numbering.",
-//         img: "https://www.notion.so/images/blocks/numbered-list.0406affe.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleIndentList(editor, {
-//             listStyleType: ListStyleType.Decimal,
-//           });
-//           focusEditor(editor);
-//         },
-//       },
-//       {
-//         key: ELEMENT_TODO_LI,
-//         text: "Todo",
-//         description: "Track tasks with a to-do list.",
-//         img: "https://www.notion.so/images/blocks/to-do.f8d20542.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleIndentList(editor, {
-//             listStyleType: ListStyleType.Decimal,
-//           });
-//           focusEditor(editor);
-//         },
-//       },
-//       {
-//         key: ELEMENT_HR,
-//         text: "Divider",
-//         description: "Visually divide blocks.",
-//         img: "https://www.notion.so/images/blocks/divider.210d0faf.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleIndentList(editor, {
-//             listStyleType: ListStyleType.Decimal,
-//           });
-//           focusEditor(editor);
-//         },
-//       },
-//       {
-//         key: ELEMENT_TOGGLE,
-//         text: "Toggle",
-//         description: "Toggles can hide and show content inside.",
-//         img: "https://www.notion.so/images/blocks/toggle.5e462b2a.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleIndentList(editor, {
-//             listStyleType: ListStyleType.Decimal,
-//           });
-//           focusEditor(editor);
-//         },
-//       },
-//       {
-//         key: ELEMENT_LINK,
-//         text: "Link",
-//         description: "Save a link as a visual bookmark.",
-//         img: "https://www.notion.so/images/blocks/web-bookmark.82a15180.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleIndentList(editor, {
-//             listStyleType: ListStyleType.Decimal,
-//           });
-//           focusEditor(editor);
-//         },
-//       },
-//     ],
-//   },
-
-//   //media
-//   {
-//     label: "Basic blocks",
-//     items: [
-//       {
-//         key: ELEMENT_UPLOAD_IMAGE,
-//         text: "Upload image",
-//         description: "Upload an image from your computer",
-//         img: "https://www.notion.so/images/import/import.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleIndentList(editor, {
-//             listStyleType: ListStyleType.Decimal,
-//           });
-//           focusEditor(editor);
-//         },
-//       },
-//       {
-//         key: ELEMENT_UPLOAD_VIDEO,
-//         text: "Upload video",
-//         description: "Upload a video from your computer",
-//         img: "https://www.notion.so/images/blocks/video.ceeec2c7.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleIndentList(editor, {
-//             listStyleType: ListStyleType.Decimal,
-//           });
-//           focusEditor(editor);
-//         },
-//       },
-//       {
-//         key: ELEMENT_IMAGE,
-//         text: "Image",
-//         description: "Embed with a link.",
-//         img: "https://www.notion.so/images/blocks/image.33d80a98.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleIndentList(editor, {
-//             listStyleType: ListStyleType.Decimal,
-//           });
-//           focusEditor(editor);
-//         },
-//       },
-//       {
-//         key: ELEMENT_MEDIA_EMBED,
-//         text: "Embed",
-//         description: "Embed with a link (video ,social-media posts)",
-//         img: "https://www.notion.so/images/blocks/embed.6a481331.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleIndentList(editor, {
-//             listStyleType: ListStyleType.Decimal,
-//           });
-//           focusEditor(editor);
-//         },
-//       },
-//       {
-//         key: ELEMENT_CODE_BLOCK,
-//         text: "Code",
-//         description: "Capture a code snippet.",
-//         img: "https://www.notion.so/images/blocks/code.a8b201f4.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleIndentList(editor, {
-//             listStyleType: ListStyleType.Decimal,
-//           });
-//           focusEditor(editor);
-//         },
-//       },
-//       {
-//         key: ELEMENT_UPLOAD_FILE,
-//         text: "Upload file",
-//         description: "Upload a file  from your computer",
-//         img: "https://www.notion.so/images/blocks/file.4fade042.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleIndentList(editor, {
-//             listStyleType: ListStyleType.Decimal,
-//           });
-//           focusEditor(editor);
-//         },
-//       },
-//     ],
-//   },
-//   {
-//     label: "Basic blocks",
-//     items: [
-//       {
-//         key: ELEMENT_EXCALIDRAW,
-//         text: "Excalidraw",
-//         description: "Embed an Excalidraw whiteboard.",
-//         img: "https://www.notion.so/images/blocks/excalidraw.b2dad901.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleIndentList(editor, {
-//             listStyleType: ListStyleType.Decimal,
-//           });
-//           focusEditor(editor);
-//         },
-//       },
-//       {
-//         key: ELEMENT_MATH,
-//         text: "Math",
-//         description: "Capture Mathematic Operations",
-//         img: "https://www.notion.so/images/import/csv.png",
-//         onTrigger(editor: PlateEditor) {
-//           toggleIndentList(editor, {
-//             listStyleType: ListStyleType.Decimal,
-//           });
-//           focusEditor(editor);
-//         },
-//       },
-//     ],
-//   },
-// ];

@@ -3,7 +3,6 @@ import * as Popover from "@radix-ui/react-popover";
 import { cn, withRef } from "@udecode/cn";
 import {
   comboboxActions,
-  ComboboxContentItemProps,
   ComboboxContentProps,
   ComboboxProps,
   useActiveComboboxStore,
@@ -27,7 +26,7 @@ export const ComboboxItem = withRef<"div", any>(
     return (
       <div
         ref={ref}
-        className="relative flex gap-2  min-w-[200px] cursor-pointer select-none items-center rounded-sm p-1  text-sm outline-none [direction:rtl] transition-colors hover:bg-gray-100 focus:text-gray-900   data-[highlighted=true]:bg-accent data-[highlighted=true]:text-accent-foreground "
+        className="relative flex gap-2  min-w-[200px] cursor-pointer select-none items-center rounded-sm p-1  text-sm outline-none  transition-colors hover:bg-gray-100 focus:text-gray-900   data-[highlighted=true]:bg-accent data-[highlighted=true]:text-accent-foreground "
         {...props}
         {...rest}
       >
@@ -62,6 +61,32 @@ export function ComboboxContent(props: ComboboxContentProps) {
   const state = useComboboxContentState({ items, combobox });
   const { menuProps, targetRange } = useComboboxContent(state);
 
+  // const basicBlocks = filteredItems?.filter(
+  //   (ele: any) => ele?.blocksName === "Basic Blocks"
+  // );
+  // const mediaBlocks = filteredItems?.filter(
+  //   (ele: any) => ele?.blocksName === "Media"
+  // );
+
+  // const embedsBlocks = filteredItems?.filter(
+  //   (ele: any) => ele?.blocksName === "Embeds"
+  // );
+
+  // const resultItems = [
+  //   {
+  //     label: "الكتل الأساسية",
+  //     items: basicBlocks,
+  //   },
+  //   {
+  //     label: "وسائط",
+  //     items: mediaBlocks,
+  //   },
+  //   {
+  //     label: "تضمينات",
+  //     items: embedsBlocks,
+  //   },
+  // ];
+
   return (
     <Popover.Root open>
       <Popover.PopoverAnchor
@@ -75,7 +100,7 @@ export function ComboboxContent(props: ComboboxContentProps) {
           side="bottom"
           align="start"
           className={cn(
-            "z-[500] m-0 max-h-[400px] w-[330px] overflow-y-scroll rounded-md bg-popover p-2 py-6 shadow-md flex flex-col gap-1"
+            "z-[500] m-0 max-h-[400px] [direction:rtl] w-[330px] overflow-y-scroll rounded-md bg-popover p-2 shadow-md flex flex-col gap-1 "
           )}
           onOpenAutoFocus={(event) => event.preventDefault()}
         >
@@ -90,6 +115,23 @@ export function ComboboxContent(props: ComboboxContentProps) {
               onRenderItem={onRenderItem}
             />
           ))}
+          {/* {resultItems?.map((el, index) => (
+            <div key={index} className="flex flex-col gap-2">
+              {index !== 0 && <hr className="mt-4" />}
+              <p className={`text-xs text-gray-400 mt-2`}>{el.label}</p>
+              <div className="flex flex-col gap-1">
+                {el.items.map((item, index) => (
+                  <ComboboxItem
+                    key={item.key}
+                    item={item}
+                    combobox={combobox}
+                    index={index}
+                    onRenderItem={onRenderItem}
+                  />
+                ))}
+              </div>
+            </div>
+          ))} */}
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>

@@ -1,4 +1,4 @@
-import type { Path } from 'slate';
+import type { Path } from "slate";
 
 import {
   type EText,
@@ -8,9 +8,9 @@ import {
   getNodeString,
   replaceNode,
   withoutNormalizing,
-} from '@udecode/plate-common';
+} from "@udecode/plate-common";
 
-import type { TSlashInputElement } from '../types';
+import type { TSlashInputElement } from "../types";
 
 export const removeSlashInput = <V extends Value>(
   editor: PlateEditor<V>,
@@ -21,12 +21,12 @@ export const removeSlashInput = <V extends Value>(
 
     if (!node) return;
 
-    const { trigger } = node;
+    // const { trigger } = node;
 
     const text = getNodeString(node);
 
     replaceNode(editor, {
       at: path,
-      nodes: { text: `${trigger}${text}` } as EText<V>,
+      nodes: { text: `${text}` } as EText<V>,
     });
   });

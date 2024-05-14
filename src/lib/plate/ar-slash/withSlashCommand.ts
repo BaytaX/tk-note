@@ -1,4 +1,4 @@
-import { comboboxActions } from '@udecode/plate-combobox';
+import { comboboxActions } from "@udecode/plate-combobox";
 import {
   type PlateEditor,
   type TNode,
@@ -12,18 +12,18 @@ import {
   getRange,
   moveSelection,
   setSelection,
-} from '@udecode/plate-common';
-import { Range } from 'slate';
+} from "@udecode/plate-common";
+import { Range } from "slate";
 
-import type { SlashPlugin, TSlashInputElement } from './types';
+import type { SlashPlugin, TSlashInputElement } from "./types";
 
-import { ELEMENT_SLASH_AR_INPUT } from './createSlashPlugin';
+import { ELEMENT_SLASH_AR_INPUT } from "./createSlashPlugin";
 import {
   findSlashInput,
   isNodeSlashInput,
   isSelectionInSlashInput,
-} from './queries/index';
-import { removeSlashInput } from './transforms';
+} from "./queries/index";
+import { removeSlashInput } from "./transforms";
 
 export const withSlashCommand = <
   V extends Value = Value,
@@ -50,7 +50,7 @@ export const withSlashCommand = <
     return text
       .split(/\r\n|\r|\n/)
       .map((line) => line.trim())
-      .join('');
+      .join("");
   };
 
   editor.insertFragment = (fragment) => {
@@ -61,7 +61,7 @@ export const withSlashCommand = <
     }
 
     return insertText(
-      fragment.map((node) => stripNewLineAndTrim(getNodeString(node))).join('')
+      fragment.map((node) => stripNewLineAndTrim(getNodeString(node))).join("")
     );
   };
 
@@ -72,7 +72,7 @@ export const withSlashCommand = <
       return insertTextData(data);
     }
 
-    const text = data.getData('text/plain');
+    const text = data.getData("text/plain");
 
     if (!text) {
       return false;
@@ -86,10 +86,10 @@ export const withSlashCommand = <
   editor.deleteBackward = (unit) => {
     const currentSlashInput = findSlashInput(editor);
 
-    if (currentSlashInput && getNodeString(currentSlashInput[0]) === '') {
+    if (currentSlashInput && getNodeString(currentSlashInput[0]) === "") {
       removeSlashInput(editor, currentSlashInput[1]);
 
-      return moveSelection(editor, { unit: 'word' });
+      return moveSelection(editor, { unit: "word" });
     }
 
     deleteBackward(unit);
@@ -127,7 +127,7 @@ export const withSlashCommand = <
 
     if (matchesPreviousCharPattern && text === trigger) {
       const data: TSlashInputElement = {
-        children: [{ text: '' }],
+        children: [{ text: "" }],
         trigger,
         type,
       };
@@ -145,13 +145,13 @@ export const withSlashCommand = <
   editor.apply = (operation) => {
     apply(operation);
 
-    if (operation.type === 'insert_text' || operation.type === 'remove_text') {
+    if (operation.type === "insert_text" || operation.type === "remove_text") {
       const currentSlashInput = findSlashInput(editor);
 
       if (currentSlashInput) {
         comboboxActions.text(getNodeString(currentSlashInput[0]));
       }
-    } else if (operation.type === 'set_selection') {
+    } else if (operation.type === "set_selection") {
       const previousSlashInputPath = Range.isRange(operation.properties)
         ? findSlashInput(editor, {
             at: operation.properties,
@@ -166,13 +166,13 @@ export const withSlashCommand = <
 
       if (previousSlashInputPath && !currentSlashInputPath) {
         removeSlashInput(editor, previousSlashInputPath);
-        moveSelection(editor, { unit: 'word' });
+        moveSelection(editor, { unit: "word" });
       }
       if (currentSlashInputPath) {
         comboboxActions.targetRange(editor.selection);
       }
     } else if (
-      operation.type === 'insert_node' &&
+      operation.type === "insert_node" &&
       isNodeSlashInput(editor, operation.node as TNode)
     ) {
       if ((operation.node as TSlashInputElement).trigger !== trigger) {
@@ -181,7 +181,7 @@ export const withSlashCommand = <
 
       const text =
         ((operation.node as TSlashInputElement).children as TText[])[0]?.text ??
-        '';
+        "";
 
       if (
         inputCreation === undefined ||
@@ -202,7 +202,7 @@ export const withSlashCommand = <
         });
       }
     } else if (
-      operation.type === 'remove_node' &&
+      operation.type === "remove_node" &&
       isNodeSlashInput(editor, operation.node as TNode)
     ) {
       if ((operation.node as TSlashInputElement).trigger !== trigger) {

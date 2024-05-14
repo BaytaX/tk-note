@@ -3,7 +3,6 @@ import * as Popover from "@radix-ui/react-popover";
 import { cn, withRef } from "@udecode/cn";
 import {
   comboboxActions,
-  ComboboxContentItemProps,
   ComboboxContentProps,
   ComboboxProps,
   useActiveComboboxStore,
@@ -56,12 +55,37 @@ export function ComboboxContent(props: ComboboxContentProps) {
   } = props;
 
   const editor = useEditorRef();
-
   const filteredItems = useComboboxSelectors.filteredItems();
   const activeComboboxStore = useActiveComboboxStore()!;
 
   const state = useComboboxContentState({ items, combobox });
   const { menuProps, targetRange } = useComboboxContent(state);
+
+  // const basicBlocks = filteredItems?.filter(
+  //   (ele: any) => ele?.blocksName === "Basic Blocks"
+  // );
+  // const mediaBlocks = filteredItems?.filter(
+  //   (ele: any) => ele?.blocksName === "Media"
+  // );
+
+  // const embedsBlocks = filteredItems?.filter(
+  //   (ele: any) => ele?.blocksName === "Embeds"
+  // );
+
+  // const resultItems = [
+  //   {
+  //     label: "Basic Blocks",
+  //     items: basicBlocks,
+  //   },
+  //   {
+  //     label: "Media",
+  //     items: mediaBlocks,
+  //   },
+  //   {
+  //     label: "Embeds",
+  //     items: embedsBlocks,
+  //   },
+  // ];
 
   return (
     <Popover.Root open>
@@ -76,7 +100,7 @@ export function ComboboxContent(props: ComboboxContentProps) {
           side="bottom"
           align="start"
           className={cn(
-            "z-[500] m-0 max-h-[400px] w-[330px] overflow-y-scroll rounded-md bg-popover p-2 py-6 shadow-md flex flex-col gap-1"
+            "z-[500] m-0 max-h-[400px] w-[330px] overflow-y-scroll rounded-md bg-popover p-2  shadow-md flex flex-col gap-1"
           )}
           onOpenAutoFocus={(event) => event.preventDefault()}
         >
@@ -91,6 +115,24 @@ export function ComboboxContent(props: ComboboxContentProps) {
               onRenderItem={onRenderItem}
             />
           ))}
+
+          {/* {resultItems?.map((el, index) => (
+            <div key={index} className="flex flex-col gap-2">
+              {index !== 0 && <hr className="mt-4" />}
+              <p className={`text-xs text-gray-400 mt-2`}>{el.label}</p>
+              <div className="flex flex-col gap-1">
+                {el.items.map((item, index) => (
+                  <ComboboxItem
+                    key={item.key}
+                    item={item}
+                    combobox={combobox}
+                    index={index}
+                    onRenderItem={onRenderItem}
+                  />
+                ))}
+              </div>
+            </div>
+          ))} */}
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>
