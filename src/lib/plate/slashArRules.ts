@@ -200,7 +200,7 @@ export const SLASH_AR_RULES: SlashRule[] = [
     key: ELEMENT_IMAGE,
     text: "صورة",
     description: "تضمين بواسطة رابط.",
-    img: "https://www.notion.so/images/blocks/image.33d80a98.png",
+    img: "https://m.media-amazon.com/images/I/81Ow+8sxGFL._AC_UF1000,1000_QL80_.jpg",
     onTrigger(editor: PlateEditor) {
       insertMedia(editor, { type: ELEMENT_IMAGE });
       focusEditor(editor);

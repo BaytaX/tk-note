@@ -12,7 +12,6 @@ import {
 import FileIcon from "../../../assets/icons/upload-file.png";
 import DefaultFile from "../../../assets/icons/default-file.svg";
 import { ResizableProvider } from "@udecode/plate-resizable";
-import DownloadIcon from "../../../assets/icons/download-white.png";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../tooltip/tooltip";
 import { insertFile } from "../../../lib/plate/insertFile";
 import Pdf from "../../../assets/icons/pdf.png";
@@ -20,6 +19,7 @@ import Xls from "../../../assets/icons/xls.png";
 import Docs from "../../../assets/icons/google-docs.png";
 import { useState } from "react";
 import Spinner from "../spinner/spinner";
+import { Download } from "lucide-react";
 
 const TYPES_ICONS = new Map<string, string>([
   ["application/pdf", Pdf],
@@ -72,23 +72,22 @@ export const UploadFileElement = withHOC(
         })
           .then((response) => response.json())
           .then(async (data) => {
-            console.log(file);
             const url = data.secure_url;
-            file.url = url;
-            console.log(url);
+            const fileObj = {
+              url,
+              name: data.original_filename,
+              type: file.type,
+            };
             const x = getNode(editor, []);
             const elements: any = x?.children;
-            console.log(props.element.id);
             const index = elements.findIndex(
               (el: any) =>
                 el.type === "upload-file" && el.id === props.element.id
             );
-            console.log(index);
             removeNodes(editor, {
               at: [index],
             });
-            console.log(file);
-            await insertFile(editor, { file: file }, { at: [index - 1] });
+            await insertFile(editor, { file: fileObj }, { at: [index - 1] });
           })
           .catch((error) => {
             console.error("Error uploading the file:", error);
@@ -223,8 +222,9 @@ export const UploadFileElement = withHOC(
                       style={{
                         textWrap: "nowrap",
                         textOverflow: "ellipsis",
-                        maxWidth: "5rem",
+                        maxWidth: "6rem",
                         overflow: "hidden",
+                        fontSize: "16px",
                       }}
                     >
                       {" "}
@@ -239,15 +239,7 @@ export const UploadFileElement = withHOC(
                       downloadFile(e, (props?.element?.file as FileObject)?.url)
                     }
                   >
-                    <img
-                      style={{
-                        height: "20px",
-                        width: "20px",
-                        cursor: "pointer",
-                      }}
-                      src={DownloadIcon}
-                      alt="download"
-                    />
+                    <Download className=" w-5 stroke-black dark:stroke-white" />
                   </button>
                 </div>
               </div>

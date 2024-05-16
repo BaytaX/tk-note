@@ -83,6 +83,7 @@ export const SLASH_RULES: SlashRule[] = [
         select: true,
         nextBlock: true,
       });
+      focusEditor(editor);
     },
     blocksName: "Basic Blocks",
   },
@@ -200,7 +201,7 @@ export const SLASH_RULES: SlashRule[] = [
     key: ELEMENT_IMAGE,
     text: "Image",
     description: "Embed with a link.",
-    img: "https://www.notion.so/images/blocks/image.33d80a98.png",
+    img: "https://m.media-amazon.com/images/I/81Ow+8sxGFL._AC_UF1000,1000_QL80_.jpg",
     onTrigger(editor: PlateEditor) {
       insertMedia(editor, { type: ELEMENT_IMAGE });
       focusEditor(editor);

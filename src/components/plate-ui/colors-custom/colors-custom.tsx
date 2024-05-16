@@ -1,11 +1,14 @@
-import { useColorsCustom, useColorsCustomState } from "@udecode/plate-font";
+// import { useColorsCustom, useColorsCustomState } from "@udecode/plate-font";
 
 import { buttonVariants } from "../button/button";
 import { DropdownMenuItem } from "../dropdown-menu/dropdown-menu";
 
 import { TColor } from "../color-dropdown-menu/color-dropdown-menu";
-import { ColorDropdownMenuItems } from "../color-dropdown-menu-items/color-dropdown-menu-items";
 import { ColorInput } from "../color-input/color-input";
+import {
+  useColorsCustom,
+  useColorsCustomState,
+} from "../../../hooks/useColorsCustom";
 
 type ColorsCustomProps = {
   color?: string;
@@ -19,7 +22,6 @@ export function ColorsCustom({
   color,
   colors,
   customColors,
-  updateColor,
   updateCustomColor,
 }: ColorsCustomProps) {
   const state = useColorsCustomState({
@@ -44,11 +46,11 @@ export function ColorsCustom({
         </DropdownMenuItem>
       </ColorInput>
 
-      <ColorDropdownMenuItems
+      {/* <ColorDropdownMenuItems
         color={color}
         colors={state.computedColors}
         updateColor={updateColor}
-      />
+      /> */}
     </div>
   );
 }

@@ -3,6 +3,7 @@ import {
   HotkeyPlugin,
   PlateElement,
   createPluginFactory,
+  useEditorRef,
   withHOC,
 } from "@udecode/plate-common";
 import { ResizableProvider } from "@udecode/plate-resizable";
@@ -23,7 +24,7 @@ export const InsertMathElement = withHOC(
   ResizableProvider,
   withRef<typeof PlateElement>(
     ({ className, children, nodeProps, ...props }, ref) => {
-      console.log(props.element?.mathValue);
+      const editor = useEditorRef();
       return (
         <Popover>
           <PlateElement
@@ -49,7 +50,10 @@ export const InsertMathElement = withHOC(
                 </div>
               ) : (
                 ReactDOM.createPortal(
-                  <MathComponent elementId={props?.element?.id as string} />,
+                  <MathComponent
+                    elementId={props?.element?.id as string}
+                    editor={editor}
+                  />,
                   document.getElementById("root")
                 )
               )}

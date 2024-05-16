@@ -47,9 +47,9 @@ export const TableCellElement = withRef<
       ref={ref}
       asChild
       className={cn(
-        "relative h-full overflow-visible border-none bg-background p-0",
+        "relative h-full overflow-visible border-none bg-transparent p-0",
         hideBorder && "before:border-none",
-        element.background ? "bg-[--cellBackground]" : "bg-background",
+        element.background ? "bg-[--cellBackground]" : "bg-transparent",
         !hideBorder &&
           cn(
             isHeader && "text-left [&_>_*]:m-0",

@@ -26,12 +26,12 @@ export const ComboboxItem = withRef<"div", any>(
     return (
       <div
         ref={ref}
-        className="relative flex gap-2  min-w-[200px] cursor-pointer select-none items-center rounded-sm p-1  text-sm outline-none  transition-colors hover:bg-gray-100 focus:text-gray-900   data-[highlighted=true]:bg-accent data-[highlighted=true]:text-accent-foreground "
+        className="relative flex gap-2  min-w-[200px] cursor-pointer select-none items-center rounded-sm p-1  text-sm outline-none  transition-colors hover:bg-accent focus:text-gray-900   data-[highlighted=true]:bg-accent data-[highlighted=true]:text-accent-foreground "
         {...props}
         {...rest}
       >
         <img
-          className="w-12 h-12 border border-gray-200 rounded-md"
+          className="w-12 h-12 border border-gray-200 rounded-md bg-white"
           src={item.img}
           alt={item.text}
         />

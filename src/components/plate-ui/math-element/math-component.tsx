@@ -4,15 +4,15 @@ import React, { useRef, useState } from "react";
 import * as MathType from "@wiris/mathtype-generic";
 
 import EquationEditor from "./WirisEquationEditor.jsx";
-import { getNode, removeNodes, useEditorRef } from "@udecode/plate-common";
+import { getNode, removeNodes } from "@udecode/plate-common";
 import { insertMath } from "../../../lib/plate/insertMath.js";
 
 interface MyComponentProps {
   elementId: string;
+  editor: any;
 }
 
-const MathComponent: React.FC<MyComponentProps> = ({ elementId }) => {
-  const editor = useEditorRef();
+const MathComponent: React.FC<MyComponentProps> = ({ elementId, editor }) => {
   const toolbarRef = useRef<HTMLDivElement>(null);
   const [mathValue, setMathValue] = useState("");
   const [isOpen, setIsOpen] = useState(true);
@@ -21,11 +21,6 @@ const MathComponent: React.FC<MyComponentProps> = ({ elementId }) => {
     const mathFormat = (window as any).WirisPlugin.Parser.endParse(
       event.target.value
     );
-    console.log(
-      "Here is the new html, but the equation is in math format",
-      mathFormat
-    );
-
     setMathValue(mathFormat);
   };
 
@@ -33,14 +28,13 @@ const MathComponent: React.FC<MyComponentProps> = ({ elementId }) => {
     setIsOpen(false);
     const x = getNode(editor, []);
     const elements: any = x?.children;
-    console.log(elements);
     const index = elements.findIndex(
       (el: any) => el.type === "insert-math" && el.id === elementId
     );
     removeNodes(editor, {
       at: [index],
     });
-    insertMath(editor, { mathValue });
+    insertMath(editor, { mathValue: mathValue.replaceAll('"', "“") });
   };
 
   const handleCancel = () => {
@@ -58,10 +52,10 @@ const MathComponent: React.FC<MyComponentProps> = ({ elementId }) => {
   return (
     <>
       {isOpen && (
-        <div className="overflow-y-auto overflow-x-hidden flex backdrop-blur-sm fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div className="overflow-y-auto overflow-x-hidden flex backdrop-blur-sm fixed top-0 right-0 left-0 z-[999999] justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full ">
           <div className="relative p-4 w-full max-w-2xl max-h-full">
-            <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-              <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+            <div className="relative bg-white p-4 rounded-lg shadow dark:bg-gray-700">
+              <div className="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                   Mathematics + Chemistry Operations
                 </h3>
@@ -88,8 +82,8 @@ const MathComponent: React.FC<MyComponentProps> = ({ elementId }) => {
                   <span className="sr-only">Close modal</span>
                 </button>
               </div>
-              <div>
-                <p>Click : √ for Math C for Chemistry</p>
+              <div className="mt-4">
+                <p>Click : √ for Math , C for Chemistry</p>
               </div>
               <>
                 <div ref={toolbarRef} />

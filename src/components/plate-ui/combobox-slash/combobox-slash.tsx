@@ -23,16 +23,16 @@ import { createVirtualRef } from "@udecode/plate-floating";
 export const ComboboxItem = withRef<"div", any>(
   ({ combobox, index, item, onRenderItem, className, ...rest }, ref) => {
     const { props } = useComboboxItem({ item, index, combobox, onRenderItem });
-    // console.log(props);
+
     return (
       <div
         ref={ref}
-        className="relative flex gap-2  min-w-[200px] cursor-pointer select-none items-center rounded-sm p-1  text-sm outline-none transition-colors hover:bg-gray-100 focus:text-gray-900   data-[highlighted=true]:bg-accent data-[highlighted=true]:text-accent-foreground "
+        className="relative flex gap-2  min-w-[200px] cursor-pointer select-none items-center rounded-sm p-1  text-sm outline-none transition-colors hover:bg-accent  focus:text-gray-900   data-[highlighted=true]:bg-accent data-[highlighted=true]:text-accent-foreground "
         {...props}
         {...rest}
       >
         <img
-          className="w-12 h-12 border border-gray-200 rounded-md"
+          className="w-12 h-12 border border-gray-200 rounded-md bg-white"
           src={item.img}
           alt={item.text}
         />
@@ -100,7 +100,7 @@ export function ComboboxContent(props: ComboboxContentProps) {
           side="bottom"
           align="start"
           className={cn(
-            "z-[500] m-0 max-h-[400px] w-[330px] overflow-y-scroll rounded-md bg-popover p-2  shadow-md flex flex-col gap-1"
+            "z-[500] m-0 max-h-[400px] w-[330px] overflow-y-scroll rounded-md bg-popover dark:bg-[#191919] p-2  shadow-md flex flex-col gap-1"
           )}
           onOpenAutoFocus={(event) => event.preventDefault()}
         >

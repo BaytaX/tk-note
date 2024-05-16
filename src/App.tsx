@@ -1,11 +1,10 @@
-import { SoftyEditor } from "./components/plate-editor";
-import { usePDF } from "react-to-pdf";
-import { plugins } from "./lib/plate/plate-plugins";
+import { SoftyNote } from "./components/softy-note";
+// import { usePDF } from "react-to-pdf";
 
 function App() {
-  const { toPDF, targetRef }: { toPDF: any; targetRef: any } = usePDF({
-    filename: "page.pdf",
-  });
+  // const { toPDF, targetRef }: { toPDF: any; targetRef: any } = usePDF({
+  //   filename: "page.pdf",
+  // });
   const initialValue = [
     {
       type: "h2",
@@ -132,21 +131,21 @@ function App() {
   return (
     <div id="root">
       <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
-        <button onClick={toPDF}>Download PDF</button>
+        {/* <button onClick={toPDF}>Download PDF</button>
         <div className="flex max-w-[980px] flex-col items-start gap-2">
           <h1 className="text-3xl font-bold leading-tight  md:text-4xl">
             Softy Editor
           </h1>
         </div>
-        <div ref={targetRef}>
-          <SoftyEditor
+        <div ref={targetRef}> */}
+        <div className="border border-black">
+          <SoftyNote
             onChange={(e) => console.log(e)}
             initialValue={initialValue}
-            plugins={plugins}
-            key={"test"}
             readOnly={false}
           />
         </div>
+        {/* </div> */}
       </section>
     </div>
   );

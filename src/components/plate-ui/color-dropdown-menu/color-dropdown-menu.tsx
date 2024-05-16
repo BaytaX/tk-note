@@ -49,7 +49,7 @@ export function ColorDropdownMenu({
         </ToolbarButton>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="start">
+      <DropdownMenuContent align="start" className="!z-[120]">
         <ColorPicker
           color={state.selectedColor || state.color}
           colors={state.colors}

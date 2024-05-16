@@ -30,7 +30,6 @@ class WirisEquationEditor extends Component {
 
     const genericIntegrationInstance =
       new window.WirisPlugin.GenericIntegration(genericIntegrationProperties);
-    console.log(genericIntegrationInstance);
 
     genericIntegrationInstance.init();
     genericIntegrationInstance.listeners.fire("onTargetReady", {});

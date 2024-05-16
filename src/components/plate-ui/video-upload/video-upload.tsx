@@ -46,7 +46,6 @@ export const UploadVideoElement = ({
       .then((response) => response.json())
       .then(async (data) => {
         const url = data.secure_url;
-        console.log(url);
         const x = getNode(editor, []);
         const elements: any = x?.children;
         const index = elements.findIndex(
