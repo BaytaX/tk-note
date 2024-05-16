@@ -179,7 +179,7 @@ export const SLASH_RULES: SlashRule[] = [
     key: ELEMENT_UPLOAD_IMAGE,
     text: "Upload image",
     description: "Upload an image from your computer",
-    img: "https://www.notion.so/images/import/import.png",
+    img: "https://res.cloudinary.com/df4jaqtep/image/upload/v1715854685/uplaod_azqpli.png",
     onTrigger(editor: PlateEditor) {
       insertEmptyElement(editor, ELEMENT_UPLOAD_IMAGE);
       focusEditor(editor);
