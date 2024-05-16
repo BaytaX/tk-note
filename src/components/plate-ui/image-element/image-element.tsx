@@ -17,7 +17,7 @@ export const ImageElement = withHOC(
     ({ className, children, nodeProps, ...props }, ref) => {
       const { readOnly, focused, selected, align = "center" } = useMediaState();
       const width = useResizableStore().get.width();
-
+      console.log(readOnly);
       return (
         <MediaPopover pluginKey={ELEMENT_IMAGE}>
           <PlateElement
@@ -33,23 +33,41 @@ export const ImageElement = withHOC(
                   readOnly,
                 }}
               >
-                <ResizeHandle
-                  options={{ direction: "left" }}
-                  className={mediaResizeHandleVariants({ direction: "left" })}
-                />
-                <Image
-                  className={cn(
-                    "block w-full max-w-full cursor-pointer object-cover px-0",
-                    "rounded-sm",
-                    focused && selected && "ring-2 ring-ring ring-offset-2"
-                  )}
-                  alt=""
-                  {...nodeProps}
-                />
-                <ResizeHandle
-                  options={{ direction: "right" }}
-                  className={mediaResizeHandleVariants({ direction: "right" })}
-                />
+                {readOnly ? (
+                  <Image
+                    className={cn(
+                      "block w-full max-w-full cursor-pointer object-cover px-0",
+                      "rounded-sm",
+                      focused && selected && "ring-2 ring-ring ring-offset-2"
+                    )}
+                    alt=""
+                    {...nodeProps}
+                  />
+                ) : (
+                  <>
+                    <ResizeHandle
+                      options={{ direction: "left" }}
+                      className={mediaResizeHandleVariants({
+                        direction: "left",
+                      })}
+                    />
+                    <Image
+                      className={cn(
+                        "block w-full max-w-full cursor-pointer object-cover px-0",
+                        "rounded-sm",
+                        focused && selected && "ring-2 ring-ring ring-offset-2"
+                      )}
+                      alt=""
+                      {...nodeProps}
+                    />
+                    <ResizeHandle
+                      options={{ direction: "right" }}
+                      className={mediaResizeHandleVariants({
+                        direction: "right",
+                      })}
+                    />
+                  </>
+                )}
               </Resizable>
 
               <Caption align={align} style={{ width }}>

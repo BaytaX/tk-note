@@ -87,7 +87,7 @@ export const UploadFileElement = withHOC(
             removeNodes(editor, {
               at: [index],
             });
-            await insertFile(editor, { file: fileObj }, { at: [index - 1] });
+            await insertFile(editor, { file: fileObj }, { at: [index ] });
           })
           .catch((error) => {
             console.error("Error uploading the file:", error);

@@ -57,7 +57,7 @@ export const UploadImageElement = withHOC(
             removeNodes(editor, {
               at: [index],
             });
-            await insertImage(editor, url, { at: [index - 1] });
+            await insertImage(editor, url, { at: [index] });
           })
           .catch((error) => {
             console.error("Error uploading the file:", error);

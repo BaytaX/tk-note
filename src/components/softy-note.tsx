@@ -22,9 +22,9 @@ import "../assets/App.css";
 import { plugins } from "../lib/plate/plate-plugins";
 
 type SoftyEditor = {
-  onChange?: (e: any) => void;
   initialValue: any;
-  readOnly: boolean;
+  onChange?: (e: any) => void;
+  readOnly?: boolean;
   editorClassName?: string;
 };
 
@@ -55,7 +55,7 @@ export function SoftyNote({
               )}
             >
               <Editor
-                className={`py-16 bg-transparent ${editorClassName}`}
+                className={`px-20 py-16 bg-transparent ${editorClassName}`}
                 autoFocus
                 focusRing={false}
                 variant="ghost"

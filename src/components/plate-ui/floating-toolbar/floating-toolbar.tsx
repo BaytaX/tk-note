@@ -24,12 +24,7 @@ export const FloatingToolbar = withRef<
         offset(12),
         flip({
           padding: 12,
-          fallbackPlacements: [
-            "top-start",
-            "top-end",
-            "bottom-start",
-            "bottom-end",
-          ],
+          fallbackPlacements: ["bottom-start"],
         }),
       ],
       ...state?.floatingOptions,
@@ -51,7 +46,7 @@ export const FloatingToolbar = withRef<
       <Toolbar
         ref={ref}
         className={cn(
-          "absolute z-50 flex-wrap-  border bg-popover px-1 opacity-100 shadow-md print:hidden"
+          "absolute z-50 flex-wrap  border bg-popover px-1 opacity-100 shadow-md print:hidden"
         )}
         {...rootProps}
         {...props}

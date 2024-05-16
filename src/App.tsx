@@ -142,7 +142,7 @@ function App() {
           <SoftyNote
             onChange={(e) => console.log(e)}
             initialValue={initialValue}
-            readOnly={false}
+            readOnly={true}
           />
         </div>
         {/* </div> */}
