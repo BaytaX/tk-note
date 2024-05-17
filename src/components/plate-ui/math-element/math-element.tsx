@@ -31,6 +31,7 @@ export const InsertMathElement = withHOC(
             ref={ref}
             className={cn("py-2.5", className)}
             {...props}
+            contentEditable={false}
           >
             <div
               style={{
@@ -40,7 +41,10 @@ export const InsertMathElement = withHOC(
               }}
             >
               {props.element?.mathValue ? (
-                <div className="flex items-center justify-center h-full">
+                <div
+                  className="flex items-center justify-center h-full"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <div
                     dangerouslySetInnerHTML={{
                       __html: props.element?.mathValue as string,

@@ -26,8 +26,8 @@ export const ComboboxItem = withRef<"div", any>(
       combobox,
       index,
       item,
-      slashItemClassName,
       onRenderItem,
+      MentionComponentItem,
       className,
       ...rest
     },
@@ -38,19 +38,19 @@ export const ComboboxItem = withRef<"div", any>(
     return (
       <div
         ref={ref}
-        className={`relative flex gap-2  min-w-[200px] cursor-pointer select-none items-center rounded-sm p-1  text-sm outline-none transition-colors hover:bg-accent  focus:text-gray-900   data-[highlighted=true]:bg-accent data-[highlighted=true]:text-accent-foreground ${slashItemClassName} `}
+        className={cn(
+          "relative flex h-9 cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors",
+          "hover:bg-accent hover:text-accent-foreground data-[highlighted=true]:bg-accent data-[highlighted=true]:text-accent-foreground",
+          className
+        )}
         {...props}
         {...rest}
       >
-        <img
-          className="w-12 h-12 border border-gray-200 rounded-md bg-white"
-          src={item.img}
-          alt={item.text}
-        />
-        <div className="flex flex-col  ">
+        {MentionComponentItem ? (
+          <MentionComponentItem item={item} />
+        ) : (
           <p>{item.text}</p>
-          <p className="text-xs text-gray-500">{item.description}</p>
-        </div>
+        )}
       </div>
     );
   }
@@ -58,52 +58,27 @@ export const ComboboxItem = withRef<"div", any>(
 
 export function ComboboxContent(
   props: ComboboxContentProps & {
-    slashComponentClassName?: string;
-    slashItemClassName?: string;
+    MentionComponentItem?: JSX.Element;
+    mentionComponentClassName?: string;
   }
 ) {
   const {
     component: Component,
+    MentionComponentItem,
+    mentionComponentClassName,
     items,
     portalElement,
     combobox,
-    slashComponentClassName,
-    slashItemClassName,
     onRenderItem,
   } = props;
 
   const editor = useEditorRef();
+
   const filteredItems = useComboboxSelectors.filteredItems();
   const activeComboboxStore = useActiveComboboxStore()!;
 
   const state = useComboboxContentState({ items, combobox });
   const { menuProps, targetRange } = useComboboxContent(state);
-
-  // const basicBlocks = filteredItems?.filter(
-  //   (ele: any) => ele?.blocksName === "Basic Blocks"
-  // );
-  // const mediaBlocks = filteredItems?.filter(
-  //   (ele: any) => ele?.blocksName === "Media"
-  // );
-
-  // const embedsBlocks = filteredItems?.filter(
-  //   (ele: any) => ele?.blocksName === "Embeds"
-  // );
-
-  // const resultItems = [
-  //   {
-  //     label: "Basic Blocks",
-  //     items: basicBlocks,
-  //   },
-  //   {
-  //     label: "Media",
-  //     items: mediaBlocks,
-  //   },
-  //   {
-  //     label: "Embeds",
-  //     items: embedsBlocks,
-  //   },
-  // ];
 
   return (
     <Popover.Root open>
@@ -118,7 +93,7 @@ export function ComboboxContent(
           side="bottom"
           align="start"
           className={cn(
-            `z-[500] m-0 max-h-[400px] w-[330px] overflow-y-auto rounded-md bg-popover dark:bg-[#191919] p-2  shadow-md flex flex-col gap-1 ${slashComponentClassName}`
+            `z-[500] m-0 flex flex-col gap-2 max-h-[288px] w-[300px] overflow-y-auto rounded-md bg-popover p-0 shadow-md ${mentionComponentClassName}`
           )}
           onOpenAutoFocus={(event) => event.preventDefault()}
         >
@@ -131,34 +106,16 @@ export function ComboboxContent(
               combobox={combobox}
               index={index}
               onRenderItem={onRenderItem}
-              slashItemClassName={slashItemClassName}
+              MentionComponentItem={MentionComponentItem}
             />
           ))}
-
-          {/* {resultItems?.map((el, index) => (
-            <div key={index} className="flex flex-col gap-2">
-              {index !== 0 && <hr className="mt-4" />}
-              <p className={`text-xs text-gray-400 mt-2`}>{el.label}</p>
-              <div className="flex flex-col gap-1">
-                {el.items.map((item, index) => (
-                  <ComboboxItem
-                    key={item.key}
-                    item={item}
-                    combobox={combobox}
-                    index={index}
-                    onRenderItem={onRenderItem}
-                  />
-                ))}
-              </div>
-            </div>
-          ))} */}
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>
   );
 }
 
-export function ComboboxSlash({
+export function ComboboxMention({
   id,
   trigger,
   searchPattern,
@@ -167,13 +124,13 @@ export function ComboboxSlash({
   maxSuggestions,
   filter,
   sort,
-  slashComponentClassName,
-  slashItemClassName,
   disabled: _disabled,
+  MentionComponentItem,
+  mentionComponentClassName,
   ...props
 }: ComboboxProps & {
-  slashComponentClassName?: string;
-  slashItemClassName?: string;
+  MentionComponentItem?: JSX.Element;
+  mentionComponentClassName?: string;
 }) {
   const storeItems = useComboboxSelectors.items();
   const disabled =
@@ -220,5 +177,12 @@ export function ComboboxSlash({
     return null;
   }
 
-  return <ComboboxContent combobox={combobox} {...props} />;
+  return (
+    <ComboboxContent
+      MentionComponentItem={MentionComponentItem}
+      mentionComponentClassName={mentionComponentClassName}
+      combobox={combobox}
+      {...props}
+    />
+  );
 }

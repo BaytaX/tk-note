@@ -87,7 +87,7 @@ export const UploadFileElement = withHOC(
             removeNodes(editor, {
               at: [index],
             });
-            await insertFile(editor, { file: fileObj }, { at: [index ] });
+            await insertFile(editor, { file: fileObj }, { at: [index] });
           })
           .catch((error) => {
             console.error("Error uploading the file:", error);
@@ -105,7 +105,12 @@ export const UploadFileElement = withHOC(
       };
 
       return (
-        <>
+        <PlateElement
+          ref={ref}
+          className={cn("py-2.5", className)}
+          {...props}
+          contentEditable={false}
+        >
           {!props?.element?.file ? (
             <div
               style={{
@@ -245,7 +250,7 @@ export const UploadFileElement = withHOC(
               </div>
             </div>
           )}
-        </>
+        </PlateElement>
       );
     }
   )

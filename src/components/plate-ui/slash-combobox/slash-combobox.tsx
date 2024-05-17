@@ -10,9 +10,13 @@ import { ComboboxSlash } from "../combobox-slash/combobox-slash";
 export function SlashCombobox({
   pluginKey = KEY_SLASH_COMMAND,
   id = pluginKey,
+  slashComponentClassName,
+  slashItemClassName,
   ...props
 }: Partial<ComboboxProps> & {
   pluginKey?: string;
+  slashComponentClassName?: string;
+  slashItemClassName?: string;
 }) {
   const editor = useEditorRef();
 
@@ -27,6 +31,8 @@ export function SlashCombobox({
         onSelectItem={getSlashOnSelectItem({
           key: pluginKey,
         })}
+        slashComponentClassName={slashComponentClassName}
+        slashItemClassName={slashItemClassName}
         {...props}
       />
     </div>

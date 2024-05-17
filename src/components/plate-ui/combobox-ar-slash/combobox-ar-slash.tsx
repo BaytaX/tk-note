@@ -21,12 +21,23 @@ import {
 import { createVirtualRef } from "@udecode/plate-floating";
 
 export const ComboboxItem = withRef<"div", any>(
-  ({ combobox, index, item, onRenderItem, className, ...rest }, ref) => {
+  (
+    {
+      combobox,
+      index,
+      item,
+      onRenderItem,
+      slashItemClassName,
+      className,
+      ...rest
+    },
+    ref
+  ) => {
     const { props } = useComboboxItem({ item, index, combobox, onRenderItem });
     return (
       <div
         ref={ref}
-        className="relative flex gap-2  min-w-[200px] cursor-pointer select-none items-center rounded-sm p-1  text-sm outline-none  transition-colors hover:bg-accent focus:text-gray-900   data-[highlighted=true]:bg-accent data-[highlighted=true]:text-accent-foreground "
+        className={`relative flex gap-2  min-w-[200px] cursor-pointer select-none items-center rounded-sm p-1  text-sm outline-none  transition-colors hover:bg-accent focus:text-gray-900   data-[highlighted=true]:bg-accent data-[highlighted=true]:text-accent-foreground ${slashItemClassName}`}
         {...props}
         {...rest}
       >
@@ -44,12 +55,19 @@ export const ComboboxItem = withRef<"div", any>(
   }
 );
 
-export function ComboboxContent(props: ComboboxContentProps) {
+export function ComboboxContent(
+  props: ComboboxContentProps & {
+    slashComponentClassName?: string;
+    slashItemClassName?: string;
+  }
+) {
   const {
     component: Component,
     items,
     portalElement,
     combobox,
+    slashComponentClassName,
+    slashItemClassName,
     onRenderItem,
   } = props;
 
@@ -100,7 +118,7 @@ export function ComboboxContent(props: ComboboxContentProps) {
           side="bottom"
           align="start"
           className={cn(
-            "z-[500] m-0 max-h-[400px] [direction:rtl] w-[330px] overflow-y-scroll rounded-md bg-popover p-2 shadow-md flex flex-col gap-1 "
+            `z-[500] m-0 max-h-[400px] [direction:rtl] w-[330px] overflow-y-scroll rounded-md bg-popover p-2 shadow-md flex flex-col gap-1 ${slashComponentClassName}`
           )}
           onOpenAutoFocus={(event) => event.preventDefault()}
         >
@@ -113,6 +131,7 @@ export function ComboboxContent(props: ComboboxContentProps) {
               combobox={combobox}
               index={index}
               onRenderItem={onRenderItem}
+              slashItemClassName={slashItemClassName}
             />
           ))}
           {/* {resultItems?.map((el, index) => (
@@ -147,9 +166,14 @@ export function ComboboxArSlash({
   maxSuggestions,
   filter,
   sort,
+  slashComponentClassName,
+  slashItemClassName,
   disabled: _disabled,
   ...props
-}: ComboboxProps) {
+}: ComboboxProps & {
+  slashComponentClassName?: string;
+  slashItemClassName?: string;
+}) {
   const storeItems = useComboboxSelectors.items();
   const disabled =
     _disabled ?? (storeItems.length === 0 && !props.items?.length);

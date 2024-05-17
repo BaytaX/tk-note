@@ -10,9 +10,13 @@ import { ComboboxArSlash } from "../combobox-ar-slash/combobox-ar-slash";
 export function SlashArCombobox({
   pluginKey = KEY_SLASH_AR_COMMAND,
   id = pluginKey,
+  slashComponentClassName,
+  slashItemClassName,
   ...props
 }: Partial<ComboboxProps> & {
   pluginKey?: string;
+  slashComponentClassName?: string;
+  slashItemClassName?: string;
 }) {
   const editor = useEditorRef();
 
@@ -28,6 +32,8 @@ export function SlashArCombobox({
           key: pluginKey,
         })}
         {...props}
+        slashComponentClassName={slashComponentClassName}
+        slashItemClassName={slashItemClassName}
       />
     </div>
   );

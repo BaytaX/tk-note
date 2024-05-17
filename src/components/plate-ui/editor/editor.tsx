@@ -1,6 +1,6 @@
 import React from "react";
 import { cn } from "@udecode/cn";
-import { PlateContent } from "@udecode/plate-common";
+import { getPlugin, PlateContent, useEditorRef } from "@udecode/plate-common";
 import { cva } from "class-variance-authority";
 
 import type { PlateContentProps } from "@udecode/plate-common";
@@ -44,7 +44,7 @@ const editorVariants = cva(
 );
 
 export type EditorProps = PlateContentProps &
-  VariantProps<typeof editorVariants>;
+  VariantProps<typeof editorVariants> & { onUpload?: (file) => void };
 
 const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
   (
@@ -56,10 +56,17 @@ const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
       readOnly,
       size,
       variant,
+      onUpload,
       ...props
     },
     ref
   ) => {
+    if (onUpload) {
+      console.log(onUpload);
+      const editor = useEditorRef();
+      const x = getPlugin(editor, "upload-image");
+      x.props = { onUpload };
+    }
     return (
       <div ref={ref} className="relative w-full">
         <PlateContent

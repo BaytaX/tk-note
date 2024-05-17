@@ -67,7 +67,7 @@ export const UploadVideoElement = ({
   };
 
   return (
-    <PlateElement {...props}>
+    <PlateElement {...props} contentEditable={false}>
       <div
         style={{
           display: "flex",

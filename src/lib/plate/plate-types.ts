@@ -397,13 +397,9 @@ export interface SlashRule {
   blocksName?: string;
 }
 
-// export interface SlashRule {
-//   label: string;
-//   items: {
-//     key: string;
-//     onTrigger: (editor: PlateEditor, key: string) => void;
-//     text: string;
-//     description: string;
-//     img: string;
-//   }[];
-// }
+export interface TComboboxItem {
+  key: string;
+  text: string;
+  link?: string;
+  avatar?: string;
+}
