@@ -396,6 +396,12 @@ export interface SlashRule {
   img: string;
   blocksName?: string;
 }
+export interface TSlashArr {
+  key: string;
+  text?: string;
+  description?: string;
+  img?: string;
+}
 
 export interface TComboboxItem {
   key: string;

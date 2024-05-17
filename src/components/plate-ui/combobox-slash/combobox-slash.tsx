@@ -186,8 +186,6 @@ export function ComboboxSlash({
   );
   const editorId = usePlateSelectors().id();
 
-  console.log(slashItemClassName);
-
   useEffect(() => {
     comboboxActions.setComboboxById({
       id,

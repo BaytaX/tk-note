@@ -62,7 +62,6 @@ const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
     ref
   ) => {
     if (onUpload) {
-      console.log(onUpload);
       const editor = useEditorRef();
       const x = getPlugin(editor, "upload-image");
       x.props = { onUpload };

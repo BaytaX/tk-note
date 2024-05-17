@@ -29,11 +29,6 @@ export const UploadImageElement = withHOC(
   withRef<typeof PlateElement>(
     ({ className, children, nodeProps, ...props }, ref) => {
       const { onUpload, ...wantedProps }: any = props;
-      //
-      console.log(onUpload);
-      console.log("------------");
-      console.log(wantedProps);
-      //
       const [isLoading, setIsLoading] = useState(false);
       const editor = useEditorRef();
       const cloudName = import.meta.env.VITE_CLOUDNAME;

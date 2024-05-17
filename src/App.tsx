@@ -1,4 +1,5 @@
 import { SoftyNote } from "./components/softy-note";
+import { P_KEY } from "./lib/plate/Keys";
 // import MentionComponentItem from "./test";
 // import { usePDF } from "react-to-pdf";
 export function MentionComponentItem({ item }) {
@@ -163,25 +164,12 @@ function App() {
   //   console.log("this is onupload img");
   //   // return url;
   // };
-  const MENTIONABLES = [
-    { key: "0", text: "Aayla Secura", link: "hehh" },
-    { key: "1", text: "Adi Gallia", link: "hfgdhgfhg" },
+  const SlashArr = [
     {
-      key: "2",
-      text: "Admiral Dodd Rancit",
-      link: "hfgdhgfhg",
-    },
-    {
-      key: "3",
-      text: "has avatar",
-      link: "",
-      avatar:
-        "https://thumbs.dreamstime.com/b/unknown-male-avatar-profile-image-businessman-vector-unknown-male-avatar-profile-image-businessman-vector-profile-179373829.jpg",
-    },
-    {
-      key: "4",
-      text: "have real link",
-      link: "https://www.freecodecamp.org/news/how-to-use-html-to-open-link-in-new-tab/",
+      key: P_KEY,
+      text: "para",
+      description: "123",
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHV06nRkRR207X2pMXpFjA6leySeKNXjkooXXsBpTNZg&s",
     },
   ];
   return (
@@ -199,7 +187,7 @@ function App() {
             onChange={(e) => console.log(e)}
             initialValue={initialValue}
             MentionComponentItem={MentionComponentItem}
-            MentionablesArr={MENTIONABLES}
+            SlashArr={SlashArr}
           />
         </div>
         {/* </div> */}

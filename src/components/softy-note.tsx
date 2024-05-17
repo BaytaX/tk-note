@@ -19,7 +19,9 @@ import { SLASH_AR_RULES } from "../lib/plate/slashArRules";
 import "../assets/styles.css";
 import "../assets/App.css";
 import { plugins } from "../lib/plate/plate-plugins";
-import { TComboboxItem } from "../lib/plate/plate-types";
+import { TSlashArr, TComboboxItem } from "../lib/plate/plate-types";
+import { MENTIONABLES } from "../lib/plate/mentionables";
+import { mergeArrays } from "../lib/plate/mergeArrays";
 
 type SoftyEditor = {
   initialValue: any;
@@ -32,6 +34,7 @@ type SoftyEditor = {
   mentionComponentClassName?: string;
   slashComponentClassName?: string;
   slashItemClassName?: string;
+  SlashArr?: TSlashArr[];
 };
 
 export function SoftyNote({
@@ -45,8 +48,12 @@ export function SoftyNote({
   mentionComponentClassName,
   slashComponentClassName,
   slashItemClassName,
+  SlashArr,
 }: SoftyEditor) {
   const containerRef = useRef(null);
+  const SLASH_LIST = SlashArr
+    ? mergeArrays(SLASH_RULES, SlashArr)
+    : SLASH_RULES;
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -81,12 +88,12 @@ export function SoftyNote({
 
               <MentionCombobox
                 MentionComponentItem={MentionComponentItem}
-                items={MentionablesArr ? MentionablesArr : []}
+                items={MentionablesArr ? MentionablesArr : MENTIONABLES}
                 mentionComponentClassName={mentionComponentClassName}
               />
 
               <SlashCombobox
-                items={SLASH_RULES}
+                items={SLASH_LIST}
                 slashComponentClassName={slashComponentClassName}
                 slashItemClassName={slashItemClassName}
               />

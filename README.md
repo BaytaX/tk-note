@@ -26,24 +26,25 @@ function YourComponent() {
 
 ### `<SoftyNote />`
 
-| Prop                        | Type                   | Default Value | Description                                                                                                                  |
-| --------------------------- | ---------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `onChange`                  | `(e: any) => void`     | -             | Callback function triggered when content changes.                                                                            |
-| `initialValue`              | `any`                  | -             | The initial value/content of the editor.                                                                                     |
-| `readOnly`                  | `boolean`              | `false`       | Determines if the editor is in read-only mode.                                                                               |
-| `editorClassName`           | `string`               | -             | CSS class to apply to the editor component.                                                                                  |
-| `onUpload`                  | `(file: File) => void` | -             | Handles the upload of files and returns the URL of the uploaded file.                                                        |
-| `MentionComponentItem`      | `({ item }) => any`    | -             | Component for rendering items in the mention component list. Receives `item` containing `text`, `link`, `key`, and `avatar`. |
-| `MentionablesArr`           | `TComboboxItem[]`      | -             | Array containing the objects of mentionables.                                                                                |
-| `mentionComponentClassName` | `string`               | -             | CSS class to apply to the mention component.                                                                                 |
-| `slashComponentClassName`   | `string`               | -             | CSS class to apply to the slash component.                                                                                   |
-| `slashItemClassName`        | `string`               | -             | CSS class to apply to each item in the slash component list.                                                                 |
+| Prop                        | Type                   | Default Value | Description                                                                                                                                                                              |
+| --------------------------- | ---------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `onChange`                  | `(e: any) => void`     | -             | Callback function triggered when content changes.                                                                                                                                        |
+| `initialValue`              | `any`                  | -             | The initial value/content of the editor.                                                                                                                                                 |
+| `readOnly`                  | `boolean`              | `false`       | Determines if the editor is in read-only mode.                                                                                                                                           |
+| `editorClassName`           | `string`               | -             | CSS class to apply to the editor component.                                                                                                                                              |
+| `onUpload`                  | `(file: File) => void` | -             | Handles the upload of files and returns the URL of the uploaded file.                                                                                                                    |
+| `MentionComponentItem`      | `({ item }) => any`    | -             | Component for rendering items in the mention component list. Receives `item` containing `text`, `link`, `key`, and `avatar`.                                                             |
+| `MentionablesArr`           | `TComboboxItem[]`      | -             | Array containing the objects of mentionables.                                                                                                                                            |
+| `mentionComponentClassName` | `string`               | -             | CSS class to apply to the mention component.                                                                                                                                             |
+| `slashComponentClassName`   | `string`               | -             | CSS class to apply to the slash component.                                                                                                                                               |
+| `slashItemClassName`        | `string`               | -             | CSS class to apply to each item in the slash component list.                                                                                                                             |
+| `SlashArr`                  | `TSlashArr[]`          | -             | Array of objects to overwrite the title, description, or image of slash list items. Each object should contain the `key` of the element and the properties to overwrite.(keys are below) |
 
 ### Example Usage
 
 ```jsx
 import React, { useState } from "react";
-import SoftyNote from "softy-note";
+import { SoftyNote, P_KEY } from "tk-note";
 
 function App() {
   const [content, setContent] = useState("");
@@ -64,6 +65,14 @@ function App() {
       avatar: "https://example.com/avatar1.png",
     },
     // more mentionables...
+  ];
+
+  const SlashArr = [
+    {
+      key: P_KEY,
+      text: "فقرة",
+      description: "ابدأ الكتابة بنص عادي.",
+    },
   ];
 
   const MentionItem = ({ item }) => (
@@ -88,6 +97,7 @@ function App() {
         mentionComponentClassName=" "
         slashComponentClassName=" "
         slashItemClassName=" "
+        SlashArr={SlashArr}
       />
     </div>
   );
@@ -106,9 +116,33 @@ export default App;
 - **`MentionComponentItem`**: A component used to render items in the mention component list. It receives an `item` containing `text`, `key`,`link`(optional), and `avatar`(optional) (MentionComponent is called when typing @ ).
 - **`MentionablesArr`**: An array containing objects for mentionables .
 - **`mentionComponentClassName`**: A CSS class name to apply to the mention component.
+- **`SlashArr`**: An array of objects to customize the title, description, or image of slash list items in the `<SoftyNote />` component. Each object in the array should contain the `key` of the slash list item to be customized, along with the properties to be overwritten, such as `title`, `description`, and `img`. This prop is useful for users who need to tailor the appearance of specific slash list items to better fit their application's requirements.
 - **`slashComponentClassName`**: A CSS class name to apply to the slash component.
 - **`slashItemClassName`**: A CSS class name to apply to each item in the slash component list.
 
-## License
+#### KEYS
+
+P_KEY
+H1_KEY
+H2_KEY
+H3_KEY
+BLOCKQUOTE_KEY
+TABLE_KEY
+DISC_KEY
+DECIMAL_KEY
+TODO_KEY
+HR_KEY
+TOGGLE_KEY
+LINK_KEY
+UPLOAD_IMAGE_KEY
+UPLOAD_VIDEO_KEY
+IMAGE_KEY
+MEDIA_EMBED_KEY
+CODE_BLOCK_KEY
+UPLOAD_FILE_KEY
+EXCALIDRAW_KEY
+INSERT_MATH_KEY
+
+##### License
 
 MIT © [thabeut](https://github.com/BaytaX)

@@ -17,7 +17,6 @@ export const ImageElement = withHOC(
     ({ className, children, nodeProps, ...props }, ref) => {
       const { readOnly, focused, selected, align = "center" } = useMediaState();
       const width = useResizableStore().get.width();
-      console.log(readOnly);
       return (
         <MediaPopover pluginKey={ELEMENT_IMAGE}>
           <PlateElement

@@ -16,7 +16,6 @@ export const MentionElement = withRef<
     renderLabel?: (mentionable: TMentionElement) => string;
   }
 >(({ children, prefix, renderLabel, className, onClick, ...props }, ref) => {
-  console.log(props);
   const element = useElement<TMentionElement>();
   const selected = useSelected();
   const focused = useFocused();
