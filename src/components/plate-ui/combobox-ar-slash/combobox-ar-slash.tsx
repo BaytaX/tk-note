@@ -219,5 +219,12 @@ export function ComboboxArSlash({
     return null;
   }
 
-  return <ComboboxContent combobox={combobox} {...props} />;
+  return (
+    <ComboboxContent
+      slashItemClassName={slashItemClassName}
+      slashComponentClassName={slashComponentClassName}
+      combobox={combobox}
+      {...props}
+    />
+  );
 }

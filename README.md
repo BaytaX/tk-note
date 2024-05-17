@@ -76,18 +76,18 @@ function App() {
   );
 
   return (
-    <div className="p-4">
+    <div>
       <SoftyNote
         onChange={handleChange}
         initialValue={content}
         readOnly={false}
-        editorClassName="border border-gray-300 p-2 rounded"
+        editorClassName="px-[96px] border border-gray-300 "
         onUpload={handleUpload}
         MentionComponentItem={MentionItem}
         MentionablesArr={mentionables}
-        mentionComponentClassName="mention-component"
-        slashComponentClassName="slash-component"
-        slashItemClassName="slash-item"
+        mentionComponentClassName=" "
+        slashComponentClassName=" "
+        slashItemClassName=" "
       />
     </div>
   );
@@ -103,8 +103,8 @@ export default App;
 - **`readOnly`**: A boolean prop that, when set to `true`, makes the editor read-only. By default, it is set to `false`, allowing content to be edited.
 - **`editorClassName`**: This prop allows you to pass a custom CSS class name to the editor component, making it easy to apply custom styles.
 - **`onUpload`**: This prop takes a function that handles the upload of files. The function receives a `file` object and should return the URL of the uploaded file.By default,files will be uploaded in cloudinary and everything works well.
-- **`MentionComponentItem`**: A component used to render items in the mention component list. It receives an `item` containing `text`, `link`, `key`, and `avatar`.
-- **`MentionablesArr`**: An array containing objects for mentionables.
+- **`MentionComponentItem`**: A component used to render items in the mention component list. It receives an `item` containing `text`, `key`,`link`(optional), and `avatar`(optional) (MentionComponent is called when typing @ ).
+- **`MentionablesArr`**: An array containing objects for mentionables .
 - **`mentionComponentClassName`**: A CSS class name to apply to the mention component.
 - **`slashComponentClassName`**: A CSS class name to apply to the slash component.
 - **`slashItemClassName`**: A CSS class name to apply to each item in the slash component list.

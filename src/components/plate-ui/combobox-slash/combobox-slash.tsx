@@ -34,11 +34,10 @@ export const ComboboxItem = withRef<"div", any>(
     ref
   ) => {
     const { props } = useComboboxItem({ item, index, combobox, onRenderItem });
-
     return (
       <div
         ref={ref}
-        className={`relative flex gap-2  min-w-[200px] cursor-pointer select-none items-center rounded-sm p-1  text-sm outline-none transition-colors hover:bg-accent  focus:text-gray-900   data-[highlighted=true]:bg-accent data-[highlighted=true]:text-accent-foreground ${slashItemClassName} `}
+        className={`relative flex gap-2  min-w-[200px] cursor-pointer text-sm select-none items-center rounded-sm p-1   outline-none transition-colors hover:bg-accent  focus:text-gray-900   data-[highlighted=true]:bg-accent data-[highlighted=true]:text-accent-foreground ${slashItemClassName} `}
         {...props}
         {...rest}
       >
@@ -71,7 +70,6 @@ export function ComboboxContent(
     slashItemClassName,
     onRenderItem,
   } = props;
-
   const editor = useEditorRef();
   const filteredItems = useComboboxSelectors.filteredItems();
   const activeComboboxStore = useActiveComboboxStore()!;
@@ -188,6 +186,8 @@ export function ComboboxSlash({
   );
   const editorId = usePlateSelectors().id();
 
+  console.log(slashItemClassName);
+
   useEffect(() => {
     comboboxActions.setComboboxById({
       id,
@@ -220,5 +220,12 @@ export function ComboboxSlash({
     return null;
   }
 
-  return <ComboboxContent combobox={combobox} {...props} />;
+  return (
+    <ComboboxContent
+      slashItemClassName={slashItemClassName}
+      slashComponentClassName={slashComponentClassName}
+      combobox={combobox}
+      {...props}
+    />
+  );
 }
