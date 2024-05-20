@@ -26,7 +26,7 @@ export const MentionInputElement = withRef<
       onClick={getHandler(onClick, element)}
       {...props}
     >
-      <span>{children}</span>
+      <span>@{children}</span>
     </PlateElement>
   );
 });

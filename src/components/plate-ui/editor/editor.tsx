@@ -63,8 +63,13 @@ const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
   ) => {
     if (onUpload) {
       const editor = useEditorRef();
-      const x = getPlugin(editor, "upload-image");
-      x.props = { onUpload };
+      const uploadImgPlugin = getPlugin(editor, "upload-image");
+      const uploadFilePlugin = getPlugin(editor, "upload-file");
+      const uploadVideoPlugin = getPlugin(editor, "upload-video");
+
+      uploadImgPlugin.props = { onUpload };
+      uploadFilePlugin.props = { onUpload };
+      uploadVideoPlugin.props = { onUpload };
     }
     return (
       <div ref={ref} className="relative w-full">

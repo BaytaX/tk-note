@@ -82,9 +82,11 @@ export function SoftyNote({
                 onUpload={onUpload}
               />
 
-              <FloatingToolbar>
-                <FloatingToolbarButtons />
-              </FloatingToolbar>
+              {!readOnly && (
+                <FloatingToolbar>
+                  <FloatingToolbarButtons />
+                </FloatingToolbar>
+              )}
 
               <MentionCombobox
                 MentionComponentItem={MentionComponentItem}

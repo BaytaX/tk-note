@@ -1,5 +1,5 @@
 import { SoftyNote } from "./components/softy-note";
-import { P_KEY } from "./lib/plate/Keys";
+// import { P_KEY } from "./lib/plate/Keys";
 // import MentionComponentItem from "./test";
 // import { usePDF } from "react-to-pdf";
 export function MentionComponentItem({ item }) {
@@ -160,18 +160,18 @@ function App() {
   // const onUpload = (file: any) => {
   //   console.log(file);
   //   const url =
-  //     "https://cdn-img1.imgworlds.com/assets/a5366382-0c26-4726-9873-45d69d24f819.jpg?key=home-gallery";
+  //     "https://res.cloudinary.com/df4jaqtep/raw/upload/v1716190740/nbnatcretzd11wjtqpqd.docx";
   //   console.log("this is onupload img");
-  //   // return url;
+  //   return url;
   // };
-  const SlashArr = [
-    {
-      key: P_KEY,
-      text: "para",
-      description: "123",
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHV06nRkRR207X2pMXpFjA6leySeKNXjkooXXsBpTNZg&s",
-    },
-  ];
+  // const SlashArr = [
+  //   {
+  //     key: P_KEY,
+  //     text: "para",
+  //     description: "123",
+  //     img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHV06nRkRR207X2pMXpFjA6leySeKNXjkooXXsBpTNZg&s",
+  //   },
+  // ];
   return (
     <div id="root">
       <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
@@ -187,7 +187,6 @@ function App() {
             onChange={(e) => console.log(e)}
             initialValue={initialValue}
             MentionComponentItem={MentionComponentItem}
-            SlashArr={SlashArr}
           />
         </div>
         {/* </div> */}

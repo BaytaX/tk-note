@@ -27,38 +27,59 @@ export const UploadVideoElement = ({
 }: PlateElementProps) => {
   const editor = useEditorRef();
   const [isLoading, setIsLoading] = useState(false);
+  const { onUpload, ...wantedProps }: any = props;
 
   const cloudName = import.meta.env.VITE_CLOUDNAME;
   const unsignedUploadPreset = import.meta.env.VITE_UNSIGNED_UPLOAD_PRESET;
 
   const uploadFile = (file: any) => {
     setIsLoading(true);
-    const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
-    const fd = new FormData();
-    fd.append("upload_preset", unsignedUploadPreset);
-    fd.append("tags", "browser_upload");
-    fd.append("file", file);
+    if (!onUpload) {
+      const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+      const fd = new FormData();
+      fd.append("upload_preset", unsignedUploadPreset);
+      fd.append("tags", "browser_upload");
+      fd.append("file", file);
 
-    fetch(url, {
-      method: "POST",
-      body: fd,
-    })
-      .then((response) => response.json())
-      .then(async (data) => {
-        const url = data.secure_url;
-        const x = getNode(editor, []);
-        const elements: any = x?.children;
-        const index = elements.findIndex(
-          (el: any) => el.type === "upload-video" && el.id === props.element.id
-        );
-        removeNodes(editor, {
-          at: [index],
-        });
-        await insertMediaEmbed(editor, { url: url }, { at: [index] });
+      fetch(url, {
+        method: "POST",
+        body: fd,
       })
-      .catch((error) => {
-        console.error("Error uploading the file:", error);
+        .then((response) => response.json())
+        .then(async (data) => {
+          const url = data.secure_url;
+          const x = getNode(editor, []);
+          const elements: any = x?.children;
+          const index = elements.findIndex(
+            (el: any) =>
+              el.type === "upload-video" && el.id === props.element.id
+          );
+          removeNodes(editor, {
+            at: [index],
+          });
+          await insertMediaEmbed(editor, { url: url }, { at: [index] });
+        })
+        .catch((error) => {
+          console.error("Error uploading the file:", error);
+        });
+    } else {
+      const url = onUpload(file);
+      if (!url) {
+        console.log(
+          "there is no url returned from onUpload function you provide"
+        );
+        return setIsLoading(false);
+      }
+      const x = getNode(editor, []);
+      const elements: any = x?.children;
+      const index = elements.findIndex(
+        (el: any) => el.type === "upload-video" && el.id === props.element.id
+      );
+      removeNodes(editor, {
+        at: [index],
       });
+      insertMediaEmbed(editor, { url: url }, { at: [index] });
+    }
   };
 
   const handleVideoChange = async (e: any) => {
@@ -67,7 +88,7 @@ export const UploadVideoElement = ({
   };
 
   return (
-    <PlateElement {...props} contentEditable={false}>
+    <PlateElement {...wantedProps} contentEditable={false}>
       <div
         style={{
           display: "flex",

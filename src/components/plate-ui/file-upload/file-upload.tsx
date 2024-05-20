@@ -53,6 +53,7 @@ export const UploadFileElement = withHOC(
     ({ className, children, nodeProps, ...props }, ref) => {
       console.log(ref);
       const [isLoading, setIsLoading] = useState(false);
+      const { onUpload, ...wantedProps }: any = props;
 
       const editor = useEditorRef();
       const cloudName = import.meta.env.VITE_CLOUDNAME;
@@ -60,38 +61,63 @@ export const UploadFileElement = withHOC(
 
       const uploadFile = (file: any) => {
         setIsLoading(true);
-        const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
-        const fd = new FormData();
-        fd.append("upload_preset", unsignedUploadPreset);
-        fd.append("tags", "browser_upload");
-        fd.append("file", file);
+        console.log(file);
+        if (!onUpload) {
+          const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+          const fd = new FormData();
+          fd.append("upload_preset", unsignedUploadPreset);
+          fd.append("tags", "browser_upload");
+          fd.append("file", file);
 
-        fetch(url, {
-          method: "POST",
-          body: fd,
-        })
-          .then((response) => response.json())
-          .then(async (data) => {
-            const url = data.secure_url;
-            const fileObj = {
-              url,
-              name: data.original_filename,
-              type: file.type,
-            };
-            const x = getNode(editor, []);
-            const elements: any = x?.children;
-            const index = elements.findIndex(
-              (el: any) =>
-                el.type === "upload-file" && el.id === props.element.id
-            );
-            removeNodes(editor, {
-              at: [index],
-            });
-            await insertFile(editor, { file: fileObj }, { at: [index] });
+          fetch(url, {
+            method: "POST",
+            body: fd,
           })
-          .catch((error) => {
-            console.error("Error uploading the file:", error);
+            .then((response) => response.json())
+            .then(async (data) => {
+              const url = data.secure_url;
+              const fileObj = {
+                url,
+                name: data.original_filename,
+                type: file.type,
+              };
+              const x = getNode(editor, []);
+              const elements: any = x?.children;
+              const index = elements.findIndex(
+                (el: any) =>
+                  el.type === "upload-file" && el.id === props.element.id
+              );
+              removeNodes(editor, {
+                at: [index],
+              });
+              await insertFile(editor, { file: fileObj }, { at: [index] });
+            })
+            .catch((error) => {
+              console.error("Error uploading the file:", error);
+            });
+        } else {
+          const url = onUpload(file);
+          if (!url) {
+            console.log(
+              "there is no url returned from onUpload function you provide"
+            );
+            return setIsLoading(false);
+          }
+          const fileObj = {
+            url,
+            name: file.name,
+            type: file.type,
+          };
+          const x = getNode(editor, []);
+          const elements: any = x?.children;
+          const index = elements.findIndex(
+            (el: any) => el.type === "upload-file" && el.id === props.element.id
+          );
+          removeNodes(editor, {
+            at: [index],
           });
+          insertFile(editor, { file: fileObj }, { at: [index] });
+        }
       };
 
       const handleFileChange = async (e: any) => {
@@ -108,7 +134,7 @@ export const UploadFileElement = withHOC(
         <PlateElement
           ref={ref}
           className={cn("py-2.5", className)}
-          {...props}
+          {...wantedProps}
           contentEditable={false}
         >
           {!props?.element?.file ? (

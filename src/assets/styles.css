@@ -1861,6 +1861,11 @@ video {
   padding-bottom: 0.2em;
 }
 
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+
 .pb-0 {
   padding-bottom: 0px;
 }
@@ -1953,6 +1958,14 @@ video {
   padding-top: 3px;
 }
 
+.pt-20 {
+  padding-top: 5rem;
+}
+
+.pt-44 {
+  padding-top: 11rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -2027,6 +2040,10 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-\[5em\] {
+  font-size: 5em;
 }
 
 .font-bold {

@@ -18,6 +18,11 @@ import { ELEMENT_OL, ELEMENT_UL } from "@udecode/plate-list";
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
 
 import { Draggable, DraggableProps } from "../draggable/draggable";
+import { ELEMENT_UPLOAD_VIDEO } from "../video-upload/video-upload";
+import { ELEMENT_UPLOAD_IMAGE } from "../image-upload/image-upload";
+import { ELEMENT_UPLOAD_FILE } from "../file-upload/file-upload";
+import { ELEMENT_MATH } from "../math-element/math-element";
+import { ELEMENT_MEDIA_EMBED } from "@udecode/plate-media";
 
 export const withDraggable = (
   Component: FC,
@@ -97,6 +102,46 @@ export const withDraggables = (components: any) => {
     },
     {
       key: ELEMENT_CODE_BLOCK,
+      draggableProps: {
+        classNames: {
+          gutterLeft: "pt-8 px-0 pb-0",
+        },
+      },
+    },
+    {
+      key: ELEMENT_UPLOAD_VIDEO,
+      draggableProps: {
+        classNames: {
+          gutterLeft: "pt-8 px-0 pb-0",
+        },
+      },
+    },
+    {
+      key: ELEMENT_UPLOAD_IMAGE,
+      draggableProps: {
+        classNames: {
+          gutterLeft: "pt-8 px-0 pb-0",
+        },
+      },
+    },
+    {
+      key: ELEMENT_UPLOAD_FILE,
+      draggableProps: {
+        classNames: {
+          gutterLeft: "pt-8 px-0 pb-0",
+        },
+      },
+    },
+    {
+      key: ELEMENT_MEDIA_EMBED,
+      draggableProps: {
+        classNames: {
+          gutterLeft: "pt-8 px-0 pb-0",
+        },
+      },
+    },
+    {
+      key: ELEMENT_MATH,
       draggableProps: {
         classNames: {
           gutterLeft: "pt-8 px-0 pb-0",
