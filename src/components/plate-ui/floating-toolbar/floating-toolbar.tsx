@@ -14,8 +14,9 @@ export const FloatingToolbar = withRef<
   typeof Toolbar,
   {
     state?: FloatingToolbarState;
+    floatingToolbarClassname?: string;
   }
->(({ state, children, ...props }, componentRef) => {
+>(({ state, children, floatingToolbarClassname, ...props }, componentRef) => {
   const floatingToolbarState = useFloatingToolbarState({
     ...state,
     floatingOptions: {
@@ -46,7 +47,7 @@ export const FloatingToolbar = withRef<
       <Toolbar
         ref={ref}
         className={cn(
-          "absolute z-50 flex-wrap  border bg-popover px-1 opacity-100 shadow-md print:hidden"
+          `absolute z-50 flex-wrap  border bg-popover px-1 opacity-100 shadow-md  print:hidden ${floatingToolbarClassname}`
         )}
         {...rootProps}
         {...props}

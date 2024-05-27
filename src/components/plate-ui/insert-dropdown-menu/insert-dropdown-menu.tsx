@@ -1,27 +1,6 @@
-import React from "react";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
-import { ELEMENT_BLOCKQUOTE } from "@udecode/plate-block-quote";
-import {
-  ELEMENT_CODE_BLOCK,
-  insertEmptyCodeBlock,
-} from "@udecode/plate-code-block";
-import {
-  focusEditor,
-  insertEmptyElement,
-  useEditorRef,
-} from "@udecode/plate-common";
-import { ELEMENT_EXCALIDRAW } from "@udecode/plate-excalidraw";
-import { ELEMENT_H1, ELEMENT_H2, ELEMENT_H3 } from "@udecode/plate-heading";
-import { ELEMENT_HR } from "@udecode/plate-horizontal-rule";
-import { toggleIndentList } from "@udecode/plate-indent-list";
-import { ELEMENT_LINK, triggerFloatingLink } from "@udecode/plate-link";
-import {
-  ELEMENT_IMAGE,
-  ELEMENT_MEDIA_EMBED,
-  insertMedia,
-} from "@udecode/plate-media";
-import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
-import { ELEMENT_TABLE, insertTable } from "@udecode/plate-table";
+
+import { useEditorRef } from "@udecode/plate-common";
 
 import { Icons } from "../icons/icons";
 
@@ -29,122 +8,20 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
   useOpenState,
 } from "../dropdown-menu/dropdown-menu";
 import { ToolbarButton } from "../toolbar/toolbar";
+import { SlashRule } from "../../../lib/plate/plate-types";
 
-const items = [
-  {
-    label: "Basic blocks",
-    items: [
-      {
-        value: ELEMENT_PARAGRAPH,
-        label: "Paragraph",
-        description: "Paragraph",
-        icon: Icons.paragraph,
-      },
-      {
-        value: ELEMENT_H1,
-        label: "Heading 1",
-        description: "Heading 1",
-        icon: Icons.h1,
-      },
-      {
-        value: ELEMENT_H2,
-        label: "Heading 2",
-        description: "Heading 2",
-        icon: Icons.h2,
-      },
-      {
-        value: ELEMENT_H3,
-        label: "Heading 3",
-        description: "Heading 3",
-        icon: Icons.h3,
-      },
-
-      {
-        value: ELEMENT_BLOCKQUOTE,
-        label: "Quote",
-        description: "Quote (⌘+⇧+.)",
-        icon: Icons.blockquote,
-      },
-      {
-        value: ELEMENT_TABLE,
-        label: "Table",
-        description: "Table",
-        icon: Icons.table,
-      },
-      {
-        value: "ul",
-        label: "Bulleted list",
-        description: "Bulleted list",
-        icon: Icons.ul,
-      },
-      {
-        value: "ol",
-        label: "Numbered list",
-        description: "Numbered list",
-        icon: Icons.ol,
-      },
-      {
-        value: ELEMENT_HR,
-        label: "Divider",
-        description: "Divider (---)",
-        icon: Icons.minus,
-      },
-    ],
-  },
-  {
-    label: "Media",
-    items: [
-      {
-        value: ELEMENT_CODE_BLOCK,
-        label: "Code",
-        description: "Code (```)",
-        icon: Icons.codeblock,
-      },
-      {
-        value: ELEMENT_IMAGE,
-        label: "Image",
-        description: "Image",
-        icon: Icons.image,
-      },
-      {
-        value: ELEMENT_MEDIA_EMBED,
-        label: "Embed",
-        description: "Embed",
-        icon: Icons.embed,
-      },
-      {
-        value: ELEMENT_EXCALIDRAW,
-        label: "Excalidraw",
-        description: "Excalidraw",
-        icon: Icons.excalidraw,
-      },
-    ],
-  },
-  {
-    label: "Inline",
-    items: [
-      {
-        value: ELEMENT_LINK,
-        label: "Link",
-        description: "Link",
-        icon: Icons.link,
-      },
-    ],
-  },
-];
-
-export function InsertDropdownMenu(props: DropdownMenuProps) {
+export function InsertDropdownMenu(
+  props: DropdownMenuProps & { items: SlashRule[] }
+) {
   const editor = useEditorRef();
   const openState = useOpenState();
-
+  const { items, ...wantedProps } = props;
   return (
-    <DropdownMenu modal={false} {...openState} {...props}>
+    <DropdownMenu modal={false} {...openState} {...wantedProps}>
       <DropdownMenuTrigger asChild>
         <ToolbarButton pressed={openState.open} tooltip="Insert" isDropdown>
           <Icons.add />
@@ -153,82 +30,27 @@ export function InsertDropdownMenu(props: DropdownMenuProps) {
 
       <DropdownMenuContent
         align="start"
-        className="flex max-h-[500px] min-w-0 flex-col gap-0.5 overflow-y-auto"
+        className={`z-[500] m-0 max-h-[400px] w-[330px] overflow-y-auto rounded-md bg-popover dark:bg-[#191919] p-2  shadow-md flex flex-col gap-1`}
       >
-        {items.map(({ items: nestedItems, label }, index) => (
-          <React.Fragment key={label}>
-            {index !== 0 && <DropdownMenuSeparator />}
-
-            <DropdownMenuLabel>{label}</DropdownMenuLabel>
-            {nestedItems.map(
-              ({ value: type, label: itemLabel, icon: Icon }) => (
-                <DropdownMenuItem
-                  key={type}
-                  className="min-w-[180px]"
-                  onSelect={async () => {
-                    switch (type) {
-                      case ELEMENT_CODE_BLOCK: {
-                        insertEmptyCodeBlock(editor);
-
-                        break;
-                      }
-                      case ELEMENT_IMAGE: {
-                        await insertMedia(editor, { type: ELEMENT_IMAGE });
-
-                        break;
-                      }
-                      case ELEMENT_MEDIA_EMBED: {
-                        await insertMedia(editor, {
-                          type: ELEMENT_MEDIA_EMBED,
-                        });
-
-                        break;
-                      }
-                      case "ul":
-                      case "ol": {
-                        insertEmptyElement(editor, ELEMENT_PARAGRAPH, {
-                          select: true,
-                          nextBlock: true,
-                        });
-
-                        // if (settingsStore.get.checkedId(KEY_LIST_STYLE_TYPE)) {
-                        toggleIndentList(editor, {
-                          listStyleType: type === "ul" ? "disc" : "decimal",
-                        });
-                        // } else if (settingsStore.get.checkedId('list')) {
-                        // toggleList(editor, { type });
-                        // }
-
-                        break;
-                      }
-                      case ELEMENT_TABLE: {
-                        insertTable(editor);
-
-                        break;
-                      }
-                      case ELEMENT_LINK: {
-                        triggerFloatingLink(editor, { focused: true });
-
-                        break;
-                      }
-                      default: {
-                        insertEmptyElement(editor, type, {
-                          select: true,
-                          nextBlock: true,
-                        });
-                      }
-                    }
-
-                    focusEditor(editor);
-                  }}
-                >
-                  <Icon className="mr-2 size-5" />
-                  {itemLabel}
-                </DropdownMenuItem>
-              )
-            )}
-          </React.Fragment>
-        ))}
+        {items.map(
+          ({ text: label, img: itemImg, description, onTrigger, key }) => (
+            <DropdownMenuItem
+              key={label}
+              className={`relative flex gap-2  min-w-[200px] h-fit cursor-pointer text-sm select-none items-center rounded-sm p-1   outline-none transition-colors hover:bg-accent  focus:text-gray-900   data-[highlighted=true]:bg-accent data-[highlighted=true]:text-accent-foreground  `}
+              onSelect={() => onTrigger(editor, key)}
+            >
+              <img
+                className="w-12 h-12 border border-gray-200 rounded-md bg-white"
+                src={itemImg}
+                alt={label}
+              />
+              <div className="flex flex-col  ">
+                <p>{label}</p>
+                <p className="text-xs text-gray-500">{description}</p>
+              </div>
+            </DropdownMenuItem>
+          )
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

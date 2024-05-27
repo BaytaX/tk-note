@@ -5,7 +5,7 @@ import {
   findNode,
   focusEditor,
   isBlock,
-  isCollapsed,
+  setElements,
   TElement,
   toggleNodeType,
   useEditorRef,
@@ -67,13 +67,13 @@ const items = [
     icon: Icons.blockquote,
   },
   {
-    value: "ul",
+    value: "disc",
     label: "Bulleted list",
     description: "Bulleted list",
     icon: Icons.ul,
   },
   {
-    value: "ol",
+    value: "decimal",
     label: "Numbered list",
     description: "Numbered list",
     icon: Icons.ol,
@@ -84,17 +84,16 @@ const defaultItem = items.find((item) => item.value === ELEMENT_PARAGRAPH)!;
 
 export function TurnIntoDropdownMenu(props: DropdownMenuProps) {
   const value: string = useEditorSelector((editor) => {
-    if (isCollapsed(editor.selection)) {
-      const entry = findNode<TElement>(editor, {
-        match: (n) => isBlock(editor, n),
-      });
+    // if (isCollapsed(editor.selection)) {
+    const entry = findNode<TElement>(editor, {
+      match: (n) => isBlock(editor, n),
+    });
 
-      if (entry) {
-        return (
-          items.find((item) => item.value === entry[0].type)?.value ??
-          ELEMENT_PARAGRAPH
-        );
-      }
+    if (entry) {
+      return entry[0].type === "p" && !!entry[0].listStyleType
+        ? items.find((item) => item.value === entry[0].listStyleType)?.value
+        : items.find((item) => item.value === entry[0].type)?.value ??
+            ELEMENT_PARAGRAPH;
     }
 
     return ELEMENT_PARAGRAPH;
@@ -102,7 +101,6 @@ export function TurnIntoDropdownMenu(props: DropdownMenuProps) {
 
   const editor = useEditorRef();
   const openState = useOpenState();
-
   const selectedItem =
     items.find((item) => item.value === value) ?? defaultItem;
   const { icon: SelectedItemIcon, label: selectedItemLabel } = selectedItem;
@@ -128,15 +126,17 @@ export function TurnIntoDropdownMenu(props: DropdownMenuProps) {
           className="flex flex-col gap-0.5"
           value={value}
           onValueChange={(type) => {
-            if (type === "ul" || type === "ol") {
-              //   if (settingsStore.get.checkedId(KEY_LIST_STYLE_TYPE)) {
+            if (type === "disc" || type === "decimal") {
+              toggleNodeType(editor, { activeType: "p" });
               toggleIndentList(editor, {
-                listStyleType: type === "ul" ? "disc" : "decimal",
+                listStyleType: type === "disc" ? "disc" : "decimal",
               });
-              //   } else if (settingsStore.get.checkedId('list')) {
-              //     toggleList(editor, { type });
-              //   }
             } else {
+              setElements(editor, {
+                listStyleType: null,
+                indent: null,
+                listStart: null,
+              });
               unwrapList(editor);
               toggleNodeType(editor, { activeType: type });
             }

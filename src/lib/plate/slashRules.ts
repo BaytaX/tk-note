@@ -79,10 +79,7 @@ export const SLASH_RULES: SlashRule[] = [
     description: "Capture a quote.",
     img: "https://www.notion.so/images/blocks/quote/en-US.png",
     onTrigger(editor: PlateEditor) {
-      insertEmptyElement(editor, ELEMENT_BLOCKQUOTE, {
-        select: true,
-        nextBlock: true,
-      });
+      toggleNodeType(editor, { activeType: ELEMENT_BLOCKQUOTE });
       focusEditor(editor);
     },
     blocksName: "Basic Blocks",

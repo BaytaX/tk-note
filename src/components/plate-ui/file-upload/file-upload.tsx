@@ -59,9 +59,8 @@ export const UploadFileElement = withHOC(
       const cloudName = import.meta.env.VITE_CLOUDNAME;
       const unsignedUploadPreset = import.meta.env.VITE_UNSIGNED_UPLOAD_PRESET;
 
-      const uploadFile = (file: any) => {
+      const uploadFile = async (file: any) => {
         setIsLoading(true);
-        console.log(file);
         if (!onUpload) {
           const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
           const fd = new FormData();
@@ -96,7 +95,7 @@ export const UploadFileElement = withHOC(
               console.error("Error uploading the file:", error);
             });
         } else {
-          const url = onUpload(file);
+          const url = await onUpload(file);
           if (!url) {
             console.log(
               "there is no url returned from onUpload function you provide"
@@ -122,13 +121,27 @@ export const UploadFileElement = withHOC(
 
       const handleFileChange = async (e: any) => {
         const selectedFile = e.target.files[0];
-        uploadFile(selectedFile);
+        await uploadFile(selectedFile);
       };
 
-      const downloadFile = (evt: any, fileUrl: any) => {
-        evt.preventDefault();
-        window.location = fileUrl;
-      };
+      async function downloadFile(url: string, fileName: string) {
+        try {
+          const response = await fetch(url);
+          const blob = await response.blob();
+
+          const a = document.createElement("a");
+          a.href = window.URL.createObjectURL(blob);
+          a.download = fileName;
+
+          document.body.appendChild(a);
+
+          a.click();
+
+          document.body.removeChild(a);
+        } catch (error) {
+          console.error("Error downloading file:", error);
+        }
+      }
 
       return (
         <PlateElement
@@ -266,9 +279,13 @@ export const UploadFileElement = withHOC(
                     </TooltipContent>
                   </Tooltip>
                   <button
-                    onClick={(e) =>
-                      downloadFile(e, (props?.element?.file as FileObject)?.url)
-                    }
+                    onClick={(e) => {
+                      e.preventDefault();
+                      downloadFile(
+                        (props?.element?.file as FileObject)?.url as string,
+                        (props?.element?.file as FileObject)?.name as string
+                      );
+                    }}
                   >
                     <Download className=" w-5 stroke-black dark:stroke-white" />
                   </button>

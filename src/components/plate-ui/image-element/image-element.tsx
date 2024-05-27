@@ -1,6 +1,7 @@
+//@ts-nocheck
 import { cn, withRef } from "@udecode/cn";
 import { PlateElement, withHOC } from "@udecode/plate-common";
-import { ELEMENT_IMAGE, Image, useMediaState } from "@udecode/plate-media";
+import { ELEMENT_IMAGE, Image } from "@udecode/plate-media";
 import { ResizableProvider, useResizableStore } from "@udecode/plate-resizable";
 
 import { Caption, CaptionTextarea } from "../caption/caption";
@@ -10,12 +11,14 @@ import {
   Resizable,
   ResizeHandle,
 } from "../resizable/resizable";
+import { useMediaState } from "../../../lib/plate/mediaState";
 
 export const ImageElement = withHOC(
   ResizableProvider,
   withRef<typeof PlateElement>(
     ({ className, children, nodeProps, ...props }, ref) => {
-      const { readOnly, focused, selected, align = "center" } = useMediaState();
+      let { readOnly, focused, selected, align = "center" } = useMediaState();
+
       const width = useResizableStore().get.width();
       return (
         <MediaPopover pluginKey={ELEMENT_IMAGE}>

@@ -46,11 +46,7 @@ export const ComboboxItem = withRef<"div", any>(
         {...props}
         {...rest}
       >
-        {MentionComponentItem ? (
-          <MentionComponentItem item={item} />
-        ) : (
-          <p>{item.text}</p>
-        )}
+        <p>{item.text}</p>
       </div>
     );
   }
@@ -58,7 +54,7 @@ export const ComboboxItem = withRef<"div", any>(
 
 export function ComboboxContent(
   props: ComboboxContentProps & {
-    MentionComponentItem?: JSX.Element;
+    MentionComponentItem?: any;
     mentionComponentClassName?: string;
   }
 ) {
@@ -93,13 +89,16 @@ export function ComboboxContent(
           side="bottom"
           align="start"
           className={cn(
-            `z-[500] m-0 flex flex-col gap-2 max-h-[288px] w-[300px] overflow-y-auto rounded-md bg-popover p-0 shadow-md ${mentionComponentClassName}`
+            `
+            ${mentionComponentClassName}`,
+            !MentionComponentItem &&
+              "z-[500] m-0 flex flex-col gap-2 max-h-[288px] w-[300px] overflow-y-auto rounded-md bg-popover p-0 shadow-md"
           )}
           onOpenAutoFocus={(event) => event.preventDefault()}
         >
           {Component ? Component({ store: activeComboboxStore }) : null}
 
-          {filteredItems.map((item, index) => (
+          {/* /* {filteredItems.map((item, index) => (
             <ComboboxItem
               key={item.key}
               item={item}
@@ -108,7 +107,21 @@ export function ComboboxContent(
               onRenderItem={onRenderItem}
               MentionComponentItem={MentionComponentItem}
             />
-          ))}
+          ))} */}
+          {MentionComponentItem ? (
+            <MentionComponentItem editor={editor} />
+          ) : (
+            filteredItems.map((item, index) => (
+              <ComboboxItem
+                key={item.key}
+                item={item}
+                combobox={combobox}
+                index={index}
+                onRenderItem={onRenderItem}
+                MentionComponentItem={MentionComponentItem}
+              />
+            ))
+          )}
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>
@@ -126,11 +139,13 @@ export function ComboboxMention({
   sort,
   disabled: _disabled,
   MentionComponentItem,
+  mentionFunction,
   mentionComponentClassName,
   ...props
 }: ComboboxProps & {
-  MentionComponentItem?: JSX.Element;
+  MentionComponentItem?: any;
   mentionComponentClassName?: string;
+  mentionFunction?: any;
 }) {
   const storeItems = useComboboxSelectors.items();
   const disabled =

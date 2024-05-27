@@ -7,11 +7,13 @@ import { getMentionOnSelectItem } from "../../../lib/plate/getMentionOnSelectIte
 export function MentionCombobox({
   pluginKey = ELEMENT_MENTION,
   id = pluginKey,
+  mentionFunction,
   MentionComponentItem,
   mentionComponentClassName,
   ...props
 }: Partial<ComboboxProps> & {
   pluginKey?: string;
+  mentionFunction?: any;
   MentionComponentItem?: any;
   mentionComponentClassName?: string;
 }) {
@@ -28,6 +30,7 @@ export function MentionCombobox({
         onSelectItem={getMentionOnSelectItem({
           key: pluginKey,
         })}
+        mentionFunction={mentionFunction}
         MentionComponentItem={MentionComponentItem}
         mentionComponentClassName={mentionComponentClassName}
         {...props}

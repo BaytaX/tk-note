@@ -3,6 +3,8 @@ import { PlateElement, withHOC } from "@udecode/plate-common";
 import { ELEMENT_MEDIA_EMBED, parseTwitterUrl } from "@udecode/plate-media";
 import { ResizableProvider, useResizableStore } from "@udecode/plate-resizable";
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
+import ReactGoogleSlides from "react-google-slides";
+
 import {
   FacebookEmbed,
   InstagramEmbed,
@@ -27,6 +29,11 @@ import {
 } from "../resizable/resizable";
 import { parseCloudinaryUrl } from "../../../lib/media-embed/parseCloudinary";
 import { VideoPlayer } from "vidify";
+import { parseGoogleDocsUrl } from "../../../lib/media-embed/parseGoogleDocsUrl";
+import { parseGoogleSheetsUrl } from "../../../lib/media-embed/parseGoogleSheetsUrl";
+import { parseGoogleSlidesUrl } from "../../../lib/media-embed/parseGoogleSlidesUrl";
+import { parseFigmaUrl } from "../../../lib/media-embed/parseFigmaUrl";
+import { parseAnyWebsiteUrl } from "../../../lib/media-embed/parseAnyWebsiteUrl";
 
 export const MediaEmbedElement = withHOC(
   ResizableProvider,
@@ -45,6 +52,11 @@ export const MediaEmbedElement = withHOC(
       isLinkedIn,
       isTiktok,
       isCloudinary,
+      isGoogleDocs,
+      isGoogleSlides,
+      isGoogleSheets,
+      isFigma,
+      isAnywebiste,
     } = useMediaState({
       urlParsers: [
         parseTwitterUrl,
@@ -54,6 +66,11 @@ export const MediaEmbedElement = withHOC(
         parseLinkedInUrl,
         parseTikTokUrl,
         parseCloudinaryUrl,
+        parseGoogleDocsUrl,
+        parseGoogleSheetsUrl,
+        parseGoogleSlidesUrl,
+        parseFigmaUrl,
+        parseAnyWebsiteUrl,
       ],
     });
     const width = useResizableStore().get.width();
@@ -174,6 +191,43 @@ export const MediaEmbedElement = withHOC(
                       <VideoPlayer src={embed?.url as string} />
                     </div>
                   )}
+                  {isGoogleSlides && (
+                    <div>
+                      <ReactGoogleSlides
+                        width={"100%"}
+                        slidesLink={embed?.url as string}
+                        slideDuration={5}
+                        position={1}
+                        showControls
+                        loop
+                      />
+                    </div>
+                  )}
+                  {(isGoogleDocs || isGoogleSheets) && (
+                    <div>
+                      <iframe
+                        src={embed?.url as string}
+                        width="100%"
+                        height="600px"
+                      />
+                    </div>
+                  )}
+                  {isFigma && (
+                    <div>
+                      <iframe
+                        src={embed?.url as string}
+                        width="100%"
+                        height="600px"
+                      />
+                    </div>
+                  )}
+                  {isAnywebiste && (
+                    <iframe
+                      src={embed?.url as string}
+                      width="100%"
+                      height="600px"
+                    ></iframe>
+                  )}
                 </>
               ) : (
                 <>
@@ -278,6 +332,43 @@ export const MediaEmbedElement = withHOC(
                     <div>
                       <VideoPlayer src={embed?.url as string} />
                     </div>
+                  )}
+                  {isGoogleSlides && (
+                    <div>
+                      <ReactGoogleSlides
+                        width={"100%"}
+                        slidesLink={embed?.url as string}
+                        slideDuration={5}
+                        position={1}
+                        showControls
+                        loop
+                      />
+                    </div>
+                  )}
+                  {(isGoogleDocs || isGoogleSheets) && (
+                    <div>
+                      <iframe
+                        src={embed?.url as string}
+                        width="100%"
+                        height="600px"
+                      />
+                    </div>
+                  )}
+                  {isFigma && (
+                    <div>
+                      <iframe
+                        src={embed?.url as string}
+                        width="100%"
+                        height="600px"
+                      />
+                    </div>
+                  )}
+                  {isAnywebiste && (
+                    <iframe
+                      src={embed?.url as string}
+                      width="100%"
+                      height="600px"
+                    ></iframe>
                   )}
                   <ResizeHandle
                     options={{ direction: "right" }}

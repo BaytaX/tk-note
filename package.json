@@ -2,7 +2,7 @@
   "name": "tk-note",
   "author": "thabet kh",
   "private": false,
-  "version": "1.5.3",
+  "version": "1.7.1",
   "type": "module",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -13,6 +13,10 @@
       "require": "./dist/index.umd.js",
       "types": "./dist/index.d.ts"
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BaytaX/tk-note"
   },
   "sideEffects": true,
   "files": [
@@ -114,6 +118,8 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.3.1",
     "react-dropzone": "^14.2.3",
+    "react-google-docs-viewer": "^1.0.1",
+    "react-google-slides": "^4.0.0",
     "react-hook-form": "^7.43.9",
     "react-lite-youtube-embed": "^2.4.0",
     "react-router": "^6.10.0",

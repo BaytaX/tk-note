@@ -43,7 +43,7 @@ export const InsertMathElement = withHOC(
               {props.element?.mathValue ? (
                 <div
                   className="flex items-center justify-center h-full"
-                  onClick={(e) => e.stopPropagation()}
+                  // onClick={(e) => e.stopPropagation()}
                 >
                   <div
                     dangerouslySetInnerHTML={{
@@ -61,6 +61,7 @@ export const InsertMathElement = withHOC(
                   document.getElementById("root")
                 )
               )}
+              {children}
             </div>
           </PlateElement>
         </Popover>

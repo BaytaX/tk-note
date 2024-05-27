@@ -118,7 +118,7 @@ export function ComboboxContent(
           side="bottom"
           align="start"
           className={cn(
-            `z-[500] m-0 max-h-[400px] [direction:rtl] w-[330px] overflow-y-scroll rounded-md bg-popover p-2 shadow-md flex flex-col gap-1 ${slashComponentClassName}`
+            `z-[500] m-0 animate-fade max-h-[400px] [direction:rtl] w-[330px] overflow-y-scroll rounded-md bg-popover p-2 shadow-md flex flex-col gap-1 ${slashComponentClassName}`
           )}
           onOpenAutoFocus={(event) => event.preventDefault()}
         >

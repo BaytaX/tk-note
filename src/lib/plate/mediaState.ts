@@ -6,7 +6,7 @@ import { VIDEO_PROVIDERS } from "../media-embed";
 
 interface TMediaElement extends TElement {
   url: string;
-  align?: "left" | "center" | "right";
+  align?: "center" | "right" | "left";
 }
 
 export type EmbedUrlData = {
@@ -26,6 +26,14 @@ export const useMediaState = ({
   const focused = useFocused();
   const selected = useSelected();
   const readOnly = useReadOnly();
+
+  // const [align, setAlign] = useState("center");
+
+  // const handleChangeAlign = (value: "center" | "left" | "right") => {
+  //   setAlign(value);
+  //   console.log(value);
+  //   console.log(align);
+  // };
 
   const { url, align } = element;
 
@@ -48,9 +56,15 @@ export const useMediaState = ({
   const isLinkedIn = embed?.provider === "linkedin";
   const isTiktok = embed?.provider === "tiktok";
   const isCloudinary = embed?.provider === "cloudinary";
+  const isGoogleDocs = embed?.provider === "google_docs";
+  const isGoogleSlides = embed?.provider === "google_slides";
+  const isGoogleSheets = embed?.provider === "google_sheets";
+  const isFigma = embed?.provider === "figma";
+  const isAnywebiste = embed?.provider === "any-website";
 
   return {
     align,
+    // handleChangeAlign,
     focused,
     selected,
     readOnly,
@@ -63,5 +77,10 @@ export const useMediaState = ({
     isLinkedIn,
     isTiktok,
     isCloudinary,
+    isGoogleDocs,
+    isGoogleSlides,
+    isGoogleSheets,
+    isFigma,
+    isAnywebiste,
   };
 };

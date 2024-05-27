@@ -10,7 +10,7 @@ export const MENTIONABLES: TComboboxItem[] = [
   },
   {
     key: "3",
-    text: "has avatar",
+    text: "Admiral Dodd ",
     link: "",
     avatar:
       "https://thumbs.dreamstime.com/b/unknown-male-avatar-profile-image-businessman-vector-unknown-male-avatar-profile-image-businessman-vector-profile-179373829.jpg",

@@ -18,6 +18,7 @@ import { Button, buttonVariants } from "../button/button";
 import { inputVariants } from "../input/input";
 import { Popover, PopoverAnchor, PopoverContent } from "../popover/popover";
 import { Separator } from "../separator/separator";
+// import { useMediaState } from "../../../lib/plate/mediaState";
 
 export interface MediaPopoverProps {
   pluginKey?: string;
@@ -34,7 +35,7 @@ export function MediaPopover({ pluginKey, children }: MediaPopoverProps) {
   );
   const isOpen = !readOnly && selected && selectionCollapsed;
   const isEditing = useFloatingMediaSelectors().isEditing();
-
+  // const { handleChangeAlign } = useMediaState();
   useEffect(() => {
     if (!isOpen && isEditing) {
       floatingMediaActions.isEditing(false);
@@ -84,6 +85,7 @@ export function MediaPopover({ pluginKey, children }: MediaPopoverProps) {
             <Button variant="ghost" size="sms" {...buttonProps}>
               <Icons.delete className="size-4" />
             </Button>
+            {/* <AlignDropdownMedia handleAlign={handleChangeAlign} /> */}
           </div>
         )}
       </PopoverContent>

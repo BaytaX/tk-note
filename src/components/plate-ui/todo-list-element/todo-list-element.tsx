@@ -12,7 +12,6 @@ export const TodoListElement = withRef<typeof PlateElement>(
     const { element } = props;
     const state = useTodoListElementState({ element });
     const { checkboxProps } = useTodoListElement(state);
-
     return (
       <PlateElement
         ref={ref}

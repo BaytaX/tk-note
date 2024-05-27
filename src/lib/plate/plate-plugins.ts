@@ -194,7 +194,6 @@ const resetBlockTypesCodeBlockRule = {
   defaultType: ELEMENT_PARAGRAPH,
   onReset: unwrapCodeBlock,
 };
-
 export const plugins = createPlugins(
   [
     //

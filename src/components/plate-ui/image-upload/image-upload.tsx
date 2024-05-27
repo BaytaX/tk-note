@@ -34,7 +34,7 @@ export const UploadImageElement = withHOC(
       const cloudName = import.meta.env.VITE_CLOUDNAME;
       const unsignedUploadPreset = import.meta.env.VITE_UNSIGNED_UPLOAD_PRESET;
 
-      const uploadFile = (file: any) => {
+      const uploadFile = async (file: any) => {
         setIsLoading(true);
         if (!onUpload) {
           const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
@@ -65,7 +65,7 @@ export const UploadImageElement = withHOC(
               console.error("Error uploading the file:", error);
             });
         } else {
-          const url = onUpload(file);
+          const url = await onUpload(file);
           if (!url) {
             console.log(
               "there is no url returned from onUpload function you provide"
@@ -87,7 +87,7 @@ export const UploadImageElement = withHOC(
 
       const handleImageChange = async (e: any) => {
         const selectedImage = e.target.files[0];
-        uploadFile(selectedImage);
+        await uploadFile(selectedImage);
       };
 
       return (

@@ -5,6 +5,7 @@ import { cva } from "class-variance-authority";
 
 import type { PlateContentProps } from "@udecode/plate-common";
 import type { VariantProps } from "class-variance-authority";
+// import { useSoftyStore } from "../../../contexts/SoftyNoteStore";
 
 const editorVariants = cva(
   cn(
@@ -44,7 +45,10 @@ const editorVariants = cva(
 );
 
 export type EditorProps = PlateContentProps &
-  VariantProps<typeof editorVariants> & { onUpload?: (file) => void };
+  VariantProps<typeof editorVariants> & {
+    onUpload?: (file) => void;
+    // isArabic?: boolean;
+  };
 
 const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
   (
@@ -57,12 +61,14 @@ const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
       size,
       variant,
       onUpload,
+      // isArabic,
       ...props
     },
     ref
   ) => {
+    const editor = useEditorRef();
+    // const { setLocal } = useSoftyStore();
     if (onUpload) {
-      const editor = useEditorRef();
       const uploadImgPlugin = getPlugin(editor, "upload-image");
       const uploadFilePlugin = getPlugin(editor, "upload-file");
       const uploadVideoPlugin = getPlugin(editor, "upload-video");
@@ -71,8 +77,15 @@ const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
       uploadFilePlugin.props = { onUpload };
       uploadVideoPlugin.props = { onUpload };
     }
+
+    // if (isArabic) {
+    //   setLocal("ar");
+    // } else {
+    //   setLocal("en");
+    // }
     return (
       <div ref={ref} className="relative w-full">
+        {/* <button onClick={() => editor}>click here</button> */}
         <PlateContent
           className={cn(
             editorVariants({

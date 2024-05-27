@@ -18,23 +18,30 @@ import { SlashCombobox } from "./plate-ui/slash-combobox/slash-combobox";
 import { SLASH_AR_RULES } from "../lib/plate/slashArRules";
 import "../assets/styles.css";
 import "../assets/App.css";
-import { plugins } from "../lib/plate/plate-plugins";
 import { TSlashArr, TComboboxItem } from "../lib/plate/plate-types";
 import { MENTIONABLES } from "../lib/plate/mentionables";
 import { mergeArrays } from "../lib/plate/mergeArrays";
+import { FixedToolbar } from "./plate-ui/fixed-toolbar/fixed-toolbar";
+import { FixedToolbarButtons } from "./plate-ui/fixed-toolbar-buttons/fixed-toolbar-buttons";
+import createNewPlugins from "../lib/plate/createPlugin";
+// import { SoftyProvider } from "../contexts/SoftyNoteStore";
 
 type SoftyEditor = {
   initialValue: any;
   onChange?: (e: any) => void;
   readOnly?: boolean;
   editorClassName?: string;
-  onUpload?: (file: File) => void;
-  MentionComponentItem?: ({ item }) => any;
+  onUpload?: (file: File) => Promise<string>;
+  MentionComponentItem?: any;
   MentionablesArr?: TComboboxItem[];
   mentionComponentClassName?: string;
   slashComponentClassName?: string;
   slashItemClassName?: string;
   SlashArr?: TSlashArr[];
+  withFixedToolbar?: boolean;
+  NewPlugins?: any;
+  floatingToolbarClassname?: string;
+  // isArabic?: boolean;
 };
 
 export function SoftyNote({
@@ -49,17 +56,23 @@ export function SoftyNote({
   slashComponentClassName,
   slashItemClassName,
   SlashArr,
+  withFixedToolbar = false,
+  NewPlugins = [],
+  floatingToolbarClassname,
+  // isArabic,
 }: SoftyEditor) {
   const containerRef = useRef(null);
   const SLASH_LIST = SlashArr
     ? mergeArrays(SLASH_RULES, SlashArr)
     : SLASH_RULES;
 
+  const plugins_v2 = createNewPlugins(NewPlugins);
   return (
+    // <SoftyProvider>
     <DndProvider backend={HTML5Backend}>
       <CommentsProvider users={commentsUsers} myUserId={myUserId}>
         <Plate
-          plugins={plugins}
+          plugins={plugins_v2}
           initialValue={initialValue}
           onChange={onChange}
           readOnly={readOnly}
@@ -73,6 +86,12 @@ export function SoftyNote({
                 // "[&_.slate-start-area-left]:!w-[64px] [&_.slate-start-area-right]:!w-[64px] [&_.slate-start-area-top]:!h-4"
               )}
             >
+              {withFixedToolbar && (
+                <FixedToolbar>
+                  <FixedToolbarButtons items={SLASH_LIST} />
+                </FixedToolbar>
+              )}
+
               <Editor
                 className={`px-20 py-16 bg-transparent ${editorClassName}`}
                 autoFocus
@@ -80,10 +99,12 @@ export function SoftyNote({
                 variant="ghost"
                 size="md"
                 onUpload={onUpload}
+                // isArabic={isArabic}
               />
-
               {!readOnly && (
-                <FloatingToolbar>
+                <FloatingToolbar
+                  floatingToolbarClassname={floatingToolbarClassname}
+                >
                   <FloatingToolbarButtons />
                 </FloatingToolbar>
               )}
@@ -113,5 +134,6 @@ export function SoftyNote({
         </Plate>
       </CommentsProvider>
     </DndProvider>
+    // </SoftyProvider>
   );
 }

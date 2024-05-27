@@ -8,9 +8,12 @@ import {
 } from "@udecode/plate-common";
 import { ELEMENT_H1 } from "@udecode/plate-heading";
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
+// import { useSoftyStore } from "../../../contexts/SoftyNoteStore";
 
 export const Placeholder = (props: PlaceholderProps) => {
   const { children, placeholder, nodeProps } = props;
+  // const { locale } = useSoftyStore();
+  // console.log(props);
 
   const { enabled } = usePlaceholderState(props);
 
@@ -32,19 +35,40 @@ export const Placeholder = (props: PlaceholderProps) => {
 export const withPlaceholder = createNodeHOC(Placeholder);
 export const withPlaceholdersPrimitive = createNodesHOC(Placeholder);
 
-export const withPlaceholders = (components: any) =>
-  withPlaceholdersPrimitive(components, [
-    {
-      key: ELEMENT_PARAGRAPH,
-      placeholder: "Write something, ' / ' for commands…",
-      hideOnBlur: true,
-      query: {
-        maxLevel: 1,
+export const withPlaceholders = (components: any) => {
+  const locale = document.documentElement.lang;
+  // console.log(locale);
+  if (locale === "en") {
+    return withPlaceholdersPrimitive(components, [
+      {
+        key: ELEMENT_PARAGRAPH,
+        placeholder: `Write something, ' / ' for commands… `,
+        hideOnBlur: true,
+        query: {
+          maxLevel: 1,
+        },
       },
-    },
-    {
-      key: ELEMENT_H1,
-      placeholder: "Untitled",
-      hideOnBlur: false,
-    },
-  ]);
+      {
+        key: ELEMENT_H1,
+        placeholder: "Untitled",
+        hideOnBlur: false,
+      },
+    ]);
+  } else if (locale === "ar") {
+    return withPlaceholdersPrimitive(components, [
+      {
+        key: ELEMENT_PARAGRAPH,
+        placeholder: `اكتب بالعربية `,
+        hideOnBlur: true,
+        query: {
+          maxLevel: 1,
+        },
+      },
+      {
+        key: ELEMENT_H1,
+        placeholder: "عنوان",
+        hideOnBlur: false,
+      },
+    ]);
+  }
+};

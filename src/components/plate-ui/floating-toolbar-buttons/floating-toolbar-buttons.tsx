@@ -1,5 +1,6 @@
 import {
   MARK_BOLD,
+  MARK_CODE,
   MARK_ITALIC,
   MARK_STRIKETHROUGH,
   MARK_UNDERLINE,
@@ -68,8 +69,10 @@ export function FloatingToolbarButtons() {
           <OutdentToolbarButton />
           <IndentToolbarButton />
           <ToggleToolbarButton />
-
           <LinkToolbarButton />
+          <MarkToolbarButton nodeType={MARK_CODE} tooltip="Code (⌘+E)">
+            <Icons.code />
+          </MarkToolbarButton>
           <CommentToolbarButton />
           <MoreDropdownMenu />
         </>

@@ -86,6 +86,7 @@ const dragHandle = (
 export const Draggable = withRef<"div", DraggableProps>(
   ({ className, classNames = {}, onDropHandler, ...props }, ref) => {
     const { children, element } = props;
+    const locale = document.documentElement.lang;
 
     const state = useDraggableState({ element, onDropHandler });
     const { dropLine, isDragging, isHovered } = state;
@@ -96,13 +97,12 @@ export const Draggable = withRef<"div", DraggableProps>(
       previewRef,
       handleRef,
     } = useDraggable(state);
-
     return (
       <div
         ref={ref}
         className={cn(
           "relative",
-          isDragging && "opacity-50",
+          isDragging && "opacity-50 ",
           "group",
           className
         )}
@@ -111,31 +111,32 @@ export const Draggable = withRef<"div", DraggableProps>(
         <div
           className={cn(
             "pointer-events-none absolute top-0 flex h-full -translate-x-full cursor-text opacity-0 group-hover:opacity-100",
-            classNames.gutterLeft
+            classNames.gutterLeft,
+            locale === "ar" ? " -right-20" : ""
           )}
           {...gutterLeftProps}
         >
           <div className={cn("flex h-[1.5em]", classNames.blockToolbarWrapper)}>
             <div
               className={cn(
-                "pointer-events-auto mr-1 flex items-center",
+                "pointer-events-auto ml-4 flex items-center",
                 classNames.blockToolbar
               )}
             >
-              <div ref={handleRef} className="size-4">
+              <div ref={handleRef} className="size-4 flex gap-1 items-center">
                 {isHovered && dragHandle}
               </div>
             </div>
           </div>
         </div>
 
-        <div className={classNames.blockWrapper} ref={previewRef}>
+        <div className={`${classNames.blockWrapper}`} ref={previewRef}>
           {children}
 
           {!!dropLine && (
             <div
               className={cn(
-                "absolute inset-x-0 h-0.5 opacity-100",
+                "absolute inset-x-0 h-0.5 opacity-100 ",
                 "bg-ring",
                 dropLine === "top" && "-top-px",
                 dropLine === "bottom" && "-bottom-px",

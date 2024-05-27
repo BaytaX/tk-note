@@ -27,13 +27,43 @@ export const dragOverCursorPlugin: PlatePlugin = {
       });
     },
     onDragLeave: () => () => {
-      cursorStore.set.cursors({});
+      cursorStore.set.cursors({
+        drag: {
+          key: "drag",
+          data: {
+            style: {
+              backgroundColor: "#2548",
+              width: 3,
+            },
+          },
+        },
+      });
     },
     onDragEnd: () => () => {
-      cursorStore.set.cursors({});
+      cursorStore.set.cursors({
+        drag: {
+          key: "drag",
+          data: {
+            style: {
+              backgroundColor: "#2548",
+              width: 3,
+            },
+          },
+        },
+      });
     },
     onDrop: () => () => {
-      cursorStore.set.cursors({});
+      cursorStore.set.cursors({
+        drag: {
+          key: "drag",
+          data: {
+            style: {
+              backgroundColor: "#2548",
+              width: 3,
+            },
+          },
+        },
+      });
     },
   },
 };
