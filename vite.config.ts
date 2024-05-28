@@ -4,14 +4,25 @@ import svgr from "vite-plugin-svgr";
 import path from "path";
 import dts from "vite-plugin-dts";
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
+import { visualizer } from "rollup-plugin-visualizer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), svgr(), dts(), cssInjectedByJsPlugin()],
+  plugins: [
+    react(),
+    svgr(),
+    dts(),
+    cssInjectedByJsPlugin(),
+    visualizer({
+      filename: "./dist/stats.html",
+      open: true,
+    }),
+  ],
   define: {
     "process.env.IS_PREACT": JSON.stringify("false"),
   },
   base: "./",
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "."),
@@ -36,8 +47,7 @@ export default defineConfig({
     sourcemap: false,
     emptyOutDir: false,
   },
-
-  server: {
-    port: 3000,
-  },
+  // server: {
+  //   port: 3000,
+  // },
 });

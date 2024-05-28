@@ -94,7 +94,7 @@ export function SoftyNote({
 
               <Editor
                 className={`px-20 py-16 bg-transparent ${editorClassName}`}
-                autoFocus
+                // autoFocus
                 focusRing={false}
                 variant="ghost"
                 size="md"

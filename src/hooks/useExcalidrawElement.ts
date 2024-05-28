@@ -3,9 +3,7 @@ import {
   ExcalidrawImperativeAPI,
   LibraryItems,
 } from "@excalidraw/excalidraw/types/types";
-import {
-  TExcalidrawElement,
-} from "@udecode/plate-excalidraw";
+import { TExcalidrawElement } from "@udecode/plate-excalidraw";
 
 export const useExcalidrawElement = ({
   element,
