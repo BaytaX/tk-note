@@ -41,7 +41,7 @@ type SoftyEditor = {
   withFixedToolbar?: boolean;
   NewPlugins?: any;
   floatingToolbarClassname?: string;
-  // isArabic?: boolean;
+  autoFocus?: boolean;
 };
 
 export function SoftyNote({
@@ -59,7 +59,7 @@ export function SoftyNote({
   withFixedToolbar = false,
   NewPlugins = [],
   floatingToolbarClassname,
-  // isArabic,
+  autoFocus = false,
 }: SoftyEditor) {
   const containerRef = useRef(null);
   const SLASH_LIST = SlashArr
@@ -94,7 +94,7 @@ export function SoftyNote({
 
               <Editor
                 className={`px-20 py-16 bg-transparent ${editorClassName}`}
-                // autoFocus
+                autoFocus={autoFocus}
                 focusRing={false}
                 variant="ghost"
                 size="md"

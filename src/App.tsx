@@ -149,9 +149,6 @@ function App() {
           <SoftyNote
             onChange={(e) => console.log(e)}
             initialValue={initialValue}
-            // MentionComponentItem={MentionComponentItem}
-            // isArabic
-            // key={"12345"}
           />
         </div>
       </section>
