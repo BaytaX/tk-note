@@ -47,7 +47,7 @@ export const FloatingToolbar = withRef<
       <Toolbar
         ref={ref}
         className={cn(
-          `absolute z-50 flex-wrap  border bg-popover px-1 opacity-100 shadow-md  print:hidden ${floatingToolbarClassname}`
+          `absolute z-[99999999] flex-wrap  border bg-popover px-1 opacity-100 shadow-md  print:hidden ${floatingToolbarClassname}`
         )}
         {...rootProps}
         {...props}

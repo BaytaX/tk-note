@@ -6,8 +6,6 @@ import { HTMLDivElementWithEditor } from "./components/plate-ui/editor/editor";
 function App() {
   const editorRef = useRef<HTMLDivElementWithEditor>(null);
 
-  console.log(editorRef.current.editor);
-
   const initialValue = [
     {
       type: "h2",
