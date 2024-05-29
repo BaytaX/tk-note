@@ -1,7 +1,13 @@
+import { useRef } from "react";
 import { SoftyNote } from "./components/softy-note";
+import { HTMLDivElementWithEditor } from "./components/plate-ui/editor/editor";
 // import { MentionComponentItem } from "./mentioncompo";
 
 function App() {
+  const editorRef = useRef<HTMLDivElementWithEditor>(null);
+
+  console.log(editorRef.current.editor);
+
   const initialValue = [
     {
       type: "h2",
@@ -135,6 +141,7 @@ function App() {
     <div>
       <button
         onClick={() => {
+          editorRef.current.editor.reset();
           if (document.documentElement.lang === "ar") {
             document.documentElement.lang = "en";
           } else if (document.documentElement.lang === "en") {
@@ -149,6 +156,7 @@ function App() {
           <SoftyNote
             onChange={(e) => console.log(e)}
             initialValue={initialValue}
+            ref={editorRef}
           />
         </div>
       </section>
