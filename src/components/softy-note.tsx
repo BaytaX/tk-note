@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { cn } from "@udecode/cn";
 import { CommentsProvider } from "@udecode/plate-comments";
 import { Plate } from "@udecode/plate-common";
@@ -39,101 +39,111 @@ type SoftyEditor = {
   slashItemClassName?: string;
   SlashArr?: TSlashArr[];
   withFixedToolbar?: boolean;
+  ref?: React.Ref<any>;
   NewPlugins?: any;
   floatingToolbarClassname?: string;
   autoFocus?: boolean;
 };
 
-export function SoftyNote({
-  onChange,
-  initialValue,
-  readOnly,
-  editorClassName,
-  onUpload,
-  MentionComponentItem,
-  MentionablesArr,
-  mentionComponentClassName,
-  slashComponentClassName,
-  slashItemClassName,
-  SlashArr,
-  withFixedToolbar = false,
-  NewPlugins = [],
-  floatingToolbarClassname,
-  autoFocus = false,
-}: SoftyEditor) {
-  const containerRef = useRef(null);
-  const SLASH_LIST = SlashArr
-    ? mergeArrays(SLASH_RULES, SlashArr)
-    : SLASH_RULES;
+const SoftyNote = React.forwardRef<HTMLDivElement, SoftyEditor>(
+  (
+    {
+      onChange,
+      initialValue,
+      readOnly,
+      editorClassName,
+      onUpload,
+      MentionComponentItem,
+      MentionablesArr,
+      mentionComponentClassName,
+      slashComponentClassName,
+      slashItemClassName,
+      SlashArr,
+      withFixedToolbar = false,
+      NewPlugins = [],
+      floatingToolbarClassname,
+      autoFocus = false,
+    },
+    ref
+  ) => {
+    const containerRef = useRef(null);
+    const SLASH_LIST = SlashArr
+      ? mergeArrays(SLASH_RULES, SlashArr)
+      : SLASH_RULES;
 
-  const plugins_v2 = createNewPlugins(NewPlugins);
-  return (
-    // <SoftyProvider>
-    <DndProvider backend={HTML5Backend}>
-      <CommentsProvider users={commentsUsers} myUserId={myUserId}>
-        <Plate
-          plugins={plugins_v2}
-          initialValue={initialValue}
-          onChange={onChange}
-          readOnly={readOnly}
-        >
-          <TooltipProvider>
-            <div
-              ref={containerRef}
-              className={cn(
-                "relative"
-                // Block selection
-                // "[&_.slate-start-area-left]:!w-[64px] [&_.slate-start-area-right]:!w-[64px] [&_.slate-start-area-top]:!h-4"
-              )}
-            >
-              {withFixedToolbar && (
-                <FixedToolbar>
-                  <FixedToolbarButtons items={SLASH_LIST} />
-                </FixedToolbar>
-              )}
+    const plugins_v2 = createNewPlugins(NewPlugins);
 
-              <Editor
-                className={`px-20 py-16 bg-transparent ${editorClassName}`}
-                autoFocus={autoFocus}
-                focusRing={false}
-                variant="ghost"
-                size="md"
-                onUpload={onUpload}
-                // isArabic={isArabic}
-              />
-              {!readOnly && (
-                <FloatingToolbar
-                  floatingToolbarClassname={floatingToolbarClassname}
-                >
-                  <FloatingToolbarButtons />
-                </FloatingToolbar>
-              )}
+    return (
+      // <SoftyProvider>
+      <DndProvider backend={HTML5Backend}>
+        <CommentsProvider users={commentsUsers} myUserId={myUserId}>
+          <Plate
+            plugins={plugins_v2}
+            initialValue={initialValue}
+            onChange={onChange}
+            readOnly={readOnly}
+          >
+            <TooltipProvider>
+              <div
+                ref={containerRef}
+                className={cn(
+                  "relative"
+                  // Block selection
+                  // "[&_.slate-start-area-left]:!w-[64px] [&_.slate-start-area-right]:!w-[64px] [&_.slate-start-area-top]:!h-4"
+                )}
+              >
+                {withFixedToolbar && (
+                  <FixedToolbar>
+                    <FixedToolbarButtons items={SLASH_LIST} />
+                  </FixedToolbar>
+                )}
 
-              <MentionCombobox
-                MentionComponentItem={MentionComponentItem}
-                items={MentionablesArr ? MentionablesArr : MENTIONABLES}
-                mentionComponentClassName={mentionComponentClassName}
-              />
+                <Editor
+                  ref={ref}
+                  className={`px-20 py-16 bg-transparent ${editorClassName}`}
+                  autoFocus={autoFocus}
+                  focusRing={false}
+                  variant="ghost"
+                  size="md"
+                  onUpload={onUpload}
+                  // isArabic={isArabic}
+                />
+                {!readOnly && (
+                  <FloatingToolbar
+                    floatingToolbarClassname={floatingToolbarClassname}
+                  >
+                    <FloatingToolbarButtons />
+                  </FloatingToolbar>
+                )}
 
-              <SlashCombobox
-                items={SLASH_LIST}
-                slashComponentClassName={slashComponentClassName}
-                slashItemClassName={slashItemClassName}
-              />
+                <MentionCombobox
+                  MentionComponentItem={MentionComponentItem}
+                  items={MentionablesArr ? MentionablesArr : MENTIONABLES}
+                  mentionComponentClassName={mentionComponentClassName}
+                />
 
-              <SlashArCombobox
-                items={SLASH_AR_RULES}
-                slashComponentClassName={slashComponentClassName}
-                slashItemClassName={slashItemClassName}
-              />
+                <SlashCombobox
+                  items={SLASH_LIST}
+                  slashComponentClassName={slashComponentClassName}
+                  slashItemClassName={slashItemClassName}
+                />
 
-              <CommentsPopover />
-              <CursorOverlay containerRef={containerRef} />
-            </div>
-          </TooltipProvider>
-        </Plate>
-      </CommentsProvider>
-    </DndProvider>
-    // </SoftyProvider>
-  );
-}
+                <SlashArCombobox
+                  items={SLASH_AR_RULES}
+                  slashComponentClassName={slashComponentClassName}
+                  slashItemClassName={slashItemClassName}
+                />
+
+                <CommentsPopover />
+                <CursorOverlay containerRef={containerRef} />
+              </div>
+            </TooltipProvider>
+          </Plate>
+        </CommentsProvider>
+      </DndProvider>
+      // </SoftyProvider>
+    );
+  }
+);
+
+export { SoftyNote };

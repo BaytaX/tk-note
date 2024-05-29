@@ -1,9 +1,13 @@
-import React from "react";
+import React, { ForwardedRef, useEffect } from "react";
 import { cn } from "@udecode/cn";
 import { getPlugin, PlateContent, useEditorRef } from "@udecode/plate-common";
 import { cva } from "class-variance-authority";
 
-import type { PlateContentProps } from "@udecode/plate-common";
+import type {
+  PlateContentProps,
+  PlateEditor,
+  Value,
+} from "@udecode/plate-common";
 import type { VariantProps } from "class-variance-authority";
 // import { useSoftyStore } from "../../../contexts/SoftyNoteStore";
 
@@ -50,7 +54,11 @@ export type EditorProps = PlateContentProps &
     // isArabic?: boolean;
   };
 
-const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
+export interface HTMLDivElementWithEditor extends HTMLDivElement {
+  editor?: PlateEditor<Value>;
+}
+
+const Editor = React.forwardRef<HTMLDivElementWithEditor, EditorProps>(
   (
     {
       className,
@@ -77,6 +85,16 @@ const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
       uploadFilePlugin.props = { onUpload };
       uploadVideoPlugin.props = { onUpload };
     }
+
+    useEffect(() => {
+      const isRefObject = (
+        ref: ForwardedRef<HTMLDivElementWithEditor>
+      ): ref is React.RefObject<HTMLDivElementWithEditor> => {
+        return ref !== null && "current" in ref;
+      };
+
+      if (isRefObject(ref) && ref.current) ref.current.editor = editor;
+    }, [editor, ref]);
 
     // if (isArabic) {
     //   setLocal("ar");
