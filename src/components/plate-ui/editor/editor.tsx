@@ -102,7 +102,9 @@ const Editor = React.forwardRef<HTMLDivElementWithEditor, EditorProps>(
     //   setLocal("en");
     // }
     return (
-      <div ref={ref} className="relative w-full">
+      <div
+        ref={ref}
+        className="relative w-full">
         {/* <button onClick={() => editor}>click here</button> */}
         <PlateContent
           className={cn(

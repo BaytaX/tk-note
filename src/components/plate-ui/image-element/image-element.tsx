@@ -25,16 +25,16 @@ export const ImageElement = withHOC(
           <PlateElement
             ref={ref}
             className={cn("py-2.5", className)}
-            {...props}
-          >
-            <figure className="group relative m-0" contentEditable={false}>
+            {...props}>
+            <figure
+              className="relative m-0 group"
+              contentEditable={false}>
               <Resizable
                 align={align}
                 options={{
                   align,
                   readOnly,
-                }}
-              >
+                }}>
                 {readOnly ? (
                   <Image
                     className={cn(
@@ -72,7 +72,9 @@ export const ImageElement = withHOC(
                 )}
               </Resizable>
 
-              <Caption align={align} style={{ width }}>
+              <Caption
+                align={align}
+                style={{ width }}>
                 <CaptionTextarea
                   placeholder="Write a caption..."
                   readOnly={readOnly}

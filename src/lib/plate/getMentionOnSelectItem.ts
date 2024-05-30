@@ -41,6 +41,7 @@ export const getMentionOnSelectItem =
     key = ELEMENT_MENTION,
   }: PlatePluginKey = {}): ComboboxOnSelectItem<TData> =>
   (editor, item: any) => {
+    
     const targetRange = comboboxSelectors.targetRange();
 
     if (!targetRange) return;
