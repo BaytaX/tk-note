@@ -1,11 +1,12 @@
-import { useRef } from "react";
-import { SoftyNote } from "./components/softy-note";
+import  { useRef, useState } from "react";
+// import { SoftyNote } from "./components/softy-note";
 import { HTMLDivElementWithEditor } from "./components/plate-ui/editor/editor";
+import { SoftyNote } from "./components/softy-note";
 // import { MentionComponentItem } from "./mentioncompo";
 
 function App() {
   const editorRef = useRef<HTMLDivElementWithEditor>(null);
-
+  const [alo, setAlo] = useState(0);
   const initialValue = [
     {
       type: "h2",
@@ -135,16 +136,21 @@ function App() {
   //     "https://upload.wikimedia.org/wikipedia/en/thumb/e/e2/IMG_Academy_Logo.svg/800px-IMG_Academy_Logo.svg.png";
   //   return url;
   // };
+  // const x = alo;
+  console.log(alo);
+  // const MemoizedChildComponent = React.memo(SoftyNote);
+
   return (
     <div>
       <button
         onClick={() => {
-          editorRef.current.editor.reset();
-          if (document.documentElement.lang === "ar") {
-            document.documentElement.lang = "en";
-          } else if (document.documentElement.lang === "en") {
-            document.documentElement.lang = "ar";
-          }
+          setAlo(Math.random());
+          // editorRef.current.editor.reset();
+          // if (document.documentElement.lang === "ar") {
+          //   document.documentElement.lang = "en";
+          // } else if (document.documentElement.lang === "en") {
+          //   document.documentElement.lang = "ar";
+          // }
         }}
       >
         click here
@@ -155,6 +161,7 @@ function App() {
             onChange={(e) => console.log(e)}
             initialValue={initialValue}
             ref={editorRef}
+            readOnly
           />
         </div>
       </section>

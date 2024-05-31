@@ -47,10 +47,10 @@ import {
   useEditorState,
   WithOverride,
 } from "@udecode/plate-common";
-import {
-  ELEMENT_EXCALIDRAW,
-  TExcalidrawElement,
-} from "@udecode/plate-excalidraw";
+// import {
+//   ELEMENT_EXCALIDRAW,
+//   TExcalidrawElement,
+// } from "@udecode/plate-excalidraw";
 import {
   ELEMENT_H1,
   ELEMENT_H2,
@@ -278,13 +278,6 @@ export interface MyHrElement extends MyBlockElement {
   children: [EmptyText];
 }
 
-export interface MyExcalidrawElement
-  extends TExcalidrawElement,
-    MyBlockElement {
-  type: typeof ELEMENT_EXCALIDRAW;
-  children: [EmptyText];
-}
-
 export type MyNestableBlock = MyParagraphElement;
 
 export type MyBlock = Exclude<MyElement, MyInlineElement>;
@@ -306,8 +299,7 @@ export type MyRootBlock =
   | MyTodoListElement
   | MyImageElement
   | MyMediaEmbedElement
-  | MyHrElement
-  | MyExcalidrawElement;
+  | MyHrElement;
 
 export type MyValue = MyRootBlock[];
 

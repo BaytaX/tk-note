@@ -1,4 +1,4 @@
-import React, { ForwardedRef, useEffect } from "react";
+import React, { ForwardedRef, memo, useEffect } from "react";
 import { cn } from "@udecode/cn";
 import { getPlugin, PlateContent, useEditorRef } from "@udecode/plate-common";
 import { cva } from "class-variance-authority";
@@ -58,71 +58,72 @@ export interface HTMLDivElementWithEditor extends HTMLDivElement {
   editor?: PlateEditor<Value>;
 }
 
-const Editor = React.forwardRef<HTMLDivElementWithEditor, EditorProps>(
-  (
-    {
-      className,
-      disabled,
-      focused,
-      focusRing,
-      readOnly,
-      size,
-      variant,
-      onUpload,
-      // isArabic,
-      ...props
-    },
-    ref
-  ) => {
-    const editor = useEditorRef();
-    // const { setLocal } = useSoftyStore();
-    if (onUpload) {
-      const uploadImgPlugin = getPlugin(editor, "upload-image");
-      const uploadFilePlugin = getPlugin(editor, "upload-file");
-      const uploadVideoPlugin = getPlugin(editor, "upload-video");
+const Editor = memo(
+  React.forwardRef<HTMLDivElementWithEditor, EditorProps>(
+    (
+      {
+        className,
+        disabled,
+        focused,
+        focusRing,
+        readOnly,
+        size,
+        variant,
+        onUpload,
+        // isArabic,
+        ...props
+      },
+      ref
+    ) => {
+      const editor = useEditorRef();
+      if (onUpload) {
+        const uploadImgPlugin = getPlugin(editor, "upload-image");
+        const uploadFilePlugin = getPlugin(editor, "upload-file");
+        const uploadVideoPlugin = getPlugin(editor, "upload-video");
 
-      uploadImgPlugin.props = { onUpload };
-      uploadFilePlugin.props = { onUpload };
-      uploadVideoPlugin.props = { onUpload };
+        uploadImgPlugin.props = { onUpload };
+        uploadFilePlugin.props = { onUpload };
+        uploadVideoPlugin.props = { onUpload };
+      }
+
+      useEffect(() => {
+        const isRefObject = (
+          ref: ForwardedRef<HTMLDivElementWithEditor>
+        ): ref is React.RefObject<HTMLDivElementWithEditor> => {
+          return ref !== null && "current" in ref;
+        };
+
+        if (isRefObject(ref) && ref.current) ref.current.editor = editor;
+      }, [editor, ref]);
+
+      // const { setLocal } = useSoftyStore();
+      // if (isArabic) {
+      //   setLocal("ar");
+      // } else {
+      //   setLocal("en");
+      // }
+      return (
+        <div ref={ref} className="relative w-full">
+          <PlateContent
+            className={cn(
+              editorVariants({
+                disabled,
+                focused,
+                focusRing,
+                size,
+                variant,
+              }),
+              className
+            )}
+            disableDefaultStyles
+            readOnly={disabled ?? readOnly}
+            aria-disabled={disabled}
+            {...props}
+          />
+        </div>
+      );
     }
-
-    useEffect(() => {
-      const isRefObject = (
-        ref: ForwardedRef<HTMLDivElementWithEditor>
-      ): ref is React.RefObject<HTMLDivElementWithEditor> => {
-        return ref !== null && "current" in ref;
-      };
-
-      if (isRefObject(ref) && ref.current) ref.current.editor = editor;
-    }, [editor, ref]);
-
-    // if (isArabic) {
-    //   setLocal("ar");
-    // } else {
-    //   setLocal("en");
-    // }
-    return (
-      <div ref={ref} className="relative w-full">
-        {/* <button onClick={() => editor}>click here</button> */}
-        <PlateContent
-          className={cn(
-            editorVariants({
-              disabled,
-              focused,
-              focusRing,
-              size,
-              variant,
-            }),
-            className
-          )}
-          disableDefaultStyles
-          readOnly={disabled ?? readOnly}
-          aria-disabled={disabled}
-          {...props}
-        />
-      </div>
-    );
-  }
+  )
 );
 Editor.displayName = "Editor";
 

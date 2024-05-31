@@ -22,7 +22,7 @@ import {
   insertEmptyCodeBlock,
 } from "@udecode/plate-code-block";
 import { ELEMENT_UPLOAD_FILE } from "../../components/plate-ui/file-upload/file-upload";
-import { ELEMENT_EXCALIDRAW } from "@udecode/plate-excalidraw";
+// import { ELEMENT_EXCALIDRAW } from "@udecode/plate-excalidraw";
 import { ELEMENT_MATH } from "../../components/plate-ui/math-element/math-element";
 import { insertEmptyElement } from "@udecode/plate-common";
 
@@ -240,17 +240,17 @@ export const SLASH_RULES: SlashRule[] = [
     },
     blocksName: "Media",
   },
-  {
-    key: ELEMENT_EXCALIDRAW,
-    text: "Excalidraw",
-    description: "Embed an Excalidraw whiteboard.",
-    img: "https://www.notion.so/images/blocks/excalidraw.b2dad901.png",
-    onTrigger(editor: PlateEditor) {
-      insertEmptyElement(editor, ELEMENT_EXCALIDRAW);
-      focusEditor(editor);
-    },
-    blocksName: "Embeds",
-  },
+  // {
+  //   key: ELEMENT_EXCALIDRAW,
+  //   text: "Excalidraw",
+  //   description: "Embed an Excalidraw whiteboard.",
+  //   img: "https://www.notion.so/images/blocks/excalidraw.b2dad901.png",
+  //   onTrigger(editor: PlateEditor) {
+  //     insertEmptyElement(editor, ELEMENT_EXCALIDRAW);
+  //     focusEditor(editor);
+  //   },
+  //   blocksName: "Embeds",
+  // },
   {
     key: ELEMENT_MATH,
     text: "Math",

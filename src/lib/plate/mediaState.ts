@@ -57,7 +57,7 @@ export const useMediaState = ({
   const isTiktok = embed?.provider === "tiktok";
   const isCloudinary = embed?.provider === "cloudinary";
   const isGoogleDocs = embed?.provider === "google_docs";
-  const isGoogleSlides = embed?.provider === "google_slides";
+  // const isGoogleSlides = embed?.provider === "google_slides";
   const isGoogleSheets = embed?.provider === "google_sheets";
   const isFigma = embed?.provider === "figma";
   const isAnywebiste = embed?.provider === "any-website";
@@ -78,7 +78,7 @@ export const useMediaState = ({
     isTiktok,
     isCloudinary,
     isGoogleDocs,
-    isGoogleSlides,
+    // isGoogleSlides,
     isGoogleSheets,
     isFigma,
     isAnywebiste,

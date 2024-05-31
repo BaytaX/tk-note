@@ -11,7 +11,7 @@ import {
   insertEmptyElement,
   useEditorRef,
 } from "@udecode/plate-common";
-import { ELEMENT_EXCALIDRAW } from "@udecode/plate-excalidraw";
+// import { ELEMENT_EXCALIDRAW } from "@udecode/plate-excalidraw";
 import { ELEMENT_H1, ELEMENT_H2, ELEMENT_H3 } from "@udecode/plate-heading";
 import { ELEMENT_HR } from "@udecode/plate-horizontal-rule";
 import { toggleIndentList } from "@udecode/plate-indent-list";
@@ -157,12 +157,12 @@ const items = [
   {
     label: "Embeds",
     items: [
-      {
-        value: ELEMENT_EXCALIDRAW,
-        label: "Excalidraw",
-        description: "Embed an Excalidraw whiteboard.",
-        icon: "https://www.notion.so/images/blocks/excalidraw.b2dad901.png",
-      },
+      // {
+      //   value: ELEMENT_EXCALIDRAW,
+      //   label: "Excalidraw",
+      //   description: "Embed an Excalidraw whiteboard.",
+      //   icon: "https://www.notion.so/images/blocks/excalidraw.b2dad901.png",
+      // },
       {
         value: ELEMENT_MATH,
         label: "Math",

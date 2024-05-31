@@ -3,7 +3,7 @@ import { PlateElement, withHOC } from "@udecode/plate-common";
 import { ELEMENT_MEDIA_EMBED, parseTwitterUrl } from "@udecode/plate-media";
 import { ResizableProvider, useResizableStore } from "@udecode/plate-resizable";
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
-import ReactGoogleSlides from "react-google-slides";
+// import ReactGoogleSlides from "react-google-slides";
 
 import {
   FacebookEmbed,
@@ -31,7 +31,7 @@ import { parseCloudinaryUrl } from "../../../lib/media-embed/parseCloudinary";
 import { VideoPlayer } from "vidify";
 import { parseGoogleDocsUrl } from "../../../lib/media-embed/parseGoogleDocsUrl";
 import { parseGoogleSheetsUrl } from "../../../lib/media-embed/parseGoogleSheetsUrl";
-import { parseGoogleSlidesUrl } from "../../../lib/media-embed/parseGoogleSlidesUrl";
+// import { parseGoogleSlidesUrl } from "../../../lib/media-embed/parseGoogleSlidesUrl";
 import { parseFigmaUrl } from "../../../lib/media-embed/parseFigmaUrl";
 import { parseAnyWebsiteUrl } from "../../../lib/media-embed/parseAnyWebsiteUrl";
 
@@ -53,7 +53,7 @@ export const MediaEmbedElement = withHOC(
       isTiktok,
       isCloudinary,
       isGoogleDocs,
-      isGoogleSlides,
+      // isGoogleSlides,
       isGoogleSheets,
       isFigma,
       isAnywebiste,
@@ -68,7 +68,7 @@ export const MediaEmbedElement = withHOC(
         parseCloudinaryUrl,
         parseGoogleDocsUrl,
         parseGoogleSheetsUrl,
-        parseGoogleSlidesUrl,
+        // parseGoogleSlidesUrl,
         parseFigmaUrl,
         parseAnyWebsiteUrl,
       ],
@@ -191,7 +191,7 @@ export const MediaEmbedElement = withHOC(
                       <VideoPlayer src={embed?.url as string} />
                     </div>
                   )}
-                  {isGoogleSlides && (
+                  {/* {isGoogleSlides && (
                     <div>
                       <ReactGoogleSlides
                         width={"100%"}
@@ -202,7 +202,7 @@ export const MediaEmbedElement = withHOC(
                         loop
                       />
                     </div>
-                  )}
+                  )} */}
                   {(isGoogleDocs || isGoogleSheets) && (
                     <div>
                       <iframe
@@ -333,7 +333,7 @@ export const MediaEmbedElement = withHOC(
                       <VideoPlayer src={embed?.url as string} />
                     </div>
                   )}
-                  {isGoogleSlides && (
+                  {/* {isGoogleSlides && (
                     <div>
                       <ReactGoogleSlides
                         width={"100%"}
@@ -344,7 +344,7 @@ export const MediaEmbedElement = withHOC(
                         loop
                       />
                     </div>
-                  )}
+                  )} */}
                   {(isGoogleDocs || isGoogleSheets) && (
                     <div>
                       <iframe

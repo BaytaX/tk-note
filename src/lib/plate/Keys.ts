@@ -16,5 +16,5 @@ export const IMAGE_KEY = "img";
 export const MEDIA_EMBED_KEY = "media_embed";
 export const CODE_BLOCK_KEY = "code_block";
 export const UPLOAD_FILE_KEY = "upload-file";
-export const EXCALIDRAW_KEY = "excalidraw";
+// export const EXCALIDRAW_KEY = "excalidraw";
 export const INSERT_MATH_KEY = "insert-math";

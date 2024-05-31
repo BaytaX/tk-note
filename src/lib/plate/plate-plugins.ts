@@ -52,10 +52,10 @@ import {
 } from "@udecode/plate-common";
 import { createDndPlugin } from "@udecode/plate-dnd";
 import { createEmojiPlugin } from "@udecode/plate-emoji";
-import {
-  createExcalidrawPlugin,
-  ELEMENT_EXCALIDRAW,
-} from "@udecode/plate-excalidraw";
+// import {
+//   createExcalidrawPlugin,
+//   ELEMENT_EXCALIDRAW,
+// } from "@udecode/plate-excalidraw";
 import {
   createFontBackgroundColorPlugin,
   createFontColorPlugin,
@@ -135,7 +135,7 @@ import { CodeLineElement } from "../../components/plate-ui/code-line-element/cod
 import { CodeSyntaxLeaf } from "../../components/plate-ui/code-syntax-leaf/code-syntax-leaf";
 import { CommentLeaf } from "../../components/plate-ui/comment-leaf/comment-leaf";
 import { EmojiCombobox } from "../../components/plate-ui/emoji-combobox/emoji-combobox";
-import { ExcalidrawElement } from "../../components/plate-ui/excalidraw-element/excalidraw-element";
+// import { ExcalidrawElement } from "../../components/plate-ui/excalidraw-element/excalidraw-element";
 import { HeadingElement } from "../../components/plate-ui/heading-element/heading-element";
 import { HighlightLeaf } from "../../components/plate-ui/highlight-leaf/highlight-leaf";
 import { HrElement } from "../../components/plate-ui/hr-element/hr-element";
@@ -209,7 +209,7 @@ export const plugins = createPlugins(
           allow: [
             ELEMENT_UPLOAD_IMAGE,
             ELEMENT_MEDIA_EMBED,
-            ELEMENT_EXCALIDRAW,
+            // ELEMENT_EXCALIDRAW,
           ],
         },
       },
@@ -232,7 +232,7 @@ export const plugins = createPlugins(
     createMentionPlugin(),
     createTablePlugin(),
     createTodoListPlugin(),
-    createExcalidrawPlugin(),
+    // createExcalidrawPlugin(),
     // Marks
     createBoldPlugin(),
     createItalicPlugin(),
@@ -477,7 +477,7 @@ export const plugins = createPlugins(
         [ELEMENT_TH]: TableCellHeaderElement,
         [ELEMENT_TODO_LI]: TodoListElement,
         [ELEMENT_TR]: TableRowElement,
-        [ELEMENT_EXCALIDRAW]: ExcalidrawElement,
+        // [ELEMENT_EXCALIDRAW]: ExcalidrawElement,
         [MARK_BOLD]: withProps(PlateLeaf, { as: "strong" }),
         [MARK_CODE]: CodeLeaf,
         [MARK_HIGHLIGHT]: HighlightLeaf,
