@@ -80,12 +80,13 @@ const Editor = memo(
         const uploadImgPlugin = getPlugin(editor, "upload-image");
         const uploadFilePlugin = getPlugin(editor, "upload-file");
         const uploadVideoPlugin = getPlugin(editor, "upload-video");
+        const pasteImgPlugin = getPlugin(editor, "cloud");
 
         uploadImgPlugin.props = { onUpload };
         uploadFilePlugin.props = { onUpload };
         uploadVideoPlugin.props = { onUpload };
+        pasteImgPlugin.props = { onUpload };
       }
-
       useEffect(() => {
         const isRefObject = (
           ref: ForwardedRef<HTMLDivElementWithEditor>

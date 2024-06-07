@@ -1,4 +1,4 @@
-import  { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 // import { SoftyNote } from "./components/softy-note";
 import { HTMLDivElementWithEditor } from "./components/plate-ui/editor/editor";
 import { SoftyNote } from "./components/softy-note";
@@ -6,7 +6,6 @@ import { SoftyNote } from "./components/softy-note";
 
 function App() {
   const editorRef = useRef<HTMLDivElementWithEditor>(null);
-  const [alo, setAlo] = useState(0);
   const initialValue = [
     {
       type: "h2",
@@ -130,12 +129,14 @@ function App() {
       ],
     },
   ];
-  // const onUpload = async (file) => {
-  //   console.log(file);
-  //   const url =
-  //     "https://upload.wikimedia.org/wikipedia/en/thumb/e/e2/IMG_Academy_Logo.svg/800px-IMG_Academy_Logo.svg.png";
-  //   return url;
-  // };
+  const [alo, setAlo] = useState(initialValue);
+
+  const onUpload = useCallback(async (file) => {
+    console.log(file);
+    const url =
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgtcEEuG2MwqvoV_84_hieLovVAIP3km8FmQV6_XFHxD3u3dBEtXsKzgMURT6ORBPRJk0&usqp=CAU";
+    return url;
+  }, []);
   // const x = alo;
   console.log(alo);
   // const MemoizedChildComponent = React.memo(SoftyNote);
@@ -143,15 +144,15 @@ function App() {
   return (
     <div>
       <button
-        onClick={() => {
-          setAlo(Math.random());
-          // editorRef.current.editor.reset();
-          // if (document.documentElement.lang === "ar") {
-          //   document.documentElement.lang = "en";
-          // } else if (document.documentElement.lang === "en") {
-          //   document.documentElement.lang = "ar";
-          // }
-        }}
+      // onClick={() => {
+      //   setAlo(Math.random());
+      //   // editorRef.current.editor.reset();
+      //   // if (document.documentElement.lang === "ar") {
+      //   //   document.documentElement.lang = "en";
+      //   // } else if (document.documentElement.lang === "en") {
+      //   //   document.documentElement.lang = "ar";
+      //   // }
+      // }}
       >
         click here
       </button>
@@ -159,9 +160,9 @@ function App() {
         <div className="border border-black ">
           <SoftyNote
             onChange={(e) => console.log(e)}
-            initialValue={initialValue}
+            initialValue={alo}
             ref={editorRef}
-            readOnly
+            onUpload={onUpload}
           />
         </div>
       </section>

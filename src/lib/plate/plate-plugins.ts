@@ -52,10 +52,6 @@ import {
 } from "@udecode/plate-common";
 import { createDndPlugin } from "@udecode/plate-dnd";
 import { createEmojiPlugin } from "@udecode/plate-emoji";
-// import {
-//   createExcalidrawPlugin,
-//   ELEMENT_EXCALIDRAW,
-// } from "@udecode/plate-excalidraw";
 import {
   createFontBackgroundColorPlugin,
   createFontColorPlugin,
@@ -184,6 +180,12 @@ import { SLASH_RULES } from "./slashRules";
 import { createSlashArPlugin, ELEMENT_SLASH_AR_INPUT } from "./ar-slash";
 import { SlashInputArElement } from "../../components/plate-ui/slash-input-ar-elemnt/slash-input-ar-elemnt";
 
+import { createCloudPlugin } from "../../components/cloud/create-cloud-plugin";
+import createSpinnerPlugin, {
+  ELEMENT_SPINNER,
+  SpinnerElement,
+} from "../../components/plate-ui/spinner-element/spinner-element";
+
 const resetBlockTypesCommonRule = {
   types: [ELEMENT_BLOCKQUOTE, ELEMENT_TODO_LI],
   defaultType: ELEMENT_PARAGRAPH,
@@ -196,7 +198,10 @@ const resetBlockTypesCodeBlockRule = {
 };
 export const plugins = createPlugins(
   [
-    //
+    //CLOUD
+    createCloudPlugin(),
+    createSpinnerPlugin(),
+
     createUploadImagePlugin(),
     createImagePlugin(),
     createUploadFilePlugin(),
@@ -494,6 +499,7 @@ export const plugins = createPlugins(
         [ELEMENT_MATH]: InsertMathElement,
         [ELEMENT_SLASH_INPUT]: SlashInputElement,
         [ELEMENT_SLASH_AR_INPUT]: SlashInputArElement,
+        [ELEMENT_SPINNER]: SpinnerElement,
       })
     ),
   }
