@@ -1,7 +1,3 @@
-"use client";
-
-import React from "react";
-
 import { cn } from "@udecode/cn";
 import {
   type TCloudImageElement,
@@ -23,7 +19,7 @@ export function CloudImageElement({
 }: CloudImageElementProps) {
   const { children, element } = props;
 
-  const { focused, selected, setSize, size, src, srcSet, upload } =
+  const { focused, selected, setSize, size, src, srcSet } =
     useCloudImageElementState({ element });
 
   return (

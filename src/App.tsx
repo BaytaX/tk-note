@@ -159,7 +159,7 @@ function App() {
       <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
         <div className="border border-black ">
           <SoftyNote
-            onChange={(e) => console.log(e)}
+            onChange={(e) => setAlo(e)}
             initialValue={alo}
             ref={editorRef}
             onUpload={onUpload}

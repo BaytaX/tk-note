@@ -1,5 +1,4 @@
 import type React from "react";
-import { useState } from "react";
 import { insertImage } from "@udecode/plate-media";
 import { insertSpinner } from "../../lib/plate/insert-spinner";
 import { getNode } from "@udecode/plate-common";
