@@ -42,6 +42,7 @@ type SoftyEditor = {
   ref?: React.Ref<any>;
   NewPlugins?: any;
   floatingToolbarClassname?: string;
+  handelSelectedImage?: (e: any) => void;
   autoFocus?: boolean;
 };
 
@@ -55,6 +56,7 @@ const SoftyNote = memo(
         editorClassName,
         onUpload,
         MentionComponentItem,
+        handelSelectedImage,
         MentionablesArr,
         mentionComponentClassName,
         slashComponentClassName,
@@ -76,13 +78,14 @@ const SoftyNote = memo(
       return (
         // <SoftyProvider>
         <DndProvider backend={HTML5Backend}>
-          <CommentsProvider users={commentsUsers} myUserId={myUserId}>
+          <CommentsProvider
+            users={commentsUsers}
+            myUserId={myUserId}>
             <Plate
               plugins={plugins_v2}
               initialValue={initialValue}
               onChange={onChange}
-              readOnly={readOnly}
-            >
+              readOnly={readOnly}>
               <TooltipProvider>
                 <div
                   ref={containerRef}
@@ -90,8 +93,7 @@ const SoftyNote = memo(
                     "relative"
                     // Block selection
                     // "[&_.slate-start-area-left]:!w-[64px] [&_.slate-start-area-right]:!w-[64px] [&_.slate-start-area-top]:!h-4"
-                  )}
-                >
+                  )}>
                   {withFixedToolbar && (
                     <FixedToolbar>
                       <FixedToolbarButtons items={SLASH_LIST} />
@@ -102,6 +104,7 @@ const SoftyNote = memo(
                     ref={ref}
                     className={`px-20 py-16 bg-transparent ${editorClassName}`}
                     autoFocus={autoFocus}
+                    handelSelectedImage={handelSelectedImage}
                     focusRing={false}
                     variant="ghost"
                     size="md"
@@ -110,8 +113,7 @@ const SoftyNote = memo(
                   />
                   {!readOnly && (
                     <FloatingToolbar
-                      floatingToolbarClassname={floatingToolbarClassname}
-                    >
+                      floatingToolbarClassname={floatingToolbarClassname}>
                       <FloatingToolbarButtons />
                     </FloatingToolbar>
                   )}

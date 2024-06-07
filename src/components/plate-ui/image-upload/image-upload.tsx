@@ -96,15 +96,19 @@ export const UploadImageElement = withHOC(
             ref={ref}
             className={cn("py-2.5", className)}
             {...wantedProps}
-            contentEditable={false}
-          >
+            contentEditable={false}>
             <div
               style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
                 width: "100%",
+                border: "1px dashed rgb(229, 229, 229)",
                 height: "120px",
-                border: "1px dashed #e5e5e5",
-              }}
-            >
+                borderRadius: "8px",
+                gap: "10px",
+              }}>
               {isLoading === false ? (
                 <>
                   <label
@@ -116,22 +120,24 @@ export const UploadImageElement = withHOC(
                       justifyContent: "center",
                       alignItems: "center",
                     }}
-                    htmlFor="upload-image"
-                  >
-                    <img src={ImageIcon} alt="image" height={40} width={40} />
+                    htmlFor="upload-image">
+                    <img
+                      src={ImageIcon}
+                      alt="image"
+                      height={40}
+                      width={40}
+                    />
                     <span
                       style={{
                         fontWeight: "bold",
-                      }}
-                    >
+                      }}>
                       Add an image...
                     </span>
                     <span
                       style={{
                         fontSize: "14px",
                         color: "#ccc9c9",
-                      }}
-                    >
+                      }}>
                       support differents types...
                     </span>
                   </label>

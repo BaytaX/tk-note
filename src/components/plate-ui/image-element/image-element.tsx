@@ -12,29 +12,30 @@ import {
   ResizeHandle,
 } from "../resizable/resizable";
 import { useMediaState } from "../../../lib/plate/mediaState";
+import { useSoftyNoteStore } from "../../../contexts/SoftyNoteStore";
 
 export const ImageElement = withHOC(
   ResizableProvider,
   withRef<typeof PlateElement>(
     ({ className, children, nodeProps, ...props }, ref) => {
       let { readOnly, focused, selected, align = "center" } = useMediaState();
-
+      const { setImageSelected } = useSoftyNoteStore();
       const width = useResizableStore().get.width();
       return (
         <MediaPopover pluginKey={ELEMENT_IMAGE}>
           <PlateElement
             ref={ref}
             className={cn("py-2.5", className)}
-            {...props}
-          >
-            <figure className="group relative m-0" contentEditable={false}>
+            {...props}>
+            <figure
+              className="group relative m-0"
+              contentEditable={false}>
               <Resizable
                 align={align}
                 options={{
                   align,
                   readOnly,
-                }}
-              >
+                }}>
                 {readOnly ? (
                   <Image
                     className={cn(
@@ -54,6 +55,9 @@ export const ImageElement = withHOC(
                       })}
                     />
                     <Image
+                      onClick={() => {
+                        setImageSelected(props.element.url);
+                      }}
                       className={cn(
                         "block w-full max-w-full cursor-pointer object-cover px-0",
                         "rounded-sm",
@@ -72,7 +76,9 @@ export const ImageElement = withHOC(
                 )}
               </Resizable>
 
-              <Caption align={align} style={{ width }}>
+              <Caption
+                align={align}
+                style={{ width }}>
                 <CaptionTextarea
                   placeholder="Write a caption..."
                   readOnly={readOnly}

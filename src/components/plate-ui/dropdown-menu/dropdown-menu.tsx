@@ -32,8 +32,7 @@ export const DropdownMenuSubTrigger = withRef<
       inset && "pl-8",
       className
     )}
-    {...props}
-  >
+    {...props}>
     {children}
     <Icons.chevronRight className="ml-auto size-4" />
   </DropdownMenuPrimitive.SubTrigger>
@@ -41,13 +40,13 @@ export const DropdownMenuSubTrigger = withRef<
 
 export const DropdownMenuSubContent = withCn(
   DropdownMenuPrimitive.SubContent,
-  "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+  "z-[999] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
 );
 
 const DropdownMenuContentVariants = withProps(DropdownMenuPrimitive.Content, {
   sideOffset: 4,
   className: cn(
-    "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+    "z-[999] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
   ),
 });
 
@@ -55,7 +54,10 @@ export const DropdownMenuContent = withRef<
   typeof DropdownMenuPrimitive.Content
 >(({ ...props }, ref) => (
   <DropdownMenuPrimitive.Portal>
-    <DropdownMenuContentVariants ref={ref} {...props} />
+    <DropdownMenuContentVariants
+      ref={ref}
+      {...props}
+    />
   </DropdownMenuPrimitive.Portal>
 ));
 
@@ -89,8 +91,7 @@ export const DropdownMenuCheckboxItem = withRef<
       "cursor-pointer",
       className
     )}
-    {...props}
-  >
+    {...props}>
     <span className="absolute left-2 flex size-3.5 items-center justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
         <Icons.check className="size-4" />
@@ -113,8 +114,7 @@ export const DropdownMenuRadioItem = withRef<
       "h-9 cursor-pointer px-2 data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground",
       className
     )}
-    {...props}
-  >
+    {...props}>
     {!hideIcon && (
       <span className="absolute right-2 flex size-3.5 items-center justify-center">
         <DropdownMenuPrimitive.ItemIndicator>
