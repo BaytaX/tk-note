@@ -139,9 +139,12 @@ function App() {
   // const x = alo;
 
   // const MemoizedChildComponent = React.memo(SoftyNote);
-  const handelSelectedImage = useCallback((url: string) => {
-    return url;
-  }, []);
+  const handelSelectedFile = useCallback(
+    (SelectedFileData: { type: string; url: string }) => {
+      return SelectedFileData;
+    },
+    []
+  );
   return (
     <div>
       <button
@@ -162,7 +165,7 @@ function App() {
           <SoftyNote
             onChange={(e) => setAlo(e)}
             initialValue={alo}
-            handelSelectedImage={handelSelectedImage}
+            handelSelectedFile={handelSelectedFile}
             ref={editorRef}
             onUpload={onUpload}
           />

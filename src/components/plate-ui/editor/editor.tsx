@@ -52,7 +52,7 @@ const editorVariants = cva(
 export type EditorProps = PlateContentProps &
   VariantProps<typeof editorVariants> & {
     onUpload?: (file) => void;
-    handelSelectedImage?: (e) => void;
+    handelSelectedFile?: (e) => void;
     // isArabic?: boolean;
   };
 
@@ -69,7 +69,7 @@ const Editor = memo(
         focused,
         focusRing,
         readOnly,
-        handelSelectedImage,
+        handelSelectedFile,
         size,
         variant,
         onUpload,
@@ -99,9 +99,9 @@ const Editor = memo(
 
         if (isRefObject(ref) && ref.current) ref.current.editor = editor;
       }, [editor, ref]);
-      const { imageSelected } = useSoftyNoteStore();
-      if (handelSelectedImage) {
-        imageSelected && handelSelectedImage(imageSelected);
+      const { fileSelected } = useSoftyNoteStore();
+      if (handelSelectedFile) {
+        fileSelected && handelSelectedFile(fileSelected);
       }
       return (
         <div

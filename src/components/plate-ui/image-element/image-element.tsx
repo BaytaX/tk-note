@@ -19,7 +19,7 @@ export const ImageElement = withHOC(
   withRef<typeof PlateElement>(
     ({ className, children, nodeProps, ...props }, ref) => {
       let { readOnly, focused, selected, align = "center" } = useMediaState();
-      const { setImageSelected } = useSoftyNoteStore();
+      const { setFileSelected } = useSoftyNoteStore();
       const width = useResizableStore().get.width();
       return (
         <MediaPopover pluginKey={ELEMENT_IMAGE}>
@@ -56,7 +56,7 @@ export const ImageElement = withHOC(
                     />
                     <Image
                       onClick={() => {
-                        setImageSelected(props.element.url);
+                        setFileSelected(props.element.type, props.element.url);
                       }}
                       className={cn(
                         "block w-full max-w-full cursor-pointer object-cover px-0",

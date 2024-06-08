@@ -55,11 +55,25 @@
 //   return context;
 // };
 import { create } from "zustand";
+
 type Store = {
-  imageSelected: string;
-  setImageSelected: (string) => void;
+  fileSelected: {
+    type: string;
+    url: string;
+  };
+  setFileSelected: (type: string, url: string) => void;
 };
+
 export const useSoftyNoteStore = create<Store>((set) => ({
-  imageSelected: "",
-  setImageSelected: (image) => set({ imageSelected: image }),
+  fileSelected: {
+    type: "",
+    url: "",
+  },
+  setFileSelected: (type: string, url: string) =>
+    set({
+      fileSelected: {
+        type,
+        url,
+      },
+    }),
 }));

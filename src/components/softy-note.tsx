@@ -42,7 +42,7 @@ type SoftyEditor = {
   ref?: React.Ref<any>;
   NewPlugins?: any;
   floatingToolbarClassname?: string;
-  handelSelectedImage?: (e: any) => void;
+  handelSelectedFile?: (e: any) => void;
   autoFocus?: boolean;
 };
 
@@ -56,7 +56,7 @@ const SoftyNote = memo(
         editorClassName,
         onUpload,
         MentionComponentItem,
-        handelSelectedImage,
+        handelSelectedFile,
         MentionablesArr,
         mentionComponentClassName,
         slashComponentClassName,
@@ -104,7 +104,7 @@ const SoftyNote = memo(
                     ref={ref}
                     className={`px-20 py-16 bg-transparent ${editorClassName}`}
                     autoFocus={autoFocus}
-                    handelSelectedImage={handelSelectedImage}
+                    handelSelectedFile={handelSelectedFile}
                     focusRing={false}
                     variant="ghost"
                     size="md"

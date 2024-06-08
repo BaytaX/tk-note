@@ -20,6 +20,7 @@ import Docs from "../../../assets/icons/google-docs.png";
 import { useState } from "react";
 import Spinner from "../spinner/spinner";
 import { Download } from "lucide-react";
+import { useSoftyNoteStore } from "../../../contexts/SoftyNoteStore";
 
 const TYPES_ICONS = new Map<string, string>([
   ["application/pdf", Pdf],
@@ -51,7 +52,9 @@ export const UploadFileElement = withHOC(
   ResizableProvider,
   withRef<typeof PlateElement>(
     ({ className, children, nodeProps, ...props }, ref) => {
-      console.log(ref);
+      const { setFileSelected } = useSoftyNoteStore();
+
+      const { element }: any = props;
       const [isLoading, setIsLoading] = useState(false);
       const { onUpload, ...wantedProps }: any = props;
 
@@ -232,6 +235,9 @@ export const UploadFileElement = withHOC(
                   gap: "10px",
                   border: "1px solid #eee",
                   borderRadius: "5px",
+                }}
+                onClick={() => {
+                  setFileSelected(element?.type, element?.file?.url);
                 }}>
                 <div
                   style={{
