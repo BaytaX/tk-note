@@ -101,17 +101,14 @@ const Editor = memo(
       }, [editor, ref]);
       const { fileSelected } = useSoftyNoteStore();
       useEffect(() => {
-            if (handelSelectedFile) {
-                if (fileSelected.url !== "") handelSelectedFile(fileSelected);
-                else handelSelectedFile({ type: "", url: "" });
-            }
-            ref.current.editor.selectedFile = fileSelected;
+        if (handelSelectedFile) {
+          if (fileSelected.url !== "") handelSelectedFile(fileSelected);
+          else handelSelectedFile({ type: "", url: "" });
+        }
+      }, [fileSelected, handelSelectedFile]);
 
-        }, [fileSelected, handelSelectedFile]);
       return (
-        <div
-          ref={ref}
-          className="relative w-full">
+        <div ref={ref} className="relative w-full">
           <PlateContent
             className={cn(
               editorVariants({
