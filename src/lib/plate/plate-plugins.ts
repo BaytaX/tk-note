@@ -131,7 +131,6 @@ import { CodeLineElement } from "../../components/plate-ui/code-line-element/cod
 import { CodeSyntaxLeaf } from "../../components/plate-ui/code-syntax-leaf/code-syntax-leaf";
 import { CommentLeaf } from "../../components/plate-ui/comment-leaf/comment-leaf";
 import { EmojiCombobox } from "../../components/plate-ui/emoji-combobox/emoji-combobox";
-// import { ExcalidrawElement } from "../../components/plate-ui/excalidraw-element/excalidraw-element";
 import { HeadingElement } from "../../components/plate-ui/heading-element/heading-element";
 import { HighlightLeaf } from "../../components/plate-ui/highlight-leaf/highlight-leaf";
 import { HrElement } from "../../components/plate-ui/hr-element/hr-element";
