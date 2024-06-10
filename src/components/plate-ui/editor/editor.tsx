@@ -100,9 +100,14 @@ const Editor = memo(
         if (isRefObject(ref) && ref.current) ref.current.editor = editor;
       }, [editor, ref]);
       const { fileSelected } = useSoftyNoteStore();
-      if (handelSelectedFile) {
-        fileSelected && handelSelectedFile(fileSelected);
-      }
+      useEffect(() => {
+            if (handelSelectedFile) {
+                if (fileSelected.url !== "") handelSelectedFile(fileSelected);
+                else handelSelectedFile({ type: "", url: "" });
+            }
+            ref.current.editor.selectedFile = fileSelected;
+
+        }, [fileSelected, handelSelectedFile]);
       return (
         <div
           ref={ref}

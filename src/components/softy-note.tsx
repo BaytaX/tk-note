@@ -56,7 +56,7 @@ const SoftyNote = memo(
         editorClassName,
         onUpload,
         MentionComponentItem,
-        handelSelectedFile,
+          handelSelectedFile,
         MentionablesArr,
         mentionComponentClassName,
         slashComponentClassName,

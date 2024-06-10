@@ -56,7 +56,7 @@ export const ImageElement = withHOC(
                     />
                     <Image
                       onClick={() => {
-                        setFileSelected(props.element.type, props.element.url);
+                        setFileSelected(props.element.type, props.element.url , Math.random().toString(36).substring(7));
                       }}
                       className={cn(
                         "block w-full max-w-full cursor-pointer object-cover px-0",
