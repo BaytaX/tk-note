@@ -76,4 +76,5 @@ export const useSoftyNoteStore = create<Store>((set) => ({
         url,
       },
     }),
+  reset: () => set({ fileSelected: { type: "", url: "" } }),
 }));
