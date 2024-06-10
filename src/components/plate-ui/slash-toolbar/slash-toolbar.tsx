@@ -49,11 +49,10 @@ export const SlashToolbar = withRef<
       <Toolbar
         ref={ref}
         className={cn(
-          "absolute z-50 whitespace-nowrap border bg-popover px-1 opacity-100 shadow-md print:hidden"
+          "absolute z-[999] whitespace-nowrap border bg-popover px-1 opacity-100 shadow-md print:hidden"
         )}
         {...rootProps}
-        {...props}
-      >
+        {...props}>
         {children}
       </Toolbar>
     </PortalBody>

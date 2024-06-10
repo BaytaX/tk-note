@@ -9,6 +9,7 @@ import type {
   Value,
 } from "@udecode/plate-common";
 import type { VariantProps } from "class-variance-authority";
+import { useSoftyNoteStore } from "../../../contexts/SoftyNoteStore";
 // import { useSoftyStore } from "../../../contexts/SoftyNoteStore";
 
 const editorVariants = cva(
@@ -51,6 +52,7 @@ const editorVariants = cva(
 export type EditorProps = PlateContentProps &
   VariantProps<typeof editorVariants> & {
     onUpload?: (file) => void;
+    handelSelectedFile?: (e) => void;
     // isArabic?: boolean;
   };
 
@@ -67,6 +69,7 @@ const Editor = memo(
         focused,
         focusRing,
         readOnly,
+        handelSelectedFile,
         size,
         variant,
         onUpload,
@@ -96,15 +99,14 @@ const Editor = memo(
 
         if (isRefObject(ref) && ref.current) ref.current.editor = editor;
       }, [editor, ref]);
-
-      // const { setLocal } = useSoftyStore();
-      // if (isArabic) {
-      //   setLocal("ar");
-      // } else {
-      //   setLocal("en");
-      // }
+      const { fileSelected } = useSoftyNoteStore();
+      if (handelSelectedFile) {
+        fileSelected && handelSelectedFile(fileSelected);
+      }
       return (
-        <div ref={ref} className="relative w-full">
+        <div
+          ref={ref}
+          className="relative w-full">
           <PlateContent
             className={cn(
               editorVariants({

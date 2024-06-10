@@ -132,15 +132,19 @@ function App() {
   const [alo, setAlo] = useState(initialValue);
 
   const onUpload = useCallback(async (file) => {
-    console.log(file);
     const url =
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgtcEEuG2MwqvoV_84_hieLovVAIP3km8FmQV6_XFHxD3u3dBEtXsKzgMURT6ORBPRJk0&usqp=CAU";
     return url;
   }, []);
   // const x = alo;
-  console.log(alo);
-  // const MemoizedChildComponent = React.memo(SoftyNote);
 
+  // const MemoizedChildComponent = React.memo(SoftyNote);
+  const handelSelectedFile = useCallback(
+    (SelectedFileData: { type: string; url: string }) => {
+      return SelectedFileData;
+    },
+    []
+  );
   return (
     <div>
       <button
@@ -161,6 +165,7 @@ function App() {
           <SoftyNote
             onChange={(e) => setAlo(e)}
             initialValue={alo}
+            handelSelectedFile={handelSelectedFile}
             ref={editorRef}
             onUpload={onUpload}
           />

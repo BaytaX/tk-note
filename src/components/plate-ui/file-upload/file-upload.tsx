@@ -20,6 +20,7 @@ import Docs from "../../../assets/icons/google-docs.png";
 import { useState } from "react";
 import Spinner from "../spinner/spinner";
 import { Download } from "lucide-react";
+import { useSoftyNoteStore } from "../../../contexts/SoftyNoteStore";
 
 const TYPES_ICONS = new Map<string, string>([
   ["application/pdf", Pdf],
@@ -51,7 +52,9 @@ export const UploadFileElement = withHOC(
   ResizableProvider,
   withRef<typeof PlateElement>(
     ({ className, children, nodeProps, ...props }, ref) => {
-      console.log(ref);
+      const { setFileSelected } = useSoftyNoteStore();
+
+      const { element }: any = props;
       const [isLoading, setIsLoading] = useState(false);
       const { onUpload, ...wantedProps }: any = props;
 
@@ -148,17 +151,20 @@ export const UploadFileElement = withHOC(
           ref={ref}
           className={cn("py-2.5", className)}
           {...wantedProps}
-          contentEditable={false}
-        >
+          contentEditable={false}>
           {!props?.element?.file ? (
             <div
               style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
                 width: "100%",
+                border: "1px dashed rgb(229, 229, 229)",
                 height: "120px",
-                border: "2px dashed #e5e5e5",
-                borderRadius: "5px",
-              }}
-            >
+                borderRadius: "8px",
+                gap: "10px",
+              }}>
               {isLoading === false ? (
                 <>
                   <label
@@ -170,22 +176,24 @@ export const UploadFileElement = withHOC(
                       justifyContent: "center",
                       alignItems: "center",
                     }}
-                    htmlFor="upload-image"
-                  >
-                    <img src={FileIcon} alt="image" height={40} width={40} />
+                    htmlFor="upload-image">
+                    <img
+                      src={FileIcon}
+                      alt="image"
+                      height={40}
+                      width={40}
+                    />
                     <span
                       style={{
                         fontWeight: "bold",
-                      }}
-                    >
+                      }}>
                       Add a file
                     </span>
                     <span
                       style={{
                         fontSize: "14px",
                         color: "#ccc9c9",
-                      }}
-                    >
+                      }}>
                       support multiple files...
                     </span>
                   </label>
@@ -214,8 +222,7 @@ export const UploadFileElement = withHOC(
                 padding: "10px",
                 width: "100%",
                 flexWrap: "wrap",
-              }}
-            >
+              }}>
               <div
                 style={{
                   height: "10rem",
@@ -229,14 +236,15 @@ export const UploadFileElement = withHOC(
                   border: "1px solid #eee",
                   borderRadius: "5px",
                 }}
-              >
+                onClick={() => {
+                  setFileSelected(element?.type, element?.file?.url);
+                }}>
                 <div
                   style={{
                     flex: 1,
                     display: "flex",
                     alignItems: "center",
-                  }}
-                >
+                  }}>
                   <img
                     style={{
                       width: "40px",
@@ -259,8 +267,7 @@ export const UploadFileElement = withHOC(
                     alignItems: "center",
                     justifyContent: "space-between",
                     padding: "5px",
-                  }}
-                >
+                  }}>
                   <Tooltip>
                     <TooltipTrigger
                       style={{
@@ -269,8 +276,7 @@ export const UploadFileElement = withHOC(
                         maxWidth: "6rem",
                         overflow: "hidden",
                         fontSize: "16px",
-                      }}
-                    >
+                      }}>
                       {" "}
                       {(props?.element?.file as FileObject)?.name}
                     </TooltipTrigger>
@@ -285,8 +291,7 @@ export const UploadFileElement = withHOC(
                         (props?.element?.file as FileObject)?.url as string,
                         (props?.element?.file as FileObject)?.name as string
                       );
-                    }}
-                  >
+                    }}>
                     <Download className=" w-5 stroke-black dark:stroke-white" />
                   </button>
                 </div>

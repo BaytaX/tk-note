@@ -68,7 +68,7 @@ export function LinkFloatingToolbar({ state }: LinkFloatingToolbarProps) {
   if (hidden) return null;
 
   const input = (
-    <div className="flex w-[330px] flex-col">
+    <div className="flex w-[330px] flex-col ">
       <div className="flex items-center">
         <div className="flex items-center pl-3 text-muted-foreground">
           <Icons.link className="size-4" />
@@ -82,7 +82,7 @@ export function LinkFloatingToolbar({ state }: LinkFloatingToolbarProps) {
 
       <Separator />
 
-      <div className="flex items-center">
+      <div className="flex items-center ">
         <div className="flex items-center pl-3 text-muted-foreground">
           <Icons.text className="size-4" />
         </div>
@@ -98,12 +98,11 @@ export function LinkFloatingToolbar({ state }: LinkFloatingToolbarProps) {
   const editContent = editState.isEditing ? (
     input
   ) : (
-    <div className="box-content flex h-9 items-center gap-1">
+    <div className="box-content flex h-9 items-center gap-1 ">
       <button
         type="button"
         className={buttonVariants({ variant: "ghost", size: "sm" })}
-        {...editButtonProps}
-      >
+        {...editButtonProps}>
         Edit link
       </button>
 
@@ -113,8 +112,7 @@ export function LinkFloatingToolbar({ state }: LinkFloatingToolbarProps) {
         className={buttonVariants({
           variant: "ghost",
           size: "sms",
-        })}
-      >
+        })}>
         <Icons.externalLink width={18} />
       </LinkOpenButton>
 
@@ -126,30 +124,27 @@ export function LinkFloatingToolbar({ state }: LinkFloatingToolbarProps) {
           variant: "ghost",
           size: "sms",
         })}
-        {...unlinkButtonProps}
-      >
+        {...unlinkButtonProps}>
         <Icons.unlink width={18} />
       </button>
     </div>
   );
 
   return (
-    <>
+    <div className="">
       <div
         ref={insertRef}
-        className={cn(popoverVariants(), "w-auto p-1")}
-        {...insertProps}
-      >
+        className={cn(popoverVariants(), "w-auto p-1  ")}
+        {...insertProps}>
         {input}
       </div>
 
       <div
         ref={editRef}
         className={cn(popoverVariants(), "w-auto p-1")}
-        {...editProps}
-      >
+        {...editProps}>
         {editContent}
       </div>
-    </>
+    </div>
   );
 }

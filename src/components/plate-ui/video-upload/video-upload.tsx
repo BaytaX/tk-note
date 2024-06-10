@@ -88,7 +88,9 @@ export const UploadVideoElement = ({
   };
 
   return (
-    <PlateElement {...wantedProps} contentEditable={false}>
+    <PlateElement
+      {...wantedProps}
+      contentEditable={false}>
       <div
         style={{
           display: "flex",
@@ -98,8 +100,7 @@ export const UploadVideoElement = ({
           gap: "8px",
           paddingTop: "8px",
           paddingBottom: "8px",
-        }}
-      >
+        }}>
         <div
           style={{
             display: "flex",
@@ -107,12 +108,11 @@ export const UploadVideoElement = ({
             alignItems: "center",
             justifyContent: "center",
             width: "100%",
-            border: "1px solid #ccc",
+            border: "1px dashed rgb(229, 229, 229)",
             height: "120px",
             borderRadius: "8px",
             gap: "10px",
-          }}
-        >
+          }}>
           {isLoading === false ? (
             <>
               <label
@@ -122,22 +122,24 @@ export const UploadVideoElement = ({
                   flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "center",
-                }}
-              >
-                <img src={UploadImage} alt="video" height={40} width={40} />
+                }}>
+                <img
+                  src={UploadImage}
+                  alt="video"
+                  height={40}
+                  width={40}
+                />
                 <p
                   style={{
                     textTransform: "capitalize",
                     fontWeight: "bold",
-                  }}
-                >
+                  }}>
                   choose your video...
                 </p>
                 <span
                   style={{
                     color: "#b2b2b2",
-                  }}
-                >
+                  }}>
                   Support multiple video formats...
                 </span>
               </label>

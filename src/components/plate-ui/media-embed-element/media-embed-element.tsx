@@ -75,23 +75,22 @@ export const MediaEmbedElement = withHOC(
     });
     const width = useResizableStore().get.width();
     const provider = embed?.provider;
-
     return (
       <MediaPopover pluginKey={ELEMENT_MEDIA_EMBED}>
         <PlateElement
           ref={ref}
           className={cn("relative py-2.5", className)}
-          {...props}
-        >
-          <figure className="group relative m-0 w-full" contentEditable={false}>
+          {...props}>
+          <figure
+            className="group relative m-0 w-full"
+            contentEditable={false}>
             <Resizable
               align={align}
               options={{
                 align,
                 maxWidth: isTweet ? 550 : "100%",
                 minWidth: isTweet ? 300 : 100,
-              }}
-            >
+              }}>
               {readOnly ? (
                 <>
                   {isVideo ? (
@@ -126,8 +125,7 @@ export const MediaEmbedElement = withHOC(
                           provider === "youku" && "pb-[56.25%]",
                           provider === "dailymotion" && "pb-[56.0417%]",
                           provider === "coub" && "pb-[51.25%]"
-                        )}
-                      >
+                        )}>
                         <iframe
                           className={cn(
                             "absolute left-0 top-0 size-full rounded-sm",
@@ -151,8 +149,7 @@ export const MediaEmbedElement = withHOC(
                         !readOnly &&
                           selected &&
                           "[&_.react-tweet-theme]:ring-2 [&_.react-tweet-theme]:ring-ring [&_.react-tweet-theme]:ring-offset-2"
-                      )}
-                    >
+                      )}>
                       <Tweet id={embed!.id!} />
                     </div>
                   )}
@@ -183,7 +180,10 @@ export const MediaEmbedElement = withHOC(
                   )}
                   {isTiktok && (
                     <div>
-                      <TikTokEmbed url={embed?.url as string} width={"auto"} />
+                      <TikTokEmbed
+                        url={embed?.url as string}
+                        width={"auto"}
+                      />
                     </div>
                   )}
                   {isCloudinary && (
@@ -225,8 +225,7 @@ export const MediaEmbedElement = withHOC(
                     <iframe
                       src={embed?.url as string}
                       width="100%"
-                      height="600px"
-                    ></iframe>
+                      height="600px"></iframe>
                   )}
                 </>
               ) : (
@@ -268,8 +267,7 @@ export const MediaEmbedElement = withHOC(
                           provider === "youku" && "pb-[56.25%]",
                           provider === "dailymotion" && "pb-[56.0417%]",
                           provider === "coub" && "pb-[51.25%]"
-                        )}
-                      >
+                        )}>
                         <iframe
                           className={cn(
                             "absolute left-0 top-0 size-full rounded-sm",
@@ -293,8 +291,7 @@ export const MediaEmbedElement = withHOC(
                         !readOnly &&
                           selected &&
                           "[&_.react-tweet-theme]:ring-2 [&_.react-tweet-theme]:ring-ring [&_.react-tweet-theme]:ring-offset-2"
-                      )}
-                    >
+                      )}>
                       <Tweet id={embed!.id!} />
                     </div>
                   )}
@@ -325,7 +322,10 @@ export const MediaEmbedElement = withHOC(
                   )}
                   {isTiktok && (
                     <div>
-                      <TikTokEmbed url={embed?.url as string} width={"auto"} />
+                      <TikTokEmbed
+                        url={embed?.url as string}
+                        width={"auto"}
+                      />
                     </div>
                   )}
                   {isCloudinary && (
@@ -367,8 +367,7 @@ export const MediaEmbedElement = withHOC(
                     <iframe
                       src={embed?.url as string}
                       width="100%"
-                      height="600px"
-                    ></iframe>
+                      height="600px"></iframe>
                   )}
                   <ResizeHandle
                     options={{ direction: "right" }}
@@ -380,7 +379,9 @@ export const MediaEmbedElement = withHOC(
               )}
             </Resizable>
 
-            <Caption align={align} style={{ width }}>
+            <Caption
+              align={align}
+              style={{ width }}>
               <CaptionTextarea placeholder="Write a caption..." />
             </Caption>
           </figure>
