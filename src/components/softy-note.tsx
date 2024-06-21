@@ -56,7 +56,7 @@ const SoftyNote = memo(
         editorClassName,
         onUpload,
         MentionComponentItem,
-          handelSelectedFile,
+        handelSelectedFile,
         MentionablesArr,
         mentionComponentClassName,
         slashComponentClassName,
@@ -78,14 +78,13 @@ const SoftyNote = memo(
       return (
         // <SoftyProvider>
         <DndProvider backend={HTML5Backend}>
-          <CommentsProvider
-            users={commentsUsers}
-            myUserId={myUserId}>
+          <CommentsProvider users={commentsUsers} myUserId={myUserId}>
             <Plate
               plugins={plugins_v2}
               initialValue={initialValue}
               onChange={onChange}
-              readOnly={readOnly}>
+              readOnly={readOnly}
+            >
               <TooltipProvider>
                 <div
                   ref={containerRef}
@@ -93,7 +92,8 @@ const SoftyNote = memo(
                     "relative"
                     // Block selection
                     // "[&_.slate-start-area-left]:!w-[64px] [&_.slate-start-area-right]:!w-[64px] [&_.slate-start-area-top]:!h-4"
-                  )}>
+                  )}
+                >
                   {withFixedToolbar && (
                     <FixedToolbar>
                       <FixedToolbarButtons items={SLASH_LIST} />
@@ -107,13 +107,14 @@ const SoftyNote = memo(
                     handelSelectedFile={handelSelectedFile}
                     focusRing={false}
                     variant="ghost"
-                    size="md"
+                    size="sm"
                     onUpload={onUpload}
                     // isArabic={isArabic}
                   />
                   {!readOnly && (
                     <FloatingToolbar
-                      floatingToolbarClassname={floatingToolbarClassname}>
+                      floatingToolbarClassname={floatingToolbarClassname}
+                    >
                       <FloatingToolbarButtons />
                     </FloatingToolbar>
                   )}
