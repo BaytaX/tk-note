@@ -28,6 +28,7 @@ import {
   ResizeHandle,
 } from "../resizable/resizable";
 import { parseCloudinaryUrl } from "../../../lib/media-embed/parseCloudinary";
+import { parseDropboxUrl } from "../../../lib/media-embed/parseDropboxUrl";
 import { VideoPlayer } from "vidify";
 import { parseGoogleDocsUrl } from "../../../lib/media-embed/parseGoogleDocsUrl";
 import { parseGoogleSheetsUrl } from "../../../lib/media-embed/parseGoogleSheetsUrl";
@@ -52,6 +53,7 @@ export const MediaEmbedElement = withHOC(
       isLinkedIn,
       isTiktok,
       isCloudinary,
+        isDropbox,
       isGoogleDocs,
       // isGoogleSlides,
       isGoogleSheets,
@@ -66,6 +68,7 @@ export const MediaEmbedElement = withHOC(
         parseLinkedInUrl,
         parseTikTokUrl,
         parseCloudinaryUrl,
+          parseDropboxUrl,
         parseGoogleDocsUrl,
         parseGoogleSheetsUrl,
         // parseGoogleSlidesUrl,
@@ -186,7 +189,8 @@ export const MediaEmbedElement = withHOC(
                       />
                     </div>
                   )}
-                  {isCloudinary && (
+
+                  {isCloudinary  && (
                     <div>
                       <VideoPlayer src={embed?.url as string} />
                     </div>
@@ -333,6 +337,11 @@ export const MediaEmbedElement = withHOC(
                       <VideoPlayer src={embed?.url as string} />
                     </div>
                   )}
+                    {isDropbox && (
+                        <div>
+                        <VideoPlayer src={embed?.url as string} />
+                        </div>
+                    )}
                   {/* {isGoogleSlides && (
                     <div>
                       <ReactGoogleSlides
