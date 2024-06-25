@@ -28,7 +28,7 @@ export const ImageElement = withHOC(
             className={cn("py-2.5", className)}
             {...props}>
             <figure
-              className="group relative m-0"
+              className="relative m-0 group"
               contentEditable={false}>
               <Resizable
                 align={align}
@@ -38,6 +38,13 @@ export const ImageElement = withHOC(
                 }}>
                 {readOnly ? (
                   <Image
+                    onClick={() => {
+                      setFileSelected(
+                        props.element.type,
+                        props.element.url,
+                        Math.random().toString(36).substring(7)
+                      );
+                    }}
                     className={cn(
                       "block w-full max-w-full cursor-pointer object-cover px-0",
                       "rounded-sm",
@@ -56,7 +63,11 @@ export const ImageElement = withHOC(
                     />
                     <Image
                       onClick={() => {
-                        setFileSelected(props.element.type, props.element.url , Math.random().toString(36).substring(7));
+                        setFileSelected(
+                          props.element.type,
+                          props.element.url,
+                          Math.random().toString(36).substring(7)
+                        );
                       }}
                       className={cn(
                         "block w-full max-w-full cursor-pointer object-cover px-0",
