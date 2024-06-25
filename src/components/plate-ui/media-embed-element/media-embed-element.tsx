@@ -190,7 +190,7 @@ export const MediaEmbedElement = withHOC(
                     </div>
                   )}
 
-                  {isCloudinary  && (
+                  {isCloudinary  || isDropbox && (
                     <div>
                       <VideoPlayer src={embed?.url as string} />
                     </div>
@@ -332,16 +332,12 @@ export const MediaEmbedElement = withHOC(
                       />
                     </div>
                   )}
-                  {isCloudinary && (
+                  {isCloudinary || isDropbox  && (
                     <div>
                       <VideoPlayer src={embed?.url as string} />
                     </div>
                   )}
-                    {isDropbox && (
-                        <div>
-                        <VideoPlayer src={embed?.url as string} />
-                        </div>
-                    )}
+
                   {/* {isGoogleSlides && (
                     <div>
                       <ReactGoogleSlides
