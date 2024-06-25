@@ -55,8 +55,9 @@ export const useMediaState = ({
   const isInstagram = embed?.provider === "instagram";
   const isLinkedIn = embed?.provider === "linkedin";
   const isTiktok = embed?.provider === "tiktok";
-  const isCloudinary = embed?.provider === "cloudinary";
+  const isCloudinary = embed?.provider === "cloudinary" ;
   const isGoogleDocs = embed?.provider === "google_docs";
+  const isDropbox = embed?.provider === "dropboxusercontent";
   // const isGoogleSlides = embed?.provider === "google_slides";
   const isGoogleSheets = embed?.provider === "google_sheets";
   const isFigma = embed?.provider === "figma";
@@ -77,6 +78,7 @@ export const useMediaState = ({
     isLinkedIn,
     isTiktok,
     isCloudinary,
+    isDropbox,
     isGoogleDocs,
     // isGoogleSlides,
     isGoogleSheets,
